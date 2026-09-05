@@ -35,19 +35,22 @@ export default function FloatingWhatsApp() {
         onMouseLeave={() => setHovered(false)}
         style={{
           position: 'fixed',
-          bottom: '100px', // sits above the chatbot button
+          bottom: '94px', // sits above the chatbot button
           right: '28px',
           zIndex: 48,
-          width: '56px',
-          height: '56px',
-          borderRadius: '50%',
-          background: '#25D366',
-          color: '#fff',
+          width: '52px',
+          height: '52px',
+          borderRadius: '14px',
+          background: hovered ? 'rgba(18, 26, 48, 0.98)' : 'rgba(13, 19, 34, 0.95)',
+          border: hovered ? '1.5px solid #25D366' : '1.5px solid rgba(37, 211, 102, 0.75)',
+          color: '#25D366',
           boxShadow: hovered
-            ? '0 8px 32px -4px rgba(37,211,102,0.7)'
-            : '0 4px 24px -4px rgba(37,211,102,0.6)',
+            ? '0 8px 24px rgba(0,0,0,0.65)'
+            : '0 4px 16px rgba(0,0,0,0.45)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
           transition: 'all 0.25s cubic-bezier(0.22,0.61,0.36,1)',
-          transform: hovered ? 'translateY(-2px) scale(1.05)' : 'translateY(0) scale(1)',
+          transform: hovered ? 'translateY(-2px) scale(1.04)' : 'translateY(0) scale(1)',
           textDecoration: 'none',
           display: 'flex',
           alignItems: 'center',
@@ -62,13 +65,13 @@ export default function FloatingWhatsApp() {
         className="floating-label"
         style={{
           position: 'fixed',
-          bottom: '110px',
-          right: '92px',
+          bottom: '103px',
+          right: '88px',
           zIndex: 47,
           padding: '8px 14px',
           borderRadius: '8px',
           background: 'rgba(10,14,26,0.95)',
-          border: '1px solid rgba(37,211,102,0.3)',
+          border: '1px solid rgba(37,211,102,0.35)',
           backdropFilter: 'blur(12px)',
           WebkitBackdropFilter: 'blur(12px)',
           fontFamily: 'var(--qf-font-display)',

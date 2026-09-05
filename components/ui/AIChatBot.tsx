@@ -304,30 +304,32 @@ export default function AIChatBot() {
           bottom: '28px',
           right: '28px',
           zIndex: 50,
-          width: '56px',
-          height: '56px',
-          borderRadius: '50%',
+          width: '52px',
+          height: '52px',
+          borderRadius: '14px',
           background: isOpen
             ? 'rgba(22,29,51,0.95)'
             : '#ffffff',
           border: isOpen
-            ? '1px solid rgba(79,209,255,0.35)'
-            : '1px solid rgba(79,209,255,0.4)',
+            ? '1.5px solid rgba(79,209,255,0.85)'
+            : buttonHovered
+            ? '1.5px solid #4FD1FF'
+            : '1.5px solid rgba(79,209,255,0.65)',
           color: '#fff',
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           boxShadow: isOpen
-            ? '0 8px 32px -8px rgba(0,0,0,0.6)'
+            ? '0 8px 24px rgba(0,0,0,0.6)'
             : buttonHovered
-            ? '0 12px 40px -4px rgba(79,209,255,0.4), 0 0 0 1px rgba(79,209,255,0.3)'
-            : '0 8px 32px -4px rgba(79,209,255,0.5), 0 0 0 1px rgba(79,209,255,0.2)',
-          transition: 'all 0.3s cubic-bezier(0.22,0.61,0.36,1)',
+            ? '0 8px 24px rgba(0,0,0,0.65)'
+            : '0 4px 16px rgba(0,0,0,0.45)',
+          transition: 'all 0.25s cubic-bezier(0.22,0.61,0.36,1)',
           transform: isOpen
             ? 'rotate(0deg)'
             : buttonHovered
-            ? 'scale(1.08) translateY(-2px)'
+            ? 'scale(1.04) translateY(-2px)'
             : 'scale(1) translateY(0)',
         }}
       >
@@ -338,7 +340,7 @@ export default function AIChatBot() {
             src="/qf-logo-mark.png"
             alt="Quantum Flow"
             style={{
-              width: '35px',
+              width: '36px',
               height: 'auto',
               objectFit: 'contain',
               display: 'block',
@@ -370,13 +372,13 @@ export default function AIChatBot() {
           className="floating-label"
           style={{
             position: 'fixed',
-            bottom: '38px',
-            right: '92px',
+            bottom: '37px',
+            right: '88px',
             zIndex: 49,
             padding: '8px 14px',
             borderRadius: '8px',
             background: 'rgba(10,14,26,0.95)',
-            border: '1px solid rgba(79,209,255,0.3)',
+            border: '1px solid rgba(79,209,255,0.35)',
             backdropFilter: 'blur(12px)',
             WebkitBackdropFilter: 'blur(12px)',
             fontFamily: 'var(--qf-font-display)',

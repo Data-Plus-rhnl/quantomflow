@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+import { NavbarProvider } from '@/components/layout/NavbarContext';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -83,7 +84,9 @@ export default function RootLayout({
         <div className="bg-field" aria-hidden="true"></div>
         <div className="bg-grid" aria-hidden="true"></div>
         <div className="noise" aria-hidden="true"></div>
-        {children}
+        <NavbarProvider>
+          {children}
+        </NavbarProvider>
       </body>
     </html>
   );

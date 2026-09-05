@@ -8,16 +8,41 @@ export default function Footer() {
       <div className="wrap">
         <div className="footer-grid">
           <div className="footer-brand">
-            <div className="brand">
-              <Image
-                src="/QuantumFlowLogo.jpeg"
-                alt="Quantum Flow logo"
-                width={96}
-                height={48}
-                className="brand-mark"
-              />
-              <span className="brand-name">
-                Quantum<b>Flow</b>
+            <div className="brand" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div
+                style={{
+                  width: '44px',
+                  height: '44px',
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  background: '#ffffff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 4px 16px rgba(0,0,0,0.35)',
+                  flexShrink: 0,
+                }}
+              >
+                <Image
+                  src="/qf-logo-avatar.png"
+                  alt="Quantum Flow logo"
+                  width={44}
+                  height={44}
+                  style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                />
+              </div>
+              <span
+                style={{
+                  fontFamily: 'var(--qf-font-display)',
+                  fontSize: '22px',
+                  fontWeight: 800,
+                  color: '#FFFFFF',
+                  letterSpacing: '-0.025em',
+                  display: 'inline-flex',
+                  alignItems: 'baseline',
+                }}
+              >
+                Quantum<span style={{ color: 'var(--qf-accent, #4FD1FF)', marginLeft: '2px' }}>Flow</span>
               </span>
             </div>
             <p>

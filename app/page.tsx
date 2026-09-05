@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { NavbarProvider } from '@/components/layout/NavbarContext';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import Hero from '@/components/home/Hero';
@@ -25,7 +24,7 @@ import FloatingWhatsApp from '@/components/ui/FloatingWhatsApp';
 
 export default function HomePage() {
   return (
-    <NavbarProvider>
+    <>
       <Navbar />
       <main id="top">
         <Hero />
@@ -48,6 +47,6 @@ export default function HomePage() {
       <Footer />
       <AIChatBot />
       <FloatingWhatsApp />
-    </NavbarProvider>
+    </>
   );
 }
