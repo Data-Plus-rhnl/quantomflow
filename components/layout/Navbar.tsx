@@ -83,7 +83,7 @@ export default function Navbar() {
             maxWidth: '1400px',
             margin: '0 auto',
             padding: isScrolled ? '0 32px' : '0 clamp(24px,5vw,72px)',
-            height: isScrolled ? '64px' : '76px',
+            height: isScrolled ? '68px' : '82px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -92,23 +92,64 @@ export default function Navbar() {
           }}
         >
           {/* Logo */}
-          <Link href={href('top')} onClick={close} style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
-            <Image
-              src="/QuantumFlowLogo.jpeg"
-              alt="Quantum Flow"
-              width={88}
-              height={44}
-              priority
+          <Link
+            href={href('top')}
+            onClick={close}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: isScrolled ? '12px' : '14px',
+              textDecoration: 'none',
+              flexShrink: 0,
+              transition: 'gap 0.35s ease',
+            }}
+          >
+            <div
               style={{
-                objectFit: 'contain',
-                background: '#fff',
-                borderRadius: '8px',
-                padding: '3px',
-                height: isScrolled ? '38px' : '44px',
-                width: 'auto',
-                transition: 'height 0.35s cubic-bezier(0.22,0.61,0.36,1)',
+                width: isScrolled ? '40px' : '48px',
+                height: isScrolled ? '40px' : '48px',
+                borderRadius: isScrolled ? '11px' : '13px',
+                overflow: 'hidden',
+                background: '#ffffff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: isScrolled 
+                  ? '0 3px 12px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255,255,255,0.1)' 
+                  : '0 4px 18px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255,255,255,0.15)',
+                transition: 'all 0.35s cubic-bezier(0.22,0.61,0.36,1)',
+                flexShrink: 0,
               }}
-            />
+            >
+              <Image
+                src="/qf-logo-avatar.png"
+                alt="Quantum Flow"
+                width={52}
+                height={52}
+                priority
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
+                  display: 'block',
+                }}
+              />
+            </div>
+            <span
+              style={{
+                fontFamily: 'var(--qf-font-display)',
+                fontSize: isScrolled ? '20px' : '24px',
+                fontWeight: 800,
+                color: '#FFFFFF',
+                letterSpacing: '-0.025em',
+                lineHeight: 1,
+                transition: 'all 0.35s ease',
+                display: 'inline-flex',
+                alignItems: 'baseline',
+              }}
+            >
+              Quantum<span style={{ color: 'var(--qf-accent, #4FD1FF)', marginLeft: '2px' }}>Flow</span>
+            </span>
           </Link>
 
           {/* Desktop nav links — now left-aligned with better spacing */}
