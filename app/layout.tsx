@@ -1,7 +1,13 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { NavbarProvider } from '@/components/layout/NavbarContext';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+};
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -27,6 +33,15 @@ export const metadata: Metadata = {
     'Top web design & digital marketing agency in Dubai. We build fast websites, run Google Ads, and handle SEO for restaurants, clinics, salons & local businesses across the UAE. Get a free quote today.',
   keywords: 'web design Dubai, website development Dubai, digital marketing Dubai, SEO Dubai, Google Ads Dubai, website design agency UAE, lead generation Dubai, business website Dubai, website maintenance Dubai, web development company Dubai',
   metadataBase: new URL('https://quantumflowit.com'),
+  icons: {
+    icon: [
+      { url: '/qf-logo-avatar.png', type: 'image/png' },
+    ],
+    shortcut: '/qf-logo-avatar.png',
+    apple: [
+      { url: '/qf-logo-avatar.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
   openGraph: {
     title: 'Quantum Flow — Web Design & Digital Marketing Agency Dubai',
     description:
@@ -71,6 +86,8 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
       <head>
+        <link rel="icon" href="/qf-logo-avatar.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/qf-logo-avatar.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

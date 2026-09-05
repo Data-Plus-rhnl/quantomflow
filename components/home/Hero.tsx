@@ -38,7 +38,7 @@ export default function Hero() {
     <section className="hero" id="top">
 
       {/* ── Background diagonal strips ── */}
-      <div aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+      <div aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: 0, overflow: 'hidden', pointerEvents: 'none', transform: 'translate3d(0, 0, 0)', backfaceVisibility: 'hidden' }}>
         {[
           '/portfolio/restaurant-ordering.jpg',
           '/portfolio/clinic-booking.jpg',
@@ -50,7 +50,8 @@ export default function Hero() {
         ].map((src, i) => (
           <div key={src} style={{
             position: 'absolute', top: '-20%', left: `${i * 14.5 - 5}%`,
-            width: '18%', height: '140%', transform: 'skewX(-18deg)',
+            width: '18%', height: '140%', transform: 'translate3d(0, 0, 0) skewX(-18deg)',
+            willChange: 'transform', backfaceVisibility: 'hidden',
             backgroundImage: `url(${src})`, backgroundSize: 'cover', backgroundPosition: 'center',
             opacity: 0.28, outline: '2px solid rgba(10,14,26,0.9)',
           }} />

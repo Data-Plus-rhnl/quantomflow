@@ -39,7 +39,7 @@ export default function MarqueeStrip() {
       }} />
 
       {/* Scrolling track */}
-      <div style={{ display: 'flex', width: 'max-content', animation: 'marquee 32s linear infinite', gap: '0' }}>
+      <div style={{ display: 'flex', width: 'max-content', animation: 'marquee 32s linear infinite', gap: '0', willChange: 'transform', transform: 'translate3d(0, 0, 0)', backfaceVisibility: 'hidden' }}>
         {[...Array(3)].map((_, copy) =>
           CAPABILITIES.map((cap, i) => (
             <span
@@ -68,8 +68,8 @@ export default function MarqueeStrip() {
 
       <style>{`
         @keyframes marquee {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-33.333%); }
+          from { transform: translate3d(0, 0, 0); }
+          to   { transform: translate3d(-33.333%, 0, 0); }
         }
       `}</style>
     </div>

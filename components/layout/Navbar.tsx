@@ -25,7 +25,17 @@ export default function Navbar() {
   const isHome    = pathname === '/';
 
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 20);
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const next = window.scrollY > 20;
+          setIsScrolled((prev) => (prev !== next ? next : prev));
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -54,31 +64,30 @@ export default function Navbar() {
       {/* ── Main bar ── */}
       <header
         style={{
-          position: 'sticky',
+          position: 'fixed',
           top: 0,
+          left: 0,
+          right: 0,
+          width: '100%',
           zIndex: 50,
           transition: 'all 0.35s cubic-bezier(0.22,0.61,0.36,1)',
           ...(isScrolled ? {
-            margin: '10px 32px 0',
-            borderRadius: '16px',
-            background: 'rgba(10,14,26,0.92)',
+            background: 'rgba(10,14,26,0.94)',
             backdropFilter: 'blur(24px) saturate(180%)',
             WebkitBackdropFilter: 'blur(24px) saturate(180%)',
-            border: '1px solid rgba(79,209,255,0.12)',
-            boxShadow: '0 8px 40px -8px rgba(0,0,0,0.6), 0 0 0 1px rgba(79,209,255,0.06)',
+            borderBottom: '1px solid rgba(79,209,255,0.16)',
+            boxShadow: '0 8px 32px -8px rgba(0,0,0,0.7), 0 0 0 1px rgba(79,209,255,0.06)',
           } : {
-            margin: '0',
-            borderRadius: '0',
-            background: 'rgba(10,14,26,0.55)',
+            background: 'rgba(10,14,26,0.75)',
             backdropFilter: 'blur(16px) saturate(150%)',
             WebkitBackdropFilter: 'blur(16px) saturate(150%)',
-            border: 'none',
             borderBottom: '1px solid rgba(35,43,71,0.5)',
             boxShadow: 'none',
           }),
         }}
       >
         <div
+          className="nav-container"
           style={{
             maxWidth: '1400px',
             margin: '0 auto',
@@ -87,7 +96,7 @@ export default function Navbar() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            gap: '32px',
+            gap: '16px',
             transition: 'height 0.35s cubic-bezier(0.22,0.61,0.36,1), padding 0.35s cubic-bezier(0.22,0.61,0.36,1)',
           }}
         >
@@ -95,16 +104,18 @@ export default function Navbar() {
           <Link
             href={href('top')}
             onClick={close}
+            className="nav-logo-link"
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: isScrolled ? '12px' : '14px',
+              gap: isScrolled ? '10px' : '12px',
               textDecoration: 'none',
               flexShrink: 0,
               transition: 'gap 0.35s ease',
             }}
           >
             <div
+              className="nav-logo-badge"
               style={{
                 width: isScrolled ? '40px' : '48px',
                 height: isScrolled ? '40px' : '48px',
@@ -136,6 +147,7 @@ export default function Navbar() {
               />
             </div>
             <span
+              className="nav-logo-text"
               style={{
                 fontFamily: 'var(--qf-font-display)',
                 fontSize: isScrolled ? '20px' : '24px',
@@ -202,7 +214,7 @@ export default function Navbar() {
           </nav>
 
           {/* Right CTAs — more compact */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+          <div className="nav-right" style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
             {/* Blog link */}
             <Link
               href={href('blog')}
@@ -292,7 +304,7 @@ export default function Navbar() {
                 e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
-              Start a Project
+              Start <span className="nav-cta-sub">a Project</span>
               <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
@@ -382,11 +394,53 @@ export default function Navbar() {
             margin-left: 4px;
           }
         }
-        @media (max-width: 480px) {
-          /* Prevent floating pill from eating too much screen on small phones */
-          header[style*="margin: 10px 32px"] {
-            margin: 8px 12px 0 !important;
-            border-radius: 12px !important;
+        @media (max-width: 640px) {
+          header {
+            margin: 0 !important;
+            border-radius: 0 !important;
+            border-bottom: 1px solid rgba(79, 209, 255, 0.15) !important;
+          }
+          .nav-container {
+            padding: 0 12px !important;
+            height: 60px !important;
+            gap: 6px !important;
+          }
+          .nav-logo-link {
+            gap: 8px !important;
+          }
+          .nav-logo-badge {
+            width: 32px !important;
+            height: 32px !important;
+            border-radius: 9px !important;
+          }
+          .nav-logo-text {
+            font-size: 16.5px !important;
+            letter-spacing: -0.02em !important;
+          }
+          .nav-right {
+            gap: 6px !important;
+          }
+          .nav-cta-primary {
+            display: inline-flex !important;
+            padding: 6px 11px !important;
+            font-size: 11.5px !important;
+            border-radius: 8px !important;
+            gap: 3px !important;
+          }
+          .nav-cta-primary svg {
+            width: 10px !important;
+            height: 10px !important;
+          }
+          .nav-hamburger {
+            display: flex !important;
+            width: 34px !important;
+            height: 34px !important;
+            border-radius: 8px !important;
+          }
+        }
+        @media (max-width: 375px) {
+          .nav-cta-sub {
+            display: none !important;
           }
         }
       `}</style>

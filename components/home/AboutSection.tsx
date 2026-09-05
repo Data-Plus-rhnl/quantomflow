@@ -146,12 +146,33 @@ export default function AboutSection() {
         interLines[i].setAttribute('opacity', '0');
       }
 
-      animationId = requestAnimationFrame(animateHub);
+      if (isIntersecting) {
+        animationId = requestAnimationFrame(animateHub);
+      }
     }
 
-    animationId = requestAnimationFrame(animateHub);
+    let isIntersecting = false;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (!isIntersecting) {
+              isIntersecting = true;
+              cancelAnimationFrame(animationId);
+              animationId = requestAnimationFrame(animateHub);
+            }
+          } else {
+            isIntersecting = false;
+            cancelAnimationFrame(animationId);
+          }
+        });
+      },
+      { rootMargin: '150px' }
+    );
+    observer.observe(aboutArt);
 
     return () => {
+      observer.disconnect();
       cancelAnimationFrame(animationId);
       aboutArt.removeEventListener('mousemove', handleMouseMove);
       aboutArt.removeEventListener('mouseleave', handleMouseLeave);

@@ -59,7 +59,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     <>
       <Navbar />
 
-      <main id="top">
+      <main id="top" style={{ paddingTop: '80px' }}>
         <section className="section">
           <div className="wrap" style={{ maxWidth: '800px', margin: '0 auto' }}>
             <Link

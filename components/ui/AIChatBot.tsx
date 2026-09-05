@@ -296,6 +296,7 @@ export default function AIChatBot() {
       <button
         type="button"
         aria-label={isOpen ? 'Close chat' : 'Open AI chat assistant'}
+        className="floating-bot-btn"
         onClick={() => setIsOpen((v) => !v)}
         onMouseEnter={() => setButtonHovered(true)}
         onMouseLeave={() => setButtonHovered(false)}
@@ -339,6 +340,7 @@ export default function AIChatBot() {
           <img
             src="/qf-logo-mark.png"
             alt="Quantum Flow"
+            className="floating-bot-icon"
             style={{
               width: '36px',
               height: 'auto',
@@ -788,6 +790,18 @@ export default function AIChatBot() {
         @media (max-width: 768px) {
           .floating-label {
             display: none !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .floating-bot-btn {
+            bottom: 18px !important;
+            right: 16px !important;
+            width: 44px !important;
+            height: 44px !important;
+            border-radius: 12px !important;
+          }
+          .floating-bot-icon {
+            width: 28px !important;
           }
         }
       `}</style>

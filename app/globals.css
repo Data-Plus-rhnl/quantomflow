@@ -49,6 +49,8 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
@@ -61,6 +63,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  max-width: 100%;
+  width: 100%;
 }
 
 img, svg {
@@ -114,6 +118,8 @@ button {
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  transform: translateZ(0);
+  backface-visibility: hidden;
   background:
     radial-gradient(820px 420px at 14% -6%, var(--qf-accent-dim), transparent 60%),
     radial-gradient(680px 380px at 92% 18%, var(--qf-accent-2-dim), transparent 60%),
@@ -126,6 +132,8 @@ button {
   z-index: 0;
   pointer-events: none;
   opacity: 0.5;
+  transform: translateZ(0);
+  backface-visibility: hidden;
   background-image:
     linear-gradient(var(--qf-line-soft) 1px, transparent 1px),
     linear-gradient(90deg, var(--qf-line-soft) 1px, transparent 1px);
@@ -141,6 +149,8 @@ button {
   z-index: 0;
   pointer-events: none;
   opacity: 0.035;
+  transform: translateZ(0);
+  backface-visibility: hidden;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 180px 180px;
@@ -152,8 +162,11 @@ button {
   z-index: 0;
   pointer-events: none;
   border-radius: 50%;
-  filter: blur(100px);
+  filter: blur(60px);
   opacity: 0.35;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
   animation: orbFloat 20s ease-in-out infinite alternate;
 }
 
@@ -163,10 +176,10 @@ button {
 .orb-4 { width: 280px; height: 280px; background: var(--qf-accent-2); top: 60%; right: 15%; animation-duration: 22s; animation-delay: -15s; opacity: 0.25; }
 
 @keyframes orbFloat {
-  0%   { transform: translate(0, 0) scale(1); }
-  33%  { transform: translate(40px, -30px) scale(1.08); }
-  66%  { transform: translate(-20px, 20px) scale(0.95); }
-  100% { transform: translate(30px, -10px) scale(1.05); }
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  33%  { transform: translate3d(40px, -30px, 0) scale(1.08); }
+  66%  { transform: translate3d(-20px, 20px, 0) scale(0.95); }
+  100% { transform: translate3d(30px, -10px, 0) scale(1.05); }
 }
 
 .wrap {
@@ -181,6 +194,7 @@ button {
   position: relative;
   z-index: 1;
   padding-block: clamp(64px, 10vw, 120px);
+  contain: layout style;
 }
 
 .section-alt {
@@ -485,7 +499,7 @@ button {
 /* ================= HERO ================= */
 .hero {
   position: relative;
-  padding-top: clamp(64px, 9vw, 96px);
+  padding-top: clamp(100px, 12vw, 136px);
   padding-bottom: clamp(40px, 7vw, 72px);
   overflow: hidden;
 }
@@ -1339,13 +1353,22 @@ button {
 /* ================= REVEAL ON SCROLL ================= */
 .reveal {
   opacity: 0;
-  transform: translateY(18px);
-  transition: opacity .7s var(--qf-ease), transform .7s var(--qf-ease);
+  transform: translate3d(0, 18px, 0);
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  transition: opacity .6s var(--qf-ease), transform .6s var(--qf-ease);
 }
 
 .reveal.is-visible {
   opacity: 1;
-  transform: none;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+/* Offscreen section performance booster */
+.section-cv {
+  content-visibility: auto;
+  contain-intrinsic-size: 800px;
 }
 
 /* ================= ARTICLE BODY (BLOG PAGES) ================= */

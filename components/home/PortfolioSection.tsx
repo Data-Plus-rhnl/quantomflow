@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
@@ -48,16 +48,14 @@ function MetricBadge({ primary, label }: { primary: string; label: string }) {
         bottom: '16px',
         left: '16px',
         right: '16px',
-        background: 'linear-gradient(135deg, rgba(5,8,16,0.92) 0%, rgba(10,20,40,0.88) 100%)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
+        background: 'linear-gradient(135deg, rgba(8,13,24,0.95) 0%, rgba(12,20,38,0.92) 100%)',
         border: '1px solid rgba(79,209,255,0.25)',
         borderRadius: '12px',
         padding: '10px 14px',
         display: 'flex',
         alignItems: 'center',
         gap: '12px',
-        boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.6)',
       }}
     >
       <span
@@ -187,9 +185,7 @@ function ProjectCard({
               position: 'absolute',
               top: '14px',
               left: '14px',
-              background: 'rgba(5,8,16,0.82)',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
+              background: 'rgba(8,13,24,0.92)',
               border: `1px solid ${accent}44`,
               padding: '4px 10px',
               borderRadius: '999px',
@@ -227,10 +223,8 @@ function ProjectCard({
               position: 'absolute',
               top: '14px',
               right: '14px',
-              background: 'rgba(5,8,16,0.82)',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
-              border: '1px solid rgba(79,209,255,0.3)',
+              background: 'rgba(8,13,24,0.92)',
+              border: '1px solid rgba(79,209,255,0.35)',
               padding: '6px 12px',
               borderRadius: '999px',
               fontFamily: 'var(--qf-font-mono)',
@@ -801,7 +795,7 @@ function CaseStudyModal({
                 className="btn btn-primary btn-sm"
                 onClick={() => onClose()}
               >
-                Start a Project â†’
+                Start a Project →
               </a>
             </div>
           </div>
@@ -993,7 +987,7 @@ export default function PortfolioSection() {
                 </p>
               </div>
               <a href="#contact" className="btn btn-primary" style={{ flexShrink: 0 }}>
-                Start a Project â†’
+                Start a Project →
               </a>
             </div>
           </ScrollReveal>

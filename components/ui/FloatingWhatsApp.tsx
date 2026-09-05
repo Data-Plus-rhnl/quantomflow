@@ -31,6 +31,7 @@ export default function FloatingWhatsApp() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"
+        className="floating-wa-btn"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         style={{
@@ -90,6 +91,19 @@ export default function FloatingWhatsApp() {
         @media (max-width: 768px) {
           .floating-label {
             display: none !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .floating-wa-btn {
+            bottom: 72px !important;
+            right: 16px !important;
+            width: 44px !important;
+            height: 44px !important;
+            border-radius: 12px !important;
+          }
+          .floating-wa-btn svg {
+            width: 20px !important;
+            height: 20px !important;
           }
         }
       `}</style>
