@@ -8,12 +8,10 @@ export default function BlogSection() {
     <>
       <section className="section" id="blog">
         <div className="wrap">
-          <ScrollReveal className="section-head">
-            <div>
-              <div className="eyebrow">Our Blog</div>
-              <h2 className="h2">Latest insights & guides.</h2>
-            </div>
-            <p className="lede">
+          <ScrollReveal style={{ textAlign: 'center', maxWidth: '680px', marginInline: 'auto', marginBottom: '56px' }}>
+            <div className="eyebrow" style={{ justifyContent: 'center' }}>Our Blog</div>
+            <h2 className="h2">Latest insights &amp; guides.</h2>
+            <p className="lede" style={{ marginInline: 'auto', marginTop: '16px' }}>
               Tips and strategies to help your local business stand out and thrive in the digital economy.
             </p>
           </ScrollReveal>

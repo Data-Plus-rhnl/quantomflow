@@ -5,11 +5,9 @@ export default function ProcessSection() {
   return (
     <section className="section section-alt" id="process">
       <div className="wrap">
-        <ScrollReveal className="section-head">
-          <div>
-            <div className="eyebrow">How we work</div>
-            <h2 className="h2">A simple, collaborative process.</h2>
-          </div>
+        <ScrollReveal style={{ textAlign: 'center', maxWidth: '680px', marginInline: 'auto', marginBottom: '56px' }}>
+          <div className="eyebrow" style={{ justifyContent: 'center' }}>How we work</div>
+          <h2 className="h2">A simple, collaborative process.</h2>
         </ScrollReveal>
 
         <ScrollReveal className="flow-wrap">

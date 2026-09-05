@@ -1,34 +1,29 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import ScrollReveal from '../ui/ScrollReveal';
 import { SERVICE_PACKAGES } from '@/lib/packages-data';
-import { ServicePackage } from '@/lib/types';
 
-interface PackagesSectionProps {
-  onSelectPackage?: (pkg: ServicePackage) => void;
-}
+interface PackagesSectionProps {}
 
-export default function PackagesSection({ onSelectPackage }: PackagesSectionProps) {
+export default function PackagesSection(_props: PackagesSectionProps) {
   return (
     <>
       <section className="section section-alt" id="packages">
         <div className="wrap">
           <ScrollReveal
-            className="section-head"
-            style={{ textAlign: 'center', maxWidth: '760px', marginInline: 'auto', marginBottom: '56px' }}
+            style={{ textAlign: 'center', maxWidth: '680px', marginInline: 'auto', marginBottom: '56px' }}
           >
-            <div>
-              <div className="eyebrow" style={{ justifyContent: 'center' }}>
-                Transparent Agency Pricing
-              </div>
-              <h2 className="h2">
-                Clear service packages.
-                <br />
-                No hidden costs.
-              </h2>
+            <div className="eyebrow" style={{ justifyContent: 'center' }}>
+              Transparent Agency Pricing
             </div>
-            <p className="lede" style={{ marginTop: '16px' }}>
+            <h2 className="h2">
+              Clear service packages.
+              <br />
+              No hidden costs.
+            </h2>
+            <p className="lede" style={{ marginTop: '16px', marginInline: 'auto' }}>
               Built specifically for Dubai cafes, restaurants, clinics, and businesses. Fixed scope, guaranteed turnaround, and 100% ownership with zero monthly platform commissions.
             </p>
           </ScrollReveal>
@@ -186,14 +181,13 @@ export default function PackagesSection({ onSelectPackage }: PackagesSectionProp
                   </div>
 
                   {/* Action button */}
-                  <button
-                    type="button"
+                  <Link
+                    href="#contact"
                     className={`btn ${pkg.popular ? 'btn-primary' : 'btn-ghost'}`}
-                    style={{ width: '100%' }}
-                    onClick={() => onSelectPackage && onSelectPackage(pkg)}
+                    style={{ width: '100%', textAlign: 'center' }}
                   >
-                    {pkg.popular ? 'Select Growth Package →' : 'Request Consultation →'}
-                  </button>
+                    {pkg.popular ? 'Start a Project →' : 'Start a Project →'}
+                  </Link>
                 </div>
               </ScrollReveal>
             ))}

@@ -4,238 +4,351 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { useNavbar } from './NavbarContext';
 
-interface NavbarProps {
-  onOpenContactModal?: () => void;
-}
+const NAV_LINKS = [
+  { label: 'Work',       anchor: 'portfolio'   },
+  { label: 'Packages',   anchor: 'packages'    },
+  { label: 'Tech',       anchor: 'tech'        },
+  { label: 'Services',   anchor: 'services'    },
+  { label: 'Industries', anchor: 'industries'  },
+  { label: 'Process',    anchor: 'process'     },
+  { label: 'Why Us',     anchor: 'why-us'      },
+  { label: 'About',      anchor: 'about'       },
+];
 
-export default function Navbar({ onOpenContactModal }: NavbarProps) {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>('');
-  const pathname = usePathname();
-  const isHomePage = pathname === '/';
+export default function Navbar() {
+  const [isScrolled, setIsScrolled]     = useState(false);
+  const { menuOpen, setMenuOpen }       = useNavbar();
+  const [activeSection, setActiveSection] = useState('');
+  const pathname  = usePathname();
+  const isHome    = pathname === '/';
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Scrollspy active section observer on homepage
   useEffect(() => {
-    if (!isHomePage) return;
+    if (!isHome) return;
+    const ids = [...NAV_LINKS.map((l) => l.anchor), 'contact'];
+    const obs = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) setActiveSection(e.target.id); }),
+      { rootMargin: '-20% 0px -70% 0px' }
+    );
+    ids.forEach((id) => { const el = document.getElementById(id); if (el) obs.observe(el); });
+    return () => obs.disconnect();
+  }, [isHome]);
 
-    const sectionIds = ['portfolio', 'packages', 'services', 'process', 'about', 'blog', 'contact'];
-    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(handleIntersect, {
-      rootMargin: '-20% 0px -70% 0px',
-    });
-
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, [isHomePage]);
-
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isMobileMenuOpen]);
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen((prev) => !prev);
-  };
-
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-  };
-
-  const getHref = (anchor: string) => {
-    return isHomePage ? `#${anchor}` : `/#${anchor}`;
-  };
-
-  const handleConsultationClick = (e: React.MouseEvent) => {
-    if (onOpenContactModal) {
-      e.preventDefault();
-      closeMobileMenu();
-      onOpenContactModal();
-    }
-  };
+  const close   = () => setMenuOpen(false);
+  const href    = (a: string) => (isHome ? `#${a}` : `/#${a}`);
 
   return (
     <>
-      <header className={`nav ${isScrolled ? 'is-scrolled' : ''}`}>
-        <div className="nav-inner">
-          <Link href={getHref('top')} className="brand" onClick={closeMobileMenu}>
+      {/* ── Main bar ── */}
+      <header
+        style={{
+          position: 'sticky',
+          top: 0,
+          zIndex: 50,
+          transition: 'all 0.35s cubic-bezier(0.22,0.61,0.36,1)',
+          ...(isScrolled ? {
+            margin: '10px 32px 0',
+            borderRadius: '16px',
+            background: 'rgba(10,14,26,0.92)',
+            backdropFilter: 'blur(24px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+            border: '1px solid rgba(79,209,255,0.12)',
+            boxShadow: '0 8px 40px -8px rgba(0,0,0,0.6), 0 0 0 1px rgba(79,209,255,0.06)',
+          } : {
+            margin: '0',
+            borderRadius: '0',
+            background: 'rgba(10,14,26,0.55)',
+            backdropFilter: 'blur(16px) saturate(150%)',
+            WebkitBackdropFilter: 'blur(16px) saturate(150%)',
+            border: 'none',
+            borderBottom: '1px solid rgba(35,43,71,0.5)',
+            boxShadow: 'none',
+          }),
+        }}
+      >
+        <div
+          style={{
+            maxWidth: '1400px',
+            margin: '0 auto',
+            padding: isScrolled ? '0 32px' : '0 clamp(24px,5vw,72px)',
+            height: isScrolled ? '64px' : '76px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '32px',
+            transition: 'height 0.35s cubic-bezier(0.22,0.61,0.36,1), padding 0.35s cubic-bezier(0.22,0.61,0.36,1)',
+          }}
+        >
+          {/* Logo */}
+          <Link href={href('top')} onClick={close} style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
             <Image
               src="/QuantumFlowLogo.jpeg"
-              alt="Quantum Flow logo"
-              width={96}
-              height={48}
-              className="brand-mark"
+              alt="Quantum Flow"
+              width={88}
+              height={44}
               priority
+              style={{
+                objectFit: 'contain',
+                background: '#fff',
+                borderRadius: '8px',
+                padding: '3px',
+                height: isScrolled ? '38px' : '44px',
+                width: 'auto',
+                transition: 'height 0.35s cubic-bezier(0.22,0.61,0.36,1)',
+              }}
             />
-            <span className="brand-name">
-              Quantum<b>Flow</b>
-            </span>
           </Link>
 
-          <nav className="nav-links">
+          {/* Desktop nav links — now left-aligned with better spacing */}
+          <nav
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '2px',
+              flex: 1,
+              maxWidth: '720px',
+            }}
+            className="nav-desktop"
+          >
+            {NAV_LINKS.map(({ label, anchor }) => {
+              const active = activeSection === anchor;
+              return (
+                <Link
+                  key={anchor}
+                  href={href(anchor)}
+                  style={{
+                    fontFamily: 'var(--qf-font-body)',
+                    fontSize: '13px',
+                    fontWeight: active ? 600 : 500,
+                    color: active ? '#E8ECF5' : 'rgba(139,147,168,0.85)',
+                    padding: '7px 11px',
+                    borderRadius: '7px',
+                    background: active ? 'rgba(79,209,255,0.08)' : 'transparent',
+                    border: active ? '1px solid rgba(79,209,255,0.15)' : '1px solid transparent',
+                    transition: 'all 0.18s ease',
+                    whiteSpace: 'nowrap',
+                    textDecoration: 'none',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!active) {
+                      e.currentTarget.style.color = '#E8ECF5';
+                      e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!active) {
+                      e.currentTarget.style.color = 'rgba(139,147,168,0.85)';
+                      e.currentTarget.style.background = 'transparent';
+                    }
+                  }}
+                >
+                  {label}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Right CTAs — more compact */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+            {/* Blog link */}
             <Link
-              href={getHref('portfolio')}
-              className={activeSection === 'portfolio' ? 'active' : ''}
-            >
-              Work
-            </Link>
-            <Link
-              href={getHref('packages')}
-              className={activeSection === 'packages' ? 'active' : ''}
-            >
-              Packages
-            </Link>
-            <Link
-              href={getHref('services')}
-              className={activeSection === 'services' ? 'active' : ''}
-            >
-              Services
-            </Link>
-            <Link
-              href={getHref('process')}
-              className={activeSection === 'process' ? 'active' : ''}
-            >
-              Process
-            </Link>
-            <Link
-              href={getHref('about')}
-              className={activeSection === 'about' ? 'active' : ''}
-            >
-              About
-            </Link>
-            <Link
-              href={getHref('blog')}
-              className={activeSection === 'blog' ? 'active' : ''}
+              href={href('blog')}
+              className="nav-blog-link"
+              style={{
+                fontFamily: 'var(--qf-font-body)',
+                fontSize: '13px',
+                fontWeight: 500,
+                color: 'rgba(139,147,168,0.85)',
+                padding: '7px 14px',
+                borderRadius: '7px',
+                background: 'transparent',
+                transition: 'all 0.18s ease',
+                textDecoration: 'none',
+                whiteSpace: 'nowrap',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = '#E8ECF5';
+                e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = 'rgba(139,147,168,0.85)';
+                e.currentTarget.style.background = 'transparent';
+              }}
             >
               Blog
             </Link>
+
+            {/* Contact link */}
             <Link
-              href={getHref('contact')}
-              className={activeSection === 'contact' ? 'active' : ''}
+              href={href('contact')}
+              className="nav-contact-link"
+              style={{
+                fontFamily: 'var(--qf-font-body)',
+                fontSize: '13px',
+                fontWeight: 500,
+                color: 'rgba(139,147,168,0.85)',
+                padding: '7px 14px',
+                borderRadius: '7px',
+                border: '1px solid rgba(35,43,71,0.8)',
+                background: 'transparent',
+                transition: 'all 0.18s ease',
+                textDecoration: 'none',
+                whiteSpace: 'nowrap',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = '#E8ECF5';
+                e.currentTarget.style.borderColor = 'rgba(79,209,255,0.3)';
+                e.currentTarget.style.background = 'rgba(79,209,255,0.06)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = 'rgba(139,147,168,0.85)';
+                e.currentTarget.style.borderColor = 'rgba(35,43,71,0.8)';
+                e.currentTarget.style.background = 'transparent';
+              }}
             >
               Contact
             </Link>
-          </nav>
 
-          <div className="nav-cta">
-            <a
-              href="https://wa.me/971528903292?text=Hello%20Quantum%20Flow%2C%20I%20would%20like%20to%20inquire%20about%20a%20website%20project."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-ghost btn-sm"
+            {/* Primary CTA */}
+            <Link
+              href={href('contact')}
+              className="nav-cta-primary"
+              style={{
+                fontFamily: 'var(--qf-font-display)',
+                fontSize: '13px',
+                fontWeight: 600,
+                color: '#1a1a2e',
+                padding: '8px 16px',
+                borderRadius: '9px',
+                background: '#FFB454',
+                border: '1px solid rgba(255,180,84,0.3)',
+                boxShadow: 'none',
+                transition: 'all 0.18s ease',
+                textDecoration: 'none',
+                whiteSpace: 'nowrap',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '5px',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#FFC170';
+                e.currentTarget.style.transform = 'translateY(-1px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#FFB454';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
             >
-              WhatsApp
-            </a>
+              Start a Project
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </Link>
+
+            {/* Mobile hamburger */}
             <button
-              type="button"
-              className="btn btn-primary btn-sm"
-              onClick={handleConsultationClick}
-            >
-              Free Consultation →
-            </button>
-            <button
-              className="nav-toggle"
-              id="navToggle"
               aria-label="Toggle menu"
-              aria-expanded={isMobileMenuOpen}
-              onClick={toggleMobileMenu}
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="nav-hamburger"
+              style={{
+                display: 'none',
+                width: '40px',
+                height: '40px',
+                borderRadius: '10px',
+                background: 'rgba(22,29,51,0.8)',
+                border: '1px solid rgba(35,43,71,0.8)',
+                color: 'rgba(200,208,224,0.9)',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                flexShrink: 0,
+              }}
             >
-              {!isMobileMenuOpen ? (
-                <svg
-                  id="navIconOpen"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 18 18"
-                  fill="none"
-                >
-                  <path
-                    d="M1 3h16M1 9h16M1 15h16"
-                    stroke="currentColor"
-                    strokeWidth="1.6"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  id="navIconClose"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 18 18"
-                  fill="none"
-                >
-                  <path
-                    d="M2 2l14 14M16 2L2 16"
-                    stroke="currentColor"
-                    strokeWidth="1.6"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              )}
+              {menuOpen
+                ? <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2l12 12M14 2L2 14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>
+                : <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1 3h14M1 8h14M1 13h14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>
+              }
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile navigation drawer */}
-      <div className={`mnav ${isMobileMenuOpen ? 'open' : ''}`} id="mnav">
-        <Link href={getHref('portfolio')} onClick={closeMobileMenu}>
-          Featured Work
-        </Link>
-        <Link href={getHref('packages')} onClick={closeMobileMenu}>
-          Packages & Pricing
-        </Link>
-        <Link href={getHref('services')} onClick={closeMobileMenu}>
-          Services & SEO
-        </Link>
-        <Link href={getHref('process')} onClick={closeMobileMenu}>
-          Our Process
-        </Link>
-        <Link href={getHref('about')} onClick={closeMobileMenu}>
-          About & Dubai Office
-        </Link>
-        <Link href={getHref('blog')} onClick={closeMobileMenu}>
-          Blog & Guides
-        </Link>
-        <Link href={getHref('contact')} onClick={closeMobileMenu}>
-          Contact Us
-        </Link>
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={handleConsultationClick}
-          style={{ marginTop: '20px' }}
-        >
-          Get Free Consultation →
-        </button>
+      {/* ── Mobile drawer ── */}
+      <div
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 49,
+          background: 'rgba(10,14,26,0.97)',
+          backdropFilter: 'blur(24px)',
+          WebkitBackdropFilter: 'blur(24px)',
+          display: 'flex',
+          flexDirection: 'column',
+          padding: '80px 24px 32px',
+          opacity: menuOpen ? 1 : 0,
+          visibility: menuOpen ? 'visible' : 'hidden',
+          transform: menuOpen ? 'translateY(0)' : 'translateY(-8px)',
+          transition: 'opacity 0.25s ease, transform 0.25s ease, visibility 0s linear ' + (menuOpen ? '0s' : '0.25s'),
+          overflowY: 'auto',
+        }}
+      >
+        <nav style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+          {[...NAV_LINKS, { label: 'Blog', anchor: 'blog' }, { label: 'Contact', anchor: 'contact' }].map(({ label, anchor }) => (
+            <Link
+              key={anchor}
+              href={href(anchor)}
+              onClick={close}
+              style={{
+                fontFamily: 'var(--qf-font-display)',
+                fontSize: '22px',
+                fontWeight: 600,
+                color: activeSection === anchor ? '#4FD1FF' : 'rgba(232,236,245,0.85)',
+                padding: '14px 0',
+                borderBottom: '1px solid rgba(35,43,71,0.5)',
+                textDecoration: 'none',
+                transition: 'color 0.15s ease',
+              }}
+            >
+              {label}
+            </Link>
+          ))}
+        </nav>
       </div>
+
+      {/* Responsive styles */}
+      <style>{`
+        @media (max-width: 1100px) {
+          .nav-desktop { display: none !important; }
+          .nav-blog-link { display: none !important; }
+          .nav-contact-link { display: none !important; }
+          .nav-hamburger { display: flex !important; }
+        }
+        @media (min-width: 1101px) {
+          .nav-cta-primary {
+            margin-left: 4px;
+          }
+        }
+        @media (max-width: 480px) {
+          /* Prevent floating pill from eating too much screen on small phones */
+          header[style*="margin: 10px 32px"] {
+            margin: 8px 12px 0 !important;
+            border-radius: 12px !important;
+          }
+        }
+      `}</style>
     </>
   );
 }

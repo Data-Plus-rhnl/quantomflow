@@ -5,17 +5,15 @@ export default function ServicesSection() {
   return (
     <section className="section" id="services">
       <div className="wrap">
-        <ScrollReveal className="section-head">
-          <div>
-            <div className="eyebrow">Solutions for your business</div>
-            <h2 className="h2">
-              Tailored websites.
-              <br />
-              Designed for growth.
-            </h2>
-          </div>
-          <p className="lede">
-            We design and build custom websites, e-commerce stores, and mobile apps tailored around how you run your business—start to finish.
+        <ScrollReveal style={{ textAlign: 'center', maxWidth: '680px', marginInline: 'auto', marginBottom: '56px' }}>
+          <div className="eyebrow" style={{ justifyContent: 'center' }}>Solutions for your business</div>
+          <h2 className="h2">
+            Tailored websites.
+            <br />
+            Designed for growth.
+          </h2>
+          <p className="lede" style={{ marginInline: 'auto', marginTop: '16px' }}>
+            We design and build custom websites, e-commerce stores, and mobile apps tailored around how you run your business&mdash;start to finish.
           </p>
         </ScrollReveal>
 

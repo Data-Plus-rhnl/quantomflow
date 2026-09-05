@@ -1,180 +1,198 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 
-interface HeroProps {
-  onOpenContactModal?: () => void;
-}
-
 const ROTATING_INDUSTRIES = [
-  'cafes & restaurants',
-  'e-commerce shops',
+  'restaurants & cafés',
   'clinics & salons',
-  'real estate agencies',
-  'startups & local services',
+  'e-commerce brands',
+  'real estate firms',
+  'local businesses',
 ];
 
-export default function Hero({ onOpenContactModal }: HeroProps) {
+const MOSAIC = [
+  { src: '/portfolio/VahidDorri.png',          label: 'Vahid Dorri',     sub: '10x enquiry rate',    rotate: '-4deg', top: '0%',  left: '0%',  zIndex: 1 },
+  { src: '/portfolio/AnnarChildcare.png',      label: 'Annar Childcare', sub: '+3x enrolment leads', rotate: '3deg',  top: '12%', left: '34%', zIndex: 2 },
+  { src: '/portfolio/luxury-ecommerce.jpg',    label: 'Luxe Botanicals', sub: 'AED 420K in 90 days', rotate: '-2deg', top: '44%', left: '6%',  zIndex: 4 },
+  { src: '/portfolio/restaurant-ordering.jpg', label: 'The Roastery',    sub: '+184% direct orders', rotate: '4deg',  top: '54%', left: '40%', zIndex: 3 },
+];
+
+export default function Hero() {
   const [industryIndex, setIndustryIndex] = useState(0);
-  const [opacity, setOpacity] = useState(1);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setOpacity(0);
+    const id = setInterval(() => {
+      setVisible(false);
       setTimeout(() => {
-        setIndustryIndex((prev) => (prev + 1) % ROTATING_INDUSTRIES.length);
-        setOpacity(1);
-      }, 350);
-    }, 3000);
-
-    return () => clearInterval(interval);
+        setIndustryIndex((p) => (p + 1) % ROTATING_INDUSTRIES.length);
+        setVisible(true);
+      }, 320);
+    }, 3200);
+    return () => clearInterval(id);
   }, []);
 
   return (
     <section className="hero" id="top">
-      <div className="wrap hero-grid">
-        <div>
-          <div className="hero-badge">
-            <span className="dot"></span> Web Design & Digital Marketing Agency · Dubai, UAE
+
+      {/* ── Background diagonal strips ── */}
+      <div aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+        {[
+          '/portfolio/restaurant-ordering.jpg',
+          '/portfolio/clinic-booking.jpg',
+          '/portfolio/luxury-ecommerce.jpg',
+          '/portfolio/salon-spa.jpg',
+          '/portfolio/AnnarChildcare.png',
+          '/portfolio/corporate-portal.jpg',
+          '/portfolio/VahidDorri.png',
+        ].map((src, i) => (
+          <div key={src} style={{
+            position: 'absolute', top: '-20%', left: `${i * 14.5 - 5}%`,
+            width: '18%', height: '140%', transform: 'skewX(-18deg)',
+            backgroundImage: `url(${src})`, backgroundSize: 'cover', backgroundPosition: 'center',
+            opacity: 0.28, outline: '2px solid rgba(10,14,26,0.9)',
+          }} />
+        ))}
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(10,14,26,0.55)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, var(--qf-bg) 0%, transparent 18%, transparent 82%, var(--qf-bg) 100%)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(10,14,26,0.85) 0%, rgba(10,14,26,0.5) 38%, transparent 60%)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 80% 55% at 72% 110%, rgba(255,180,84,0.14) 0%, transparent 65%), radial-gradient(ellipse 60% 40% at 20% -10%, rgba(79,209,255,0.07) 0%, transparent 60%)' }} />
+      </div>
+
+      <div className="wrap" style={{ position: 'relative', zIndex: 1 }}>
+        <div className="hero-layout">
+
+          {/* ── LEFT: copy ── */}
+          <div className="hero-copy">
+            <div className="hero-badge">
+              <span className="dot" />
+              Dubai Web Agency · Est. 2022
+            </div>
+
+            <h1>
+              Helping Dubai&apos;s
+              <br />
+              <span style={{ display: 'block', height: '1.1em', overflow: 'hidden', position: 'relative' }}>
+                <span
+                  className="accent"
+                  style={{
+                    display: 'block',
+                    transition: 'opacity 0.32s ease, transform 0.32s ease',
+                    opacity: visible ? 1 : 0,
+                    transform: visible ? 'translateY(0)' : 'translateY(8px)',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {ROTATING_INDUSTRIES[industryIndex]}
+                </span>
+              </span>
+              thrive online.
+            </h1>
+
+            <p className="hero-sub">
+              We design and build fast, modern websites and mobile apps for businesses in Dubai. From online shops and booking systems to custom business portals—we build it all, start to finish.
+            </p>
+
+            <div className="hero-actions">
+              <Link href="#contact" className="btn btn-primary">Start a Project →</Link>
+              <Link href="#portfolio" className="btn btn-ghost">See Our Work ↓</Link>
+            </div>
+
+            <div className="hero-meta" style={{ marginTop: '28px', gap: '6px' }}>
+              <span style={{ color: 'var(--qf-success)', fontSize: '11px' }}>●</span>
+              <span>7 live client projects &nbsp;·&nbsp; Dubai DED Licensed &nbsp;·&nbsp; DIFC &amp; Marina</span>
+            </div>
           </div>
-          <h1>
-            Helping Dubai’s
-            <br />
-            <span
-              className="accent"
-              id="rotate-text"
-              style={{
-                transition: 'opacity 0.35s ease-in-out',
-                display: 'inline-block',
-                opacity: opacity,
-              }}
-            >
-              {ROTATING_INDUSTRIES[industryIndex]}
-            </span>
-            <br />
-            thrive online.
-          </h1>
-          <p className="hero-sub">
-            We engineer high-converting websites, zero-commission ordering systems, and targeted Google Ads landing pages for businesses across Dubai and the GCC. No generic templates—pure performance.
-          </p>
-          <div className="hero-actions">
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={onOpenContactModal}
-            >
-              Get Free Consultation →
-            </button>
-            <Link href="#portfolio" className="btn btn-ghost">
-              Explore Our Work ↓
-            </Link>
+
+          {/* ── RIGHT: mosaic — hidden on mobile ── */}
+          <div className="hero-mosaic" aria-hidden="true">
+            {MOSAIC.map((item, i) => (
+              <div
+                key={item.src}
+                style={{
+                  position: 'absolute',
+                  top: item.top, left: item.left,
+                  width: '54%', maxWidth: '260px',
+                  transform: `rotate(${item.rotate})`,
+                  zIndex: item.zIndex,
+                  borderRadius: '14px', overflow: 'hidden',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  boxShadow: '0 20px 60px -12px rgba(0,0,0,0.7), 0 0 0 1px rgba(79,209,255,0.08)',
+                  animation: `heroCardFloat ${6 + i * 1.4}s ease-in-out ${i * 0.8}s infinite alternate`,
+                  willChange: 'transform',
+                  background: '#0A0E1A',
+                }}
+              >
+                <div style={{ position: 'relative', width: '100%', aspectRatio: '16/10' }}>
+                  <Image src={item.src} alt={item.label} fill sizes="260px" style={{ objectFit: 'cover' }} />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 50%, rgba(5,8,16,0.75) 100%)' }} />
+                </div>
+                <div style={{
+                  padding: '10px 13px', background: 'rgba(16,22,43,0.95)',
+                  backdropFilter: 'blur(8px)', display: 'flex', alignItems: 'center',
+                  justifyContent: 'space-between', gap: '8px',
+                  borderTop: '1px solid rgba(35,43,71,0.8)',
+                }}>
+                  <span style={{ fontFamily: 'var(--qf-font-display)', fontSize: '11px', fontWeight: 600, color: 'rgba(232,236,245,0.9)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    {item.label}
+                  </span>
+                  <span style={{ fontFamily: 'var(--qf-font-mono)', fontSize: '9.5px', color: '#4FD1FF', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                    {item.sub}
+                  </span>
+                </div>
+              </div>
+            ))}
+            <div className="particles" aria-hidden="true">
+              {[...Array(8)].map((_, i) => <div key={i} className="particle" />)}
+            </div>
           </div>
-          <div className="hero-meta">
-            Dubai DED Licensed · DIFC, Downtown, Jumeirah & Marina · UTC+4
-          </div>
-        </div>
 
-        <div className="hero-visual" aria-hidden="true">
-          {/* Signature flow circuit illustration */}
-          <svg viewBox="0 0 520 560" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="flowGrad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="var(--qf-accent)" stopOpacity="0.9" />
-                <stop offset="100%" stopColor="var(--qf-accent-2)" stopOpacity="0.7" />
-              </linearGradient>
-              <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="6" result="blur" />
-                <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-            </defs>
-
-            {/* Orbit rings */}
-            <circle cx="260" cy="280" r="220" stroke="var(--qf-line)" strokeWidth="1" />
-            <circle cx="260" cy="280" r="160" stroke="var(--qf-line)" strokeWidth="1" />
-
-            {/* Main flow path connecting four nodes (web, app, cloud, ai) */}
-            <path
-              id="mainFlow"
-              d="M100 140 C 180 90, 230 90, 260 160 S 360 260, 420 220 S 460 380, 380 420 S 220 470, 150 410 S 60 260, 100 140"
-              stroke="url(#flowGrad)"
-              strokeWidth="1.6"
-              strokeLinecap="round"
-              fill="none"
-              opacity="0.7"
-            />
-
-            {/* Traveling pulses */}
-            <circle r="4.5" fill="var(--qf-accent)" filter="url(#softGlow)">
-              <animateMotion
-                dur="6s"
-                repeatCount="indefinite"
-                path="M100 140 C 180 90, 230 90, 260 160 S 360 260, 420 220 S 460 380, 380 420 S 220 470, 150 410 S 60 260, 100 140"
-              />
-            </circle>
-            <circle r="3" fill="var(--qf-accent-2)" filter="url(#softGlow)">
-              <animateMotion
-                dur="6s"
-                begin="3s"
-                repeatCount="indefinite"
-                path="M100 140 C 180 90, 230 90, 260 160 S 360 260, 420 220 S 460 380, 380 420 S 220 470, 150 410 S 60 260, 100 140"
-              />
-            </circle>
-
-            {/* Nodes */}
-            <g>
-              <circle cx="100" cy="140" r="34" fill="var(--qf-bg-raised)" stroke="var(--qf-accent-line)" strokeWidth="1.2" />
-              <text x="100" y="145" textAnchor="middle" fontFamily="JetBrains Mono" fontSize="9.5" fill="var(--qf-text)">
-                STORES
-              </text>
-            </g>
-            <g>
-              <circle cx="420" cy="220" r="34" fill="var(--qf-bg-raised)" stroke="var(--qf-accent-line)" strokeWidth="1.2" />
-              <text x="420" y="225" textAnchor="middle" fontFamily="JetBrains Mono" fontSize="9.5" fill="var(--qf-text)">
-                MENUS
-              </text>
-            </g>
-            <g>
-              <circle cx="380" cy="420" r="34" fill="var(--qf-bg-raised)" stroke="var(--qf-accent-line)" strokeWidth="1.2" />
-              <text x="380" y="425" textAnchor="middle" fontFamily="JetBrains Mono" fontSize="8" fill="var(--qf-text)">
-                BOOKINGS
-              </text>
-            </g>
-            <g>
-              <circle cx="150" cy="410" r="34" fill="var(--qf-bg-raised)" stroke="var(--qf-accent-line)" strokeWidth="1.2" />
-              <text x="150" y="415" textAnchor="middle" fontFamily="JetBrains Mono" fontSize="7.5" fill="var(--qf-text)">
-                LEAD GEN
-              </text>
-            </g>
-
-            {/* Center quantum mark */}
-            <circle cx="260" cy="280" r="46" fill="var(--qf-bg-alt)" stroke="var(--qf-accent)" strokeWidth="1.4" />
-            <path d="M260 250 L284 266 V298 L260 314 L236 298 V266 Z" stroke="var(--qf-accent)" strokeWidth="1.3" fill="none" />
-            <circle cx="260" cy="280" r="5" fill="var(--qf-accent)" />
-
-            {/* Scattered fine dots */}
-            <circle cx="60" cy="320" r="2" fill="var(--qf-text-faint)" />
-            <circle cx="460" cy="120" r="2" fill="var(--qf-text-faint)" />
-            <circle cx="470" cy="330" r="2" fill="var(--qf-text-faint)" />
-            <circle cx="40" cy="200" r="2" fill="var(--qf-text-faint)" />
-          </svg>
-
-          {/* Floating particles */}
-          <div className="particles" aria-hidden="true">
-            <div className="particle"></div>
-            <div className="particle"></div>
-            <div className="particle"></div>
-            <div className="particle"></div>
-            <div className="particle"></div>
-            <div className="particle"></div>
-            <div className="particle"></div>
-            <div className="particle"></div>
-          </div>
         </div>
       </div>
+
+      <style>{`
+        .hero-layout {
+          display: grid;
+          grid-template-columns: 1.05fr 0.95fr;
+          gap: clamp(32px, 5vw, 64px);
+          align-items: center;
+        }
+        .hero-copy {
+          position: relative;
+          z-index: 1;
+        }
+        .hero-mosaic {
+          position: relative;
+          height: 480px;
+          min-height: 380px;
+        }
+        @keyframes heroCardFloat {
+          0%   { transform: rotate(var(--r, 0deg)) translateY(0px); }
+          100% { transform: rotate(var(--r, 0deg)) translateY(-10px); }
+        }
+        /* Tablet: stack layout, hide mosaic */
+        @media (max-width: 980px) {
+          .hero-layout {
+            grid-template-columns: 1fr;
+          }
+          .hero-mosaic {
+            display: none;
+          }
+        }
+        /* Mobile: tighten padding & font sizes */
+        @media (max-width: 600px) {
+          .hero-copy .hero-actions {
+            flex-direction: column;
+            align-items: stretch;
+          }
+          .hero-copy .hero-actions a {
+            text-align: center;
+            justify-content: center;
+          }
+        }
+      `}</style>
     </section>
   );
 }

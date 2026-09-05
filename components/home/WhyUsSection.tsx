@@ -5,12 +5,10 @@ export default function WhyUsSection() {
   return (
     <section className="section" id="why-us">
       <div className="wrap">
-        <ScrollReveal className="section-head">
-          <div>
-            <div className="eyebrow">Why Quantum Flow</div>
-            <h2 className="h2">Built for local business growth.</h2>
-          </div>
-          <p className="lede">
+        <ScrollReveal style={{ textAlign: 'center', maxWidth: '680px', marginInline: 'auto', marginBottom: '56px' }}>
+          <div className="eyebrow" style={{ justifyContent: 'center' }}>Why Quantum Flow</div>
+          <h2 className="h2">Built for local business growth.</h2>
+          <p className="lede" style={{ marginInline: 'auto', marginTop: '16px' }}>
             We design beautiful, reliable web platforms that work flawlessly for your users and are easy for you to manage day-to-day.
           </p>
         </ScrollReveal>

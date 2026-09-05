@@ -18,11 +18,9 @@ export default function IndustriesSection() {
     <>
       <section className="section section-alt" id="industries">
         <div className="wrap">
-          <ScrollReveal className="section-head">
-            <div>
-              <div className="eyebrow">Industries</div>
-              <h2 className="h2">Businesses we help in Dubai.</h2>
-            </div>
+          <ScrollReveal style={{ textAlign: 'center', maxWidth: '680px', marginInline: 'auto', marginBottom: '56px' }}>
+            <div className="eyebrow" style={{ justifyContent: 'center' }}>Industries</div>
+            <h2 className="h2">Businesses we help in Dubai.</h2>
           </ScrollReveal>
 
           <ScrollReveal>

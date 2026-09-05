@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
+import { NavbarProvider } from '@/components/layout/NavbarContext';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import Hero from '@/components/home/Hero';
@@ -14,61 +15,39 @@ import ProcessSection from '@/components/home/ProcessSection';
 import WhyUsSection from '@/components/home/WhyUsSection';
 import AboutSection from '@/components/home/AboutSection';
 import IndustriesSection from '@/components/home/IndustriesSection';
+import BusinessTypesSection from '@/components/home/BusinessTypesSection';
 import BlogSection from '@/components/home/BlogSection';
 import TestimonialsSection from '@/components/home/TestimonialsSection';
+import LeadGenStrip from '@/components/home/LeadGenStrip';
 import CtaBand from '@/components/home/CtaBand';
-import ContactModal from '@/components/contact/ContactModal';
+import AIChatBot from '@/components/ui/AIChatBot';
 import FloatingWhatsApp from '@/components/ui/FloatingWhatsApp';
-import { ServicePackage } from '@/lib/types';
 
 export default function HomePage() {
-  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
-  const [selectedPackage, setSelectedPackage] = useState<ServicePackage | null>(null);
-
-  const openContactModal = (pkg?: ServicePackage) => {
-    if (pkg) {
-      setSelectedPackage(pkg);
-    } else {
-      setSelectedPackage(null);
-    }
-    setIsContactModalOpen(true);
-  };
-
-  const closeContactModal = () => {
-    setIsContactModalOpen(false);
-    setSelectedPackage(null);
-  };
-
   return (
-    <>
-      <Navbar onOpenContactModal={() => openContactModal()} />
-
+    <NavbarProvider>
+      <Navbar />
       <main id="top">
-        <Hero onOpenContactModal={() => openContactModal()} />
+        <Hero />
         <TrustBadges />
         <MarqueeStrip />
-        <PortfolioSection onOpenContactModal={() => openContactModal()} />
-        <PackagesSection onSelectPackage={(pkg) => openContactModal(pkg)} />
+        <PortfolioSection />
+        <PackagesSection />
         <TechShowcase />
         <ServicesSection />
+        <BusinessTypesSection />
         <ProcessSection />
         <WhyUsSection />
         <AboutSection />
         <IndustriesSection />
         <BlogSection />
-        <TestimonialsSection onOpenContactModal={() => openContactModal()} />
+        <TestimonialsSection />
+        <LeadGenStrip />
         <CtaBand />
       </main>
-
       <Footer />
-
+      <AIChatBot />
       <FloatingWhatsApp />
-
-      <ContactModal
-        isOpen={isContactModalOpen}
-        onClose={closeContactModal}
-        initialPackage={selectedPackage}
-      />
-    </>
+    </NavbarProvider>
   );
 }
