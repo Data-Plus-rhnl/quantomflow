@@ -2,227 +2,15 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { Check, ArrowRight } from 'lucide-react';
 import ScrollReveal from '../ui/ScrollReveal';
 
-// ─── Bespoke High-Grade Industry SVG Icons ───────────────────────────────────
-
-function IconRestaurant({ color }: { color: string }) {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      {/* Dish base platter */}
-      <path
-        d="M2 18h20a1 1 0 0 1 1 1v0.5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V19a1 1 0 0 1 1-1Z"
-        fill={color}
-        fillOpacity="0.18"
-        stroke={color}
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {/* Cloche dome */}
-      <path
-        d="M4 18a8 8 0 0 1 16 0"
-        stroke={color}
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-      {/* Cloche handle */}
-      <path
-        d="M12 10V6.5m-1.5 0a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z"
-        stroke={color}
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-      {/* Luminous steam accents */}
-      <path
-        d="M8.5 4c-.5.8-.5 1.7 0 2.5M15.5 4c-.5.8-.5 1.7 0 2.5"
-        stroke={color}
-        strokeWidth="1.4"
-        strokeLinecap="round"
-        strokeOpacity="0.6"
-      />
-    </svg>
-  );
-}
-
-function IconClinic({ color }: { color: string }) {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      {/* Shield/Emblem background */}
-      <path
-        d="M12 2.5L4 6v6.2c0 5.2 3.4 10 8 11.3 4.6-1.3 8-6.1 8-11.3V6l-8-3.5Z"
-        fill={color}
-        fillOpacity="0.12"
-        stroke={color}
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
-      {/* Medical/Aesthetic cross */}
-      <path
-        d="M12 8.5v7m-3.5-3.5h7"
-        stroke={color}
-        strokeWidth="2.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {/* Aesthetic sparkle accent */}
-      <path
-        d="M18.5 3.5l.8 1.2 1.2.8-1.2.8-.8 1.2-.8-1.2-1.2-.8 1.2-.8.8-1.2Z"
-        fill={color}
-        fillOpacity="0.8"
-      />
-    </svg>
-  );
-}
-
-function IconRetail({ color }: { color: string }) {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      {/* Shopping bag body */}
-      <path
-        d="M6 3 3.5 7v13a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2V7L18 3H6Z"
-        fill={color}
-        fillOpacity="0.14"
-        stroke={color}
-        strokeWidth="1.7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {/* Bag fold line */}
-      <path d="M3.5 7h17" stroke={color} strokeWidth="1.6" strokeLinecap="round" />
-      {/* Handles */}
-      <path
-        d="M16 11a4 4 0 0 1-8 0"
-        stroke={color}
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {/* Modern payment contactless wave accent */}
-      <path
-        d="M11 15.5a2 2 0 0 1 2 0m-3.5-2a4.5 4.5 0 0 1 5 0"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeOpacity="0.75"
-      />
-    </svg>
-  );
-}
-
-function IconCorporate({ color }: { color: string }) {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      {/* Enterprise skyscraper tower */}
-      <path
-        d="M3 21h18M5 21V7l8-4v18M13 10l6 3v8"
-        stroke={color}
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {/* Office windows grid */}
-      <path
-        d="M8 9h2m-2 3.5h2m-2 3.5h2M16 14.5h1.5m-1.5 3h1.5"
-        stroke={color}
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
-      {/* Rising growth trendline */}
-      <path
-        d="M17 3.5l3.5 3.5m0 0h-3m3 0V4"
-        stroke={color}
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function IconRealEstate({ color }: { color: string }) {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      {/* Architectural Villa / Penthouse outline */}
-      <path
-        d="M2.5 10.5 12 3l9.5 7.5V20a2 2 0 0 1-2 2h-15a2 2 0 0 1-2-2v-9.5Z"
-        fill={color}
-        fillOpacity="0.13"
-        stroke={color}
-        strokeWidth="1.7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {/* Modern glass entrance */}
-      <path
-        d="M9.5 22V13h5v9"
-        stroke={color}
-        strokeWidth="1.7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {/* Balcony / Floor lines */}
-      <path
-        d="M6 10h12"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeOpacity="0.6"
-      />
-      {/* Location beacon dot */}
-      <circle cx="12" cy="7" r="1.3" fill={color} />
-    </svg>
-  );
-}
-
-function IconFitness({ color }: { color: string }) {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      {/* Barbell weights */}
-      <path
-        d="M6 5.5v13M18 5.5v13M2 9v6M22 9v6M6 12h12M2 12h4m12 0h4"
-        stroke={color}
-        strokeWidth="1.9"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {/* Weight plates fill */}
-      <rect
-        x="4.5"
-        y="7"
-        width="3"
-        height="10"
-        rx="1.5"
-        fill={color}
-        fillOpacity="0.22"
-      />
-      <rect
-        x="16.5"
-        y="7"
-        width="3"
-        height="10"
-        rx="1.5"
-        fill={color}
-        fillOpacity="0.22"
-      />
-      {/* Pulse energy ray */}
-      <path
-        d="M10 10.5l1.5 3 1.5-3"
-        stroke={color}
-        strokeWidth="1.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeOpacity="0.8"
-      />
-    </svg>
-  );
-}
-
-// ─── Industry Data ────────────────────────────────────────────────────────────
+// ─── Clean 3D Industry Assets ────────────────────────────────────────────────
 
 const BUSINESS_TYPES = [
   {
-    icon: IconRestaurant,
+    iconSrc: '/industries/industry-restaurant.png',
     badge: '0% Talabat Fee',
     title: 'Restaurants & Cafés',
     subtitle: 'F&B & Hospitality',
@@ -232,7 +20,7 @@ const BUSINESS_TYPES = [
     href: '#contact',
   },
   {
-    icon: IconClinic,
+    iconSrc: '/industries/industry-clinic.png',
     badge: 'DHA & MOHAP Ready',
     title: 'Clinics & Aesthetics',
     subtitle: 'Healthcare & Beauty',
@@ -242,7 +30,7 @@ const BUSINESS_TYPES = [
     href: '#contact',
   },
   {
-    icon: IconRetail,
+    iconSrc: '/industries/industry-retail.png',
     badge: 'Apple Pay & Tabby',
     title: 'Retail & E-Commerce',
     subtitle: 'D2C & Luxury Brands',
@@ -252,7 +40,7 @@ const BUSINESS_TYPES = [
     href: '#contact',
   },
   {
-    icon: IconCorporate,
+    iconSrc: '/industries/industry-corporate.png',
     badge: 'DIFC & ADGM Ready',
     title: 'Corporate & Startups',
     subtitle: 'Finance, Tech & Legal',
@@ -262,7 +50,7 @@ const BUSINESS_TYPES = [
     href: '#contact',
   },
   {
-    icon: IconRealEstate,
+    iconSrc: '/industries/industry-realestate.png',
     badge: 'Bayut & CRM Sync',
     title: 'Luxury Real Estate',
     subtitle: 'Agencies & Developers',
@@ -272,7 +60,7 @@ const BUSINESS_TYPES = [
     href: '#contact',
   },
   {
-    icon: IconFitness,
+    iconSrc: '/industries/industry-fitness.png',
     badge: 'ClassPass Sync',
     title: 'Fitness & Wellness',
     subtitle: 'Gyms, Studios & Spas',
@@ -285,25 +73,8 @@ const BUSINESS_TYPES = [
 
 export default function BusinessTypesSection() {
   return (
-    <section className="section section-alt relative-industries" id="business-types">
-      {/* Ambient background glow orb */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          top: '15%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '750px',
-          height: '350px',
-          background: 'radial-gradient(ellipse, rgba(79, 209, 255, 0.07) 0%, rgba(123, 97, 255, 0.04) 40%, transparent 70%)',
-          pointerEvents: 'none',
-          zIndex: 0,
-          filter: 'blur(40px)',
-        }}
-      />
-
-      <div className="wrap" style={{ position: 'relative', zIndex: 1 }}>
+    <section className="section section-alt" id="business-types">
+      <div className="wrap">
         <ScrollReveal style={{ textAlign: 'center', maxWidth: '720px', marginInline: 'auto', marginBottom: '56px' }}>
           <div className="eyebrow" style={{ justifyContent: 'center' }}>
             <span
@@ -312,7 +83,6 @@ export default function BusinessTypesSection() {
                 height: '6px',
                 borderRadius: '50%',
                 background: '#4FD1FF',
-                boxShadow: '0 0 8px #4FD1FF',
                 display: 'inline-block',
                 marginRight: '6px',
               }}
@@ -320,7 +90,7 @@ export default function BusinessTypesSection() {
             Tailored Industry Architecture
           </div>
           <h2 className="h2" style={{ marginTop: '12px', letterSpacing: '-0.02em' }}>
-            Engineered for every Dubai business.
+            Built for every Dubai business.
           </h2>
           <p className="lede" style={{ marginInline: 'auto', marginTop: '16px', fontSize: '16px', lineHeight: 1.65 }}>
             From high-volume Downtown restaurants to DIFC corporate portals and luxury clinics in Jumeirah — we build bespoke platforms tailored to local UAE customer behavior and payment rails.
@@ -328,7 +98,7 @@ export default function BusinessTypesSection() {
         </ScrollReveal>
 
         <div className="biz-grid">
-          {BUSINESS_TYPES.map(({ icon: IconComponent, badge, title, subtitle, desc, capabilities, color, href }, i) => (
+          {BUSINESS_TYPES.map(({ iconSrc, badge, title, subtitle, desc, capabilities, color, href }, i) => (
             <ScrollReveal key={title} delayMs={i * 60}>
               <Link
                 href={href}
@@ -338,33 +108,23 @@ export default function BusinessTypesSection() {
                   className="biz-card group"
                   style={{ '--biz-color': color } as React.CSSProperties}
                 >
-                  {/* Top glowing ambient highlight line */}
-                  <div
-                    className="card-ambient-line"
-                    style={{
-                      background: `linear-gradient(90deg, transparent, ${color}80, transparent)`,
-                    }}
-                  />
-
-                  {/* Top Bar: Icon + Market Badge */}
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
-                    <div
-                      className="biz-icon-box"
-                      style={{
-                        width: '54px',
-                        height: '54px',
-                        borderRadius: '16px',
-                        background: `radial-gradient(circle at 30% 30%, ${color}24 0%, ${color}08 100%)`,
-                        border: `1px solid ${color}40`,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        boxShadow: `0 8px 24px -6px ${color}30`,
-                        flexShrink: 0,
-                        transition: 'all 0.35s ease',
-                      }}
-                    >
-                      <IconComponent color={color} />
+                  {/* Top Bar: Elevated Glass Pedestal Icon + High-Contrast Badge */}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '22px' }}>
+                    <div className="biz-icon-box">
+                      <Image
+                        src={iconSrc}
+                        alt={title}
+                        width={48}
+                        height={48}
+                        className="biz-icon-img"
+                        style={{
+                          width: '46px',
+                          height: '46px',
+                          objectFit: 'contain',
+                          display: 'block',
+                          transition: 'transform 0.25s ease',
+                        }}
+                      />
                     </div>
 
                     <span
@@ -374,14 +134,14 @@ export default function BusinessTypesSection() {
                         fontWeight: 600,
                         letterSpacing: '0.04em',
                         color: color,
-                        background: `${color}14`,
-                        border: `1px solid ${color}35`,
-                        padding: '4px 10px',
+                        background: `${color}18`,
+                        border: `1px solid ${color}38`,
+                        padding: '5px 12px',
                         borderRadius: '999px',
                         display: 'inline-flex',
                         alignItems: 'center',
-                        gap: '5px',
-                        boxShadow: `0 2px 8px ${color}10`,
+                        gap: '6px',
+                        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
                       }}
                     >
                       <span
@@ -390,7 +150,6 @@ export default function BusinessTypesSection() {
                           height: '5px',
                           borderRadius: '50%',
                           background: color,
-                          boxShadow: `0 0 6px ${color}`,
                         }}
                       />
                       {badge}
@@ -403,7 +162,8 @@ export default function BusinessTypesSection() {
                       style={{
                         fontFamily: 'var(--qf-font-mono)',
                         fontSize: '11px',
-                        color: `${color}CC`,
+                        fontWeight: 600,
+                        color: color,
                         textTransform: 'uppercase',
                         letterSpacing: '0.08em',
                         marginBottom: '4px',
@@ -416,7 +176,7 @@ export default function BusinessTypesSection() {
                         fontFamily: 'var(--qf-font-display)',
                         fontSize: '19px',
                         fontWeight: 600,
-                        color: '#F8FAFC',
+                        color: '#FFFFFF',
                         lineHeight: 1.3,
                         letterSpacing: '-0.01em',
                       }}
@@ -429,7 +189,7 @@ export default function BusinessTypesSection() {
                   <p
                     style={{
                       fontSize: '13.5px',
-                      color: 'rgba(160, 172, 196, 0.9)',
+                      color: '#94A3B8',
                       lineHeight: 1.65,
                       flexGrow: 1,
                       marginBottom: '20px',
@@ -438,17 +198,18 @@ export default function BusinessTypesSection() {
                     {desc}
                   </p>
 
-                  {/* Key Capabilities List */}
+                  {/* Key Capabilities List with Clear Inset Panel */}
                   <div
                     style={{
                       display: 'flex',
                       flexDirection: 'column',
                       gap: '8px',
                       marginBottom: '22px',
-                      padding: '12px 14px',
+                      padding: '14px 16px',
                       borderRadius: '12px',
-                      background: 'rgba(10, 14, 26, 0.5)',
-                      border: '1px solid rgba(255, 255, 255, 0.05)',
+                      background: 'rgba(8, 12, 24, 0.75)',
+                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      boxShadow: 'inset 0 1px 3px rgba(0, 0, 0, 0.3)',
                     }}
                   >
                     {capabilities.map((cap) => (
@@ -457,27 +218,19 @@ export default function BusinessTypesSection() {
                         style={{
                           display: 'flex',
                           alignItems: 'center',
-                          gap: '8px',
-                          fontSize: '12px',
-                          color: '#CBD5E1',
+                          gap: '9px',
+                          fontSize: '12.5px',
+                          color: '#E2E8F0',
                           fontFamily: 'var(--qf-font-body)',
                         }}
                       >
-                        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}>
-                          <path
-                            d="M3 8.5L6.5 12L13 4"
-                            stroke={color}
-                            strokeWidth="2.2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
+                        <Check size={14} color={color} strokeWidth={2.4} style={{ flexShrink: 0 }} />
                         <span>{cap}</span>
                       </div>
                     ))}
                   </div>
 
-                  {/* Action Link / Button Footer */}
+                  {/* Action Link Footer */}
                   <div
                     className="biz-cta"
                     style={{
@@ -488,15 +241,13 @@ export default function BusinessTypesSection() {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      borderTop: '1px solid rgba(255, 255, 255, 0.07)',
-                      paddingTop: '14px',
+                      borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+                      paddingTop: '16px',
                       marginTop: 'auto',
                     }}
                   >
                     <span>Request {title.split(' ')[0]} Scope</span>
-                    <span className="biz-arrow" style={{ transition: 'transform 0.25s ease' }}>
-                      →
-                    </span>
+                    <ArrowRight size={15} className="biz-arrow" style={{ transition: 'transform 0.2s ease' }} />
                   </div>
                 </div>
               </Link>
@@ -506,49 +257,50 @@ export default function BusinessTypesSection() {
       </div>
 
       <style>{`
-        .relative-industries {
-          position: relative;
-          overflow: hidden;
-        }
         .biz-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           gap: 24px;
         }
+        /* High-contrast, non-blending card holder */
         .biz-card {
-          position: relative;
-          background: linear-gradient(165deg, rgba(20, 27, 48, 0.75) 0%, rgba(10, 14, 26, 0.85) 100%);
-          border: 1px solid rgba(79, 209, 255, 0.14);
-          border-radius: 22px;
-          padding: 28px 24px 22px;
+          background: linear-gradient(180deg, #151D33 0%, #0D1322 100%);
+          border: 1px solid rgba(255, 255, 255, 0.14);
+          border-radius: 20px;
+          padding: 26px 24px 22px;
           display: flex;
           flex-direction: column;
           height: 100%;
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
-          overflow: hidden;
-          transition: all 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+          box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.65), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+          transition: all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
           cursor: pointer;
         }
-        .card-ambient-line {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 1.5px;
-          opacity: 0.35;
-          transition: opacity 0.35s ease;
-        }
         .biz-card:hover {
-          background: linear-gradient(165deg, rgba(26, 36, 64, 0.9) 0%, rgba(14, 19, 36, 0.95) 100%);
+          background: linear-gradient(180deg, #1A2440 0%, #10182B 100%);
           border-color: var(--biz-color, rgba(79, 209, 255, 0.5));
           transform: translateY(-6px);
-          box-shadow: 0 24px 56px -12px rgba(0, 0, 0, 0.65), 0 0 32px -8px var(--biz-color, rgba(79, 209, 255, 0.2));
+          box-shadow: 0 20px 48px -10px rgba(0, 0, 0, 0.8), inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
         }
-        .biz-card:hover .card-ambient-line {
-          opacity: 1;
+        /* Elevated pedestal for the icon so it pops */
+        .biz-icon-box {
+          width: 60px;
+          height: 60px;
+          border-radius: 16px;
+          background: linear-gradient(145deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.03) 100%);
+          border: 1px solid rgba(255, 255, 255, 0.16);
+          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+          display: flex;
+          align-items: center;
+          justifyContent: center;
+          flex-shrink: 0;
+          transition: all 0.25s ease;
         }
         .biz-card:hover .biz-icon-box {
+          border-color: var(--biz-color);
+          background: linear-gradient(145deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.05) 100%);
+          transform: scale(1.05);
+        }
+        .biz-card:hover .biz-icon-img {
           transform: scale(1.08);
         }
         .biz-card:hover .biz-arrow {
