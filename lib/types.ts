@@ -25,7 +25,7 @@ export interface PortfolioProject {
   title: string;
   clientName: string;
   location: string;
-  category: 'restaurants' | 'clinics' | 'ecommerce' | 'salons' | 'corporate' | 'childcare' | 'personal-brand';
+  category: 'restaurants' | 'clinics' | 'ecommerce' | 'salons' | 'corporate' | 'childcare' | 'personal-brand' | 'community';
   categoryLabel: string;
   image: string;
   metrics: {

@@ -15,7 +15,7 @@ const ROTATING_INDUSTRIES = [
 const MOSAIC = [
   { src: '/portfolio/VahidDorri.png',          label: 'Vahid Dorri',     sub: '10x enquiry rate',    rotate: '-4deg', top: '0%',  left: '0%',  zIndex: 1 },
   { src: '/portfolio/AnnarChildcare.png',      label: 'Annar Childcare', sub: '+3x enrolment leads', rotate: '3deg',  top: '12%', left: '34%', zIndex: 2 },
-  { src: '/portfolio/luxury-ecommerce.jpg',    label: 'Luxe Botanicals', sub: 'AED 420K in 90 days', rotate: '-2deg', top: '44%', left: '6%',  zIndex: 4 },
+  { src: '/portfolio/camofriday.png',          label: '#CAMOFRIDAY',     sub: '100% Impact Merch',   rotate: '-2deg', top: '44%', left: '6%',  zIndex: 4 },
   { src: '/portfolio/restaurant-ordering.jpg', label: 'The Roastery',    sub: '+184% direct orders', rotate: '4deg',  top: '54%', left: '40%', zIndex: 3 },
 ];
 
@@ -42,7 +42,7 @@ export default function Hero() {
         {[
           '/portfolio/restaurant-ordering.jpg',
           '/portfolio/clinic-booking.jpg',
-          '/portfolio/luxury-ecommerce.jpg',
+          '/portfolio/camofriday.png',
           '/portfolio/salon-spa.jpg',
           '/portfolio/AnnarChildcare.png',
           '/portfolio/corporate-portal.jpg',

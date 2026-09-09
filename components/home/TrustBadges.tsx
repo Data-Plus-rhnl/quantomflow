@@ -109,36 +109,31 @@ const BADGES = [
     Icon: IconUAE,
     label: 'Dubai DED Registered',
     sub: 'Licensed tech agency · UAE',
-    color: '#4FD1FF',
-    glow: 'rgba(79,209,255,0.15)',
+    color: '#00F0FF',
   },
   {
     Icon: IconNoHiddenFees,
     label: 'No Hidden Fees',
     sub: '100% transparent pricing',
-    color: '#FFB454',
-    glow: 'rgba(255,180,84,0.15)',
+    color: '#FFAA00',
   },
   {
     Icon: IconStar,
     label: '4.9 / 5.0 Rating',
     sub: 'Verified UAE client reviews',
-    color: '#FFB454',
-    glow: 'rgba(255,180,84,0.15)',
+    color: '#FFB800',
   },
   {
     Icon: IconGoogleAds,
     label: 'Google Ads Certified',
     sub: 'High-converting lead gen',
-    color: '#68D391',
-    glow: 'rgba(110,231,183,0.15)',
+    color: '#00FF66',
   },
   {
     Icon: IconPayments,
     label: 'UAE Payment Gateways',
     sub: 'Stripe · Apple Pay · Tabby',
-    color: '#B794F4',
-    glow: 'rgba(183,148,244,0.15)',
+    color: '#B026FF',
   },
 ];
 
@@ -148,87 +143,71 @@ export default function TrustBadges() {
   return (
     <div
       style={{
-        borderTop: '1px solid rgba(35,43,71,0.6)',
-        borderBottom: '1px solid rgba(35,43,71,0.6)',
-        background: 'rgba(10,14,26,0.75)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
+        borderTop: '1px solid #1E293B',
+        borderBottom: '1px solid #1E293B',
+        background: '#060A14',
         paddingBlock: '0',
         position: 'relative',
         zIndex: 2,
         overflow: 'hidden',
       }}
     >
-      {/* Amber warmth line */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '60%',
-          height: '1px',
-          background:
-            'linear-gradient(90deg, transparent, rgba(255,180,84,0.4), transparent)',
-        }}
-      />
-
       <div className="wrap">
         <div
           className="trust-grid"
           style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0' }}
         >
-          {BADGES.map(({ Icon, label, sub, color, glow }, i) => (
+          {BADGES.map(({ Icon, label, sub, color }, i) => (
             <div
               key={label}
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '13px',
-                padding: '20px 22px',
+                gap: '14px',
+                padding: '18px 22px',
                 borderRight:
                   i < BADGES.length - 1
-                    ? '1px solid rgba(35,43,71,0.5)'
+                    ? '1px solid #1E293B'
                     : 'none',
                 transition: 'background 0.2s ease',
                 cursor: 'default',
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLDivElement).style.background = glow;
+                (e.currentTarget as HTMLDivElement).style.background = '#0B1120';
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLDivElement).style.background = 'transparent';
               }}
             >
-              {/* Icon container — larger, more presence */}
+              {/* Icon container — crisp high contrast, zero glow */}
               <div
                 style={{
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '11px',
-                  background: `${color}12`,
-                  border: `1px solid ${color}30`,
+                  width: '42px',
+                  height: '42px',
+                  borderRadius: '10px',
+                  background: '#0A0F1D',
+                  border: `1.5px solid ${color}`,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   flexShrink: 0,
-                  boxShadow: `0 0 14px -4px ${color}44`,
+                  boxShadow: 'none',
                 }}
               >
                 <Icon />
               </div>
 
-              {/* Text */}
+              {/* High-Contrast Text */}
               <div>
                 <div
                   style={{
                     fontFamily: 'var(--qf-font-display)',
-                    fontSize: '12.5px',
-                    fontWeight: 600,
-                    color: 'rgba(232,236,245,0.95)',
+                    fontSize: '13px',
+                    fontWeight: 700,
+                    color: '#FFFFFF',
                     lineHeight: 1.25,
-                    marginBottom: '4px',
+                    marginBottom: '3px',
+                    letterSpacing: '-0.01em',
                   }}
                 >
                   {label}
@@ -236,9 +215,10 @@ export default function TrustBadges() {
                 <div
                   style={{
                     fontFamily: 'var(--qf-font-mono)',
-                    fontSize: '10.5px',
-                    color: 'rgba(91,100,128,0.85)',
-                    lineHeight: 1.3,
+                    fontSize: '11px',
+                    color: '#94A3B8',
+                    lineHeight: 1.35,
+                    fontWeight: 500,
                   }}
                 >
                   {sub}
@@ -257,7 +237,7 @@ export default function TrustBadges() {
         @media (max-width: 560px) {
           .trust-grid { grid-template-columns: repeat(2, 1fr) !important; }
           .trust-grid > div:nth-child(2n) { border-right: none !important; }
-          .trust-grid > div { border-bottom: 1px solid rgba(35,43,71,0.5); }
+          .trust-grid > div { border-bottom: 1px solid #1E293B; }
           .trust-grid > div:nth-last-child(-n+2) { border-bottom: none; }
         }
       `}</style>

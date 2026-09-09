@@ -13,6 +13,7 @@ type CategoryFilter =
   | 'restaurants'
   | 'clinics'
   | 'ecommerce'
+  | 'community'
   | 'salons'
   | 'corporate'
   | 'childcare'
@@ -23,6 +24,7 @@ const CATEGORIES: { id: CategoryFilter; label: string; icon: string }[] = [
   { id: 'restaurants', label: 'Restaurants', icon: '◉' },
   { id: 'clinics', label: 'Clinics', icon: '◉' },
   { id: 'ecommerce', label: 'E-Commerce', icon: '◉' },
+  { id: 'community', label: 'Community & Cause', icon: '◉' },
   { id: 'salons', label: 'Salons & Spas', icon: '◉' },
   { id: 'corporate', label: 'Corporate', icon: '◉' },
   { id: 'childcare', label: 'Education', icon: '◉' },
@@ -33,6 +35,7 @@ const CATEGORY_ACCENT: Record<string, string> = {
   restaurants: '#FF5500',      // Vibrant RGB Flame Orange
   clinics: '#00F0FF',          // High-Voltage RGB Cyan
   ecommerce: '#A855F7',        // Electric RGB Violet
+  community: '#00FF88',        // High-Voltage Camo Mint / Neon Emerald
   salons: '#FF007F',           // Punchy RGB Hot Pink / Magenta
   corporate: '#00FF66',        // Electric RGB Neon Green
   childcare: '#FFE600',        // Vivid RGB Cyber Yellow
@@ -540,7 +543,7 @@ function ProjectPresentationDeck({
                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                   <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                 </svg>
-                <span>{project.clientName.toLowerCase().replace(/[^a-z0-9]/g, '')}.ae</span>
+                <span>{project.liveUrl ? project.liveUrl.replace(/^https?:\/\//, '').replace(/\/$/, '') : `${project.clientName.toLowerCase().replace(/[^a-z0-9]/g, '')}.ae`}</span>
               </div>
               <span className="deck-inspect-pill" style={{ color: accent, fontWeight: 700 }}>
                 Inspect Project &rarr;
@@ -624,6 +627,24 @@ function ProjectPresentationDeck({
                 <path d="M3 8h10M9 4l4 4-4 4" />
               </svg>
             </button>
+
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="deck-secondary-link"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  color: '#FFFFFF',
+                  fontWeight: 600,
+                }}
+              >
+                <span>Live Site ↗</span>
+              </a>
+            )}
 
             <a href="#contact" className="deck-secondary-link">
               Build Similar System &rarr;
@@ -1083,7 +1104,29 @@ function CaseStudyModal({
             <p style={{ fontSize: '13px', color: 'rgba(91,100,128,0.9)' }}>
               Want a similar result for your business?
             </p>
-            <div style={{ display: 'flex', gap: '10px' }}>
+            <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
+              {project.liveUrl && (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-secondary btn-sm"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    borderColor: `${accent}66`,
+                    color: '#FFFFFF',
+                  }}
+                >
+                  <span>Visit Live Platform</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                </a>
+              )}
               <button
                 type="button"
                 className="btn btn-ghost btn-sm"
