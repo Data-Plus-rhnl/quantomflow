@@ -12,7 +12,7 @@ const CAPABILITIES = [
   'Instagram Shop Integration',
   'Google Maps Optimization',
   'Custom Web Apps',
-  'Zero Commission Systems',
+  'No Hidden Fees',
   'Fast-Loading Websites',
   'Dubai DED Licensed',
 ];

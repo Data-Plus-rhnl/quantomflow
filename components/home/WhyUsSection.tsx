@@ -20,9 +20,9 @@ export default function WhyUsSection() {
                 <path d="M12 2 2 7l10 5 10-5-10-5Z" />
                 <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
               </svg>
-              <h4>Zero commissions</h4>
+              <h4>No hidden fees or app cuts</h4>
               <p>
-                Keep 100% of your sales. We set up your ordering and booking systems so you never pay monthly commissions to third-party apps.
+                Keep 100% of your sales. We set up your direct ordering and booking systems so you never lose revenue to third-party aggregators.
               </p>
             </div>
 

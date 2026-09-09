@@ -24,7 +24,7 @@ export default function PackagesSection(_props: PackagesSectionProps) {
               No hidden costs.
             </h2>
             <p className="lede" style={{ marginTop: '16px', marginInline: 'auto' }}>
-              Built specifically for Dubai cafes, restaurants, clinics, and businesses. Fixed scope, guaranteed turnaround, and 100% ownership with zero monthly platform commissions.
+              Built specifically for Dubai cafes, restaurants, clinics, and businesses. Fixed scope, guaranteed turnaround, and 100% ownership with no hidden platform fees.
             </p>
           </ScrollReveal>
 

@@ -3,7 +3,7 @@ import { PortfolioProject } from './types';
 export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
   {
     id: 'the-roastery-al-quoz',
-    title: 'Zero-Commission Online Ordering & Delivery System',
+    title: 'Direct Online Ordering & Delivery System',
     clientName: 'The Roastery & Kitchen',
     location: 'Al Quoz Industrial 1 & Dubai Marina, UAE',
     category: 'restaurants',
@@ -20,7 +20,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     solution:
       'Quantum Flow built a mobile-first Next.js ordering web app featuring 1-tap Apple Pay checkout, automated WhatsApp delivery updates to the customer, and a real-time kitchen display tablet app.',
     deliverables: [
-      'Zero-Commission Online Ordering Platform',
+      'Direct Online Ordering Platform',
       'Apple Pay, Google Pay & UAE Gateway Integration',
       'Direct WhatsApp Order Notification Bot',
       'Live Kitchen Order Management Dashboard',

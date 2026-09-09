@@ -4,31 +4,48 @@ import React from 'react';
 
 // ─── Real hand-crafted SVG icons — each one purpose-built for its badge ──────
 
-// UAE flag icon — red & green with white crescent feel
+// UAE flag icon — official colors: Green (top), White (middle), Black (bottom), Red (hoist)
 function IconUAE() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      {/* Flag body */}
-      <rect x="3" y="5" width="18" height="4.5" rx="0" fill="#00732F" />
-      <rect x="3" y="9.5" width="18" height="4.5" rx="0" fill="#FFFFFF" />
-      <rect x="3" y="14" width="18" height="4.5" rx="0" fill="#FF0000" />
-      {/* Red left bar */}
-      <rect x="3" y="5" width="5" height="13.5" rx="1" fill="#FF0000" />
+      <g clipPath="url(#uae-flag-clip)">
+        {/* Horizontal bands: Green, White, Black */}
+        <rect x="2" y="5" width="20" height="4.67" fill="#00732F" />
+        <rect x="2" y="9.67" width="20" height="4.67" fill="#FFFFFF" />
+        <rect x="2" y="14.33" width="20" height="4.67" fill="#000000" />
+        {/* Vertical red band on hoist */}
+        <rect x="2" y="5" width="5.5" height="14" fill="#E4002B" />
+      </g>
       {/* Flag border */}
-      <rect x="3" y="5" width="18" height="13.5" rx="1" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="0.5" />
+      <rect x="2" y="5" width="20" height="14" rx="2" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="0.75" />
+      <defs>
+        <clipPath id="uae-flag-clip">
+          <rect x="2" y="5" width="20" height="14" rx="2" />
+        </clipPath>
+      </defs>
     </svg>
   );
 }
 
-// No-commission: bold percent with a strike-through cross
-function IconZeroCommission() {
+// No Hidden Fees: shield with a crisp checkmark indicating transparency and trust
+function IconNoHiddenFees() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="8.5" cy="8.5" r="2.5" stroke="#FFB454" strokeWidth="1.8" />
-      <circle cx="15.5" cy="15.5" r="2.5" stroke="#FFB454" strokeWidth="1.8" />
-      <line x1="5" y1="19" x2="19" y2="5" stroke="#FFB454" strokeWidth="1.8" strokeLinecap="round" />
-      {/* Strike line through the whole thing */}
-      <line x1="3" y1="21" x2="21" y2="3" stroke="#FF6B6B" strokeWidth="1.2" strokeLinecap="round" opacity="0.7" />
+      <path
+        d="M12 2L3.5 6v6.2c0 5.17 3.63 10.01 8.5 11.23 4.87-1.22 8.5-6.06 8.5-11.23V6L12 2z"
+        stroke="#FFB454"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="rgba(255,180,84,0.1)"
+      />
+      <path
+        d="M9 12l2 2 4-4"
+        stroke="#FFB454"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -96,9 +113,9 @@ const BADGES = [
     glow: 'rgba(79,209,255,0.15)',
   },
   {
-    Icon: IconZeroCommission,
-    label: 'Zero Commission',
-    sub: 'You keep 100% of every order',
+    Icon: IconNoHiddenFees,
+    label: 'No Hidden Fees',
+    sub: '100% transparent pricing',
     color: '#FFB454',
     glow: 'rgba(255,180,84,0.15)',
   },

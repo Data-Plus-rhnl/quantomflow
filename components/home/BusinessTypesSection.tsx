@@ -14,7 +14,7 @@ const BUSINESS_TYPES = [
     badge: '0% Talabat Fee',
     title: 'Restaurants & Cafés',
     subtitle: 'F&B & Hospitality',
-    desc: 'Direct online ordering systems, live kitchen dispatch, digital QR menus, and zero-commission delivery to protect your restaurant margins in Dubai.',
+    desc: 'Direct online ordering systems, live kitchen dispatch, digital QR menus, and direct delivery channels to protect your restaurant margins in Dubai.',
     capabilities: ['Direct Online Ordering', 'QR Tableside Pay & Menu', 'WhatsApp Ordering Bot'],
     color: '#FF8C42',
     href: '#contact',
