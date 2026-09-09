@@ -162,42 +162,21 @@ export default function TechShowcase() {
             <ScrollReveal key={title} delayMs={i * 35}>
               <div
                 className="tech-card group"
-                style={{ '--feat-color': color } as React.CSSProperties}
+                style={{
+                  '--feat-color': color,
+                  textAlign: 'center',
+                  alignItems: 'center',
+                } as React.CSSProperties}
               >
-                {/* Top Row: Elevated Icon Pedestal + Category Badge */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
-                  <div className="tech-icon-box">
-                    <Icon size={24} strokeWidth={2} color={color} />
-                  </div>
-
-                  <span
-                    style={{
-                      fontFamily: 'var(--qf-font-mono)',
-                      fontSize: '10.5px',
-                      fontWeight: 600,
-                      letterSpacing: '0.04em',
-                      textTransform: 'uppercase',
-                      color: color,
-                      background: `${color}16`,
-                      border: `1px solid ${color}35`,
-                      padding: '4px 10px',
-                      borderRadius: '999px',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '5px',
-                      boxShadow: '0 2px 6px rgba(0, 0, 0, 0.25)',
-                    }}
-                  >
-                    <span
-                      style={{
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        background: color,
-                      }}
-                    />
-                    {tag}
-                  </span>
+                {/* Prominently Centered Icon Pedestal */}
+                <div
+                  className="tech-icon-box"
+                  style={{
+                    marginBottom: '20px',
+                    borderColor: `${color}66`,
+                  }}
+                >
+                  <Icon size={26} strokeWidth={2.2} color={color} />
                 </div>
 
                 {/* Title & Description */}
@@ -281,41 +260,43 @@ export default function TechShowcase() {
         }
         /* High-contrast, non-blending card holder */
         .tech-card {
-          background: linear-gradient(180deg, #151D33 0%, #0D1322 100%);
-          border: 1px solid rgba(255, 255, 255, 0.14);
+          background: #0D1322;
+          border: 1px solid #1E293B;
           border-radius: 18px;
-          padding: 24px 22px 20px;
+          padding: 28px 24px 24px;
           display: flex;
           flex-direction: column;
+          align-items: center;
+          text-align: center;
           height: 100%;
-          box-shadow: 0 10px 28px -8px rgba(0, 0, 0, 0.65), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
-          transition: all 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+          transition: all 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
           cursor: default;
         }
         .tech-card:hover {
-          background: linear-gradient(180deg, #1A2440 0%, #10182B 100%);
-          border-color: var(--feat-color, rgba(79, 209, 255, 0.5));
-          transform: translateY(-5px);
-          box-shadow: 0 18px 40px -10px rgba(0, 0, 0, 0.8), inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+          background: #111827;
+          border-color: var(--feat-color, #38BDF8);
+          transform: translateY(-4px);
+          box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
         }
-        /* Elevated frosted pedestal for icon */
+        /* Prominently centered pedestal for icon (zero glow) */
         .tech-icon-box {
-          width: 50px;
-          height: 50px;
+          width: 58px;
+          height: 58px;
           border-radius: 14px;
-          background: linear-gradient(145deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 100%);
-          border: 1px solid rgba(255, 255, 255, 0.16);
-          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+          background: #080D1A;
+          border: 1.5px solid rgba(255, 255, 255, 0.14);
           display: flex;
           align-items: center;
-          justifyContent: center;
+          justify-content: center;
           flex-shrink: 0;
+          box-shadow: none;
           transition: all 0.25s ease;
         }
         .tech-card:hover .tech-icon-box {
           border-color: var(--feat-color);
-          background: linear-gradient(145deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.06) 100%);
-          transform: scale(1.06);
+          background: #0E162B;
+          transform: scale(1.08);
         }
         /* Bottom stats bar */
         .tech-stats-grid {
