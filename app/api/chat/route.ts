@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Groq from 'groq-sdk';
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-
 const SYSTEM_PROMPT = `You are Qara, an intelligent AI assistant for Quantum Flow — a premium web design and development agency based in Dubai, UAE.
 
 Your role is to help potential clients understand what Quantum Flow does, answer questions about services, pricing, and process, and guide interested leads toward booking a free consultation.
@@ -44,6 +42,15 @@ export async function POST(req: NextRequest) {
       content: String(m.content),
     }));
 
+    const apiKey = process.env.GROQ_API_KEY;
+    if (!apiKey) {
+      return NextResponse.json(
+        { error: 'Chat is temporarily unavailable. Please try again later.' },
+        { status: 503 }
+      );
+    }
+
+    const groq = new Groq({ apiKey });
     const stream = await groq.chat.completions.create({
       model: 'groq/compound',
       messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...history],
