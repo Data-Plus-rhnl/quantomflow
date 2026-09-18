@@ -281,26 +281,26 @@ export default function Navbar() {
               style={{
                 fontFamily: 'var(--qf-font-display)',
                 fontSize: '13px',
-                fontWeight: 600,
-                color: '#1a1a2e',
-                padding: '8px 16px',
+                fontWeight: 700,
+                color: '#FFFFFF',
+                padding: '9px 18px',
                 borderRadius: '9px',
-                background: '#FFB454',
-                border: '1px solid rgba(255,180,84,0.3)',
-                boxShadow: 'none',
+                background: '#1D63FF',
+                border: '1px solid rgba(255,255,255,0.15)',
+                boxShadow: '0 4px 14px rgba(29, 99, 255, 0.35)',
                 transition: 'all 0.18s ease',
                 textDecoration: 'none',
                 whiteSpace: 'nowrap',
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '5px',
+                gap: '6px',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#FFC170';
+                e.currentTarget.style.background = '#2E72FF';
                 e.currentTarget.style.transform = 'translateY(-1px)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#FFB454';
+                e.currentTarget.style.background = '#1D63FF';
                 e.currentTarget.style.transform = 'translateY(0)';
               }}
             >

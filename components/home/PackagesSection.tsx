@@ -234,10 +234,10 @@ export default function PackagesSection(_props: PackagesSectionProps) {
                     padding: '36px 28px',
                     textAlign: 'left',
                     alignItems: 'stretch',
-                    background: pkg.popular ? 'rgba(22, 29, 51, 0.85)' : 'rgba(22, 29, 51, 0.45)',
-                    border: pkg.popular ? '1px solid var(--qf-accent)' : '1px solid var(--qf-line)',
+                    background: pkg.popular ? 'rgba(29, 99, 255, 0.08)' : 'rgba(22, 29, 51, 0.45)',
+                    border: pkg.popular ? '1.5px solid var(--qf-accent)' : '1px solid var(--qf-line)',
                     boxShadow: pkg.popular
-                      ? '0 0 50px -10px rgba(79, 209, 255, 0.25), 0 20px 40px -20px rgba(0,0,0,0.6)'
+                      ? '0 20px 40px -15px rgba(0, 0, 0, 0.7)'
                       : 'var(--qf-shadow-card)',
                   }}
                 >
@@ -265,8 +265,8 @@ export default function PackagesSection(_props: PackagesSectionProps) {
                       <span
                         style={{
                           background: pkg.popular ? 'var(--qf-accent)' : 'var(--qf-bg-raised)',
-                          color: pkg.popular ? '#052430' : 'var(--qf-accent-2)',
-                          border: pkg.popular ? 'none' : '1px solid rgba(255, 180, 84, 0.4)',
+                          color: '#FFFFFF',
+                          border: pkg.popular ? 'none' : '1px solid rgba(29, 99, 255, 0.4)',
                           fontFamily: 'var(--qf-font-mono)',
                           fontSize: '11px',
                           fontWeight: 700,

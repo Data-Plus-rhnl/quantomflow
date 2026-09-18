@@ -3,24 +3,24 @@
    Exact recreation of the Quantum Flow brand system
    ============================================================ */
 :root {
-  /* ---- Brand palette ---- */
-  --qf-bg:            #0A0E1A;   /* primary background — deep ink navy */
-  --qf-bg-alt:        #10162B;   /* panel / alt-section background */
-  --qf-bg-raised:     #161D33;   /* card surface */
-  --qf-line:          #232B47;   /* hairline borders, dividers */
-  --qf-line-soft:     #1A2138;   /* faint borders */
+  /* ---- Brand palette (Disciplined 3-Color System matching Logo) ---- */
+  --qf-bg:            #070B16;   /* 1. Deep Obsidian / Ink Navy from Logo */
+  --qf-bg-alt:        #0D1322;   /* Panel / alt-section background */
+  --qf-bg-raised:     #121A2E;   /* Card surface */
+  --qf-line:          rgba(255, 255, 255, 0.08);  /* Hairline borders, dividers */
+  --qf-line-soft:     rgba(255, 255, 255, 0.04);  /* Faint borders */
 
-  --qf-text:          #E8ECF5;   /* primary text on dark */
-  --qf-text-muted:    #8B93A8;   /* secondary text */
-  --qf-text-faint:    #5B6480;   /* tertiary / captions */
+  --qf-text:          #FFFFFF;   /* 2. Crisp Pure White from Logo */
+  --qf-text-muted:    #94A3B8;   /* Secondary silver text */
+  --qf-text-faint:    #64748B;   /* Tertiary / captions */
 
-  --qf-accent:        #4FD1FF;   /* signature electric cyan — "the flow" */
-  --qf-accent-dim:     rgba(79, 209, 255, 0.14);
-  --qf-accent-line:    rgba(79, 209, 255, 0.35);
-  --qf-accent-2:       #FFB454;  /* warm amber — Dubai dusk */
-  --qf-accent-2-dim:   rgba(255, 180, 84, 0.14);
+  --qf-accent:        #1D63FF;   /* 3. Signature Royal Cobalt Blue from Logo */
+  --qf-accent-dim:    rgba(29, 99, 255, 0.12);
+  --qf-accent-line:   rgba(29, 99, 255, 0.28);
+  --qf-accent-2:      #1D63FF;   /* Unified with accent — strictly 3-color brand system */
+  --qf-accent-2-dim:  rgba(29, 99, 255, 0.08);
 
-  --qf-success:        #6EE7B7;
+  --qf-success:       #34D399;
 
   /* ---- Typography ---- */
   --qf-font-display:  var(--font-space-grotesk), 'Space Grotesk', -apple-system, sans-serif;
@@ -37,7 +37,7 @@
   --qf-gutter:         clamp(24px, 5vw, 72px);
 
   --qf-shadow-card:    0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 20px 40px -24px rgba(0, 0, 0, 0.6);
-  --qf-shadow-glow:    0 0 0 1px var(--qf-accent-line), 0 0 40px -8px rgba(79, 209, 255, 0.35);
+  --qf-shadow-glow:    0 0 0 1px var(--qf-accent-line);
 
   --qf-ease:           cubic-bezier(0.22, 0.61, 0.36, 1);
 }
@@ -266,18 +266,19 @@ button {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--qf-accent), var(--qf-accent-2));
-  background-size: 200% 200%;
-  color: #052430 !important;
-  box-shadow: 0 0 0 1px var(--qf-accent-line), 0 14px 30px -12px rgba(79, 209, 255, 0.55);
+  background: var(--qf-accent);
+  color: #FFFFFF !important;
+  font-weight: 600;
+  box-shadow: 0 4px 18px -4px rgba(29, 99, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   position: relative;
   overflow: hidden;
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 0 1px var(--qf-accent), 0 18px 36px -10px rgba(79, 209, 255, 0.65);
-  background-position: 100% 100%;
+  background: #2E72FF;
+  box-shadow: 0 8px 24px -4px rgba(29, 99, 255, 0.65);
 }
 
 .btn-primary::after {
@@ -554,12 +555,7 @@ button {
 }
 
 .hero h1 .accent {
-  background: linear-gradient(90deg, var(--qf-accent), var(--qf-accent-2), var(--qf-accent));
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: shimmerText 4s linear infinite;
+  color: #1D63FF;
 }
 
 @keyframes shimmerText {
@@ -732,17 +728,16 @@ button {
   transform: translateY(-4px);
   border-color: var(--qf-accent-line);
   background: rgba(22, 29, 51, 0.7);
-  box-shadow: 0 0 40px -10px rgba(79, 209, 255, 0.2);
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
 }
 
 .tech-card:hover::before {
-  background: linear-gradient(135deg, var(--qf-accent), var(--qf-accent-2));
+  background: var(--qf-accent);
 }
 
 .tech-icon {
   font-size: 36px;
   margin-bottom: 14px;
-  filter: drop-shadow(0 0 8px rgba(79, 209, 255, 0.3));
 }
 
 .tech-card h4 {
@@ -810,11 +805,11 @@ button {
 .svc-card:hover {
   background: var(--qf-bg-raised);
   transform: translateY(-6px);
-  box-shadow: var(--qf-shadow-card), 0 0 50px -15px rgba(79, 209, 255, 0.15);
+  box-shadow: var(--qf-shadow-card), 0 12px 30px -10px rgba(0, 0, 0, 0.5);
 }
 
 .svc-card:hover::before {
-  background: linear-gradient(135deg, var(--qf-accent), var(--qf-accent-2));
+  background: var(--qf-accent);
 }
 
 .svc-num {

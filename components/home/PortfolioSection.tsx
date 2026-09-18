@@ -33,15 +33,15 @@ const CATEGORIES: { id: CategoryFilter; label: string; icon: string }[] = [
 ];
 
 const CATEGORY_ACCENT: Record<string, string> = {
-  restaurants: '#FF5500',      // Vibrant RGB Flame Orange
-  clinics: '#00F0FF',          // High-Voltage RGB Cyan
-  ecommerce: '#A855F7',        // Electric RGB Violet
-  community: '#00FF88',        // High-Voltage Camo Mint / Neon Emerald
-  salons: '#FF007F',           // Punchy RGB Hot Pink / Magenta
-  corporate: '#00FF66',        // Electric RGB Neon Green
-  childcare: '#FFE600',        // Vivid RGB Cyber Yellow
-  'personal-brand': '#00B4D8', // Electric RGB Azure Blue
-  all: '#00F0FF',
+  restaurants: '#1D63FF',
+  clinics: '#1D63FF',
+  ecommerce: '#1D63FF',
+  community: '#1D63FF',
+  salons: '#1D63FF',
+  corporate: '#1D63FF',
+  childcare: '#1D63FF',
+  'personal-brand': '#1D63FF',
+  all: '#1D63FF',
 };
 
 function MetricBadge({ primary, label, accent }: { primary: string; label: string; accent?: string }) {
@@ -507,10 +507,11 @@ function ProjectPresentationDeck({
             aria-label="Next project"
             className="deck-nav-btn deck-nav-btn-next"
             style={{
-              background: accent,
-              borderColor: accent,
-              color: '#040711',
-              fontWeight: 800,
+              background: '#1D63FF',
+              borderColor: '#1D63FF',
+              color: '#FFFFFF',
+              fontWeight: 700,
+              boxShadow: 'none',
             }}
           >
             <span>Next</span>
@@ -617,10 +618,11 @@ function ProjectPresentationDeck({
               onClick={() => onOpenModal(project)}
               className="deck-primary-btn"
               style={{
-                background: accent,
-                borderColor: accent,
-                color: '#040711',
-                fontWeight: 800,
+                background: '#1D63FF',
+                borderColor: '#1D63FF',
+                color: '#FFFFFF',
+                fontWeight: 700,
+                boxShadow: 'none',
               }}
             >
               <span>Explore Complete Case Study</span>
@@ -942,7 +944,7 @@ function CaseStudyModal({
             }}
           >
             {[
-              { heading: 'The Challenge', color: '#FFB454', text: project.challenge },
+              { heading: 'The Challenge', color: '#94A3B8', text: project.challenge },
               { heading: 'Our Solution', color: accent, text: project.solution },
             ].map(({ heading, color, text }) => (
               <div
@@ -1348,8 +1350,8 @@ export default function PortfolioSection() {
                     padding: '6px 13px',
                     borderRadius: '7px',
                     border: 'none',
-                    background: viewMode === 'presentation' ? '#00F0FF' : 'transparent',
-                    color: viewMode === 'presentation' ? '#040711' : '#94A3B8',
+                    background: viewMode === 'presentation' ? '#1D63FF' : 'transparent',
+                    color: viewMode === 'presentation' ? '#FFFFFF' : '#94A3B8',
                     cursor: 'pointer',
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -1376,8 +1378,8 @@ export default function PortfolioSection() {
                     padding: '6px 13px',
                     borderRadius: '7px',
                     border: 'none',
-                    background: viewMode === 'grid' ? '#00F0FF' : 'transparent',
-                    color: viewMode === 'grid' ? '#040711' : '#94A3B8',
+                    background: viewMode === 'grid' ? '#1D63FF' : 'transparent',
+                    color: viewMode === 'grid' ? '#FFFFFF' : '#94A3B8',
                     cursor: 'pointer',
                     display: 'inline-flex',
                     alignItems: 'center',

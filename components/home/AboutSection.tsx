@@ -195,11 +195,11 @@ export default function AboutSection() {
                   <stop offset="100%" stopColor="#161D33" />
                 </linearGradient>
                 <linearGradient id="glowGrad" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="var(--qf-accent)" />
-                  <stop offset="100%" stopColor="var(--qf-accent-2)" />
+                  <stop offset="0%" stopColor="#1D63FF" />
+                  <stop offset="100%" stopColor="#60A5FA" />
                 </linearGradient>
                 <radialGradient id="spotGrad" cx="50%" cy="30%">
-                  <stop offset="0%" stopColor="rgba(79,209,255,0.15)" />
+                  <stop offset="0%" stopColor="rgba(29,99,255,0.18)" />
                   <stop offset="100%" stopColor="transparent" />
                 </radialGradient>
               </defs>

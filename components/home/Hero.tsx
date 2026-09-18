@@ -59,7 +59,7 @@ export default function Hero() {
         <div style={{ position: 'absolute', inset: 0, background: 'rgba(10,14,26,0.55)' }} />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, var(--qf-bg) 0%, transparent 18%, transparent 82%, var(--qf-bg) 100%)' }} />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(10,14,26,0.85) 0%, rgba(10,14,26,0.5) 38%, transparent 60%)' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 80% 55% at 72% 110%, rgba(255,180,84,0.14) 0%, transparent 65%), radial-gradient(ellipse 60% 40% at 20% -10%, rgba(79,209,255,0.07) 0%, transparent 60%)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 80% 55% at 72% 110%, rgba(29,99,255,0.18) 0%, transparent 65%), radial-gradient(ellipse 60% 40% at 20% -10%, rgba(29,99,255,0.12) 0%, transparent 60%)' }} />
       </div>
 
       <div className="wrap" style={{ position: 'relative', zIndex: 1 }}>
@@ -120,7 +120,7 @@ export default function Hero() {
                   zIndex: item.zIndex,
                   borderRadius: '14px', overflow: 'hidden',
                   border: '1px solid rgba(255,255,255,0.08)',
-                  boxShadow: '0 20px 60px -12px rgba(0,0,0,0.7), 0 0 0 1px rgba(79,209,255,0.08)',
+                  boxShadow: '0 20px 60px -12px rgba(0,0,0,0.7), 0 0 0 1px rgba(29,99,255,0.15)',
                   animation: `heroCardFloat ${6 + i * 1.4}s ease-in-out ${i * 0.8}s infinite alternate`,
                   willChange: 'transform',
                   background: '#0A0E1A',

@@ -80,14 +80,7 @@ export default function LeadGenStrip() {
               >
                 Ready to grow your business online?
                 <br />
-                <span
-                  style={{
-                    background: 'linear-gradient(90deg, var(--qf-accent), var(--qf-accent-2))',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                  }}
-                >
+                <span style={{ color: '#1D63FF' }}>
                   Get a free quote today.
                 </span>
               </h2>
@@ -105,23 +98,24 @@ export default function LeadGenStrip() {
                   alignItems: 'center',
                   gap: '8px',
                   fontFamily: 'var(--qf-font-display)',
-                  fontWeight: 600,
+                  fontWeight: 700,
                   fontSize: '14.5px',
-                  color: '#052430',
+                  color: '#FFFFFF',
                   padding: '13px 28px',
                   borderRadius: '999px',
-                  background: 'linear-gradient(135deg, #4FD1FF, #FFB454)',
-                  boxShadow: '0 0 30px -6px rgba(79,209,255,0.5)',
+                  background: '#1D63FF',
+                  boxShadow: 'none',
                   textDecoration: 'none',
-                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                  border: '1px solid rgba(255,255,255,0.15)',
+                  transition: 'transform 0.2s ease, background 0.2s ease',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 4px 32px -4px rgba(79,209,255,0.65)';
+                  e.currentTarget.style.background = '#2E72FF';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 0 30px -6px rgba(79,209,255,0.5)';
+                  e.currentTarget.style.background = '#1D63FF';
                 }}
               >
                 Get a Free Quote →
@@ -142,17 +136,17 @@ export default function LeadGenStrip() {
                   padding: '13px 28px',
                   borderRadius: '999px',
                   background: '#25D366',
-                  boxShadow: '0 0 24px -6px rgba(37,211,102,0.5)',
+                  boxShadow: 'none',
                   textDecoration: 'none',
-                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                  transition: 'transform 0.2s ease, opacity 0.2s ease',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 4px 28px -4px rgba(37,211,102,0.65)';
+                  e.currentTarget.style.opacity = '0.9';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 0 24px -6px rgba(37,211,102,0.5)';
+                  e.currentTarget.style.opacity = '1';
                 }}
               >
                 <IconWhatsApp />

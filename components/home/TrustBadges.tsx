@@ -33,15 +33,15 @@ function IconNoHiddenFees() {
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
         d="M12 2L3.5 6v6.2c0 5.17 3.63 10.01 8.5 11.23 4.87-1.22 8.5-6.06 8.5-11.23V6L12 2z"
-        stroke="#FFB454"
+        stroke="#1D63FF"
         strokeWidth="1.7"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="rgba(255,180,84,0.1)"
+        fill="rgba(29, 99, 255, 0.12)"
       />
       <path
         d="M9 12l2 2 4-4"
-        stroke="#FFB454"
+        stroke="#1D63FF"
         strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -50,24 +50,24 @@ function IconNoHiddenFees() {
   );
 }
 
-// 4.9 star: filled gold star with a subtle half-fill
+// 4.9 star: filled star in Royal Cobalt Blue
 function IconStar() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       {/* Full filled star */}
       <path
         d="M12 2l2.9 5.9 6.5.95-4.7 4.58 1.1 6.43L12 17.02l-5.8 3.05 1.1-6.43L2.6 8.85l6.5-.95L12 2z"
-        fill="#FFB454"
-        stroke="#FFB454"
+        fill="#1D63FF"
+        stroke="#1D63FF"
         strokeWidth="0.5"
       />
       {/* Shine glint */}
       <path
         d="M12 4.5l1.8 3.6 4 .58-2.9 2.82.68 3.97L12 13.3"
-        fill="rgba(255,255,255,0.18)"
+        fill="rgba(255,255,255,0.25)"
       />
       {/* 4.9 text hint — small dot below */}
-      <circle cx="12" cy="21" r="1" fill="#FFB454" opacity="0.6" />
+      <circle cx="12" cy="21" r="1" fill="#1D63FF" opacity="0.6" />
     </svg>
   );
 }
@@ -85,19 +85,19 @@ function IconGoogleAds() {
   );
 }
 
-// Payment: credit card with Stripe purple + Apple Pay styling
+// Payment: credit card with Royal Blue styling
 function IconPayments() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       {/* Card body */}
-      <rect x="2" y="5" width="20" height="14" rx="3" fill="#1A1F36" stroke="#B794F4" strokeWidth="1.2" />
+      <rect x="2" y="5" width="20" height="14" rx="3" fill="#0C1322" stroke="#1D63FF" strokeWidth="1.2" />
       {/* Magnetic stripe */}
-      <rect x="2" y="9" width="20" height="3" fill="#B794F4" opacity="0.35" />
+      <rect x="2" y="9" width="20" height="3" fill="#1D63FF" opacity="0.35" />
       {/* Chip */}
-      <rect x="5" y="13.5" width="5" height="3" rx="1" fill="#B794F4" opacity="0.6" />
+      <rect x="5" y="13.5" width="5" height="3" rx="1" fill="#1D63FF" opacity="0.6" />
       {/* Contactless waves */}
-      <path d="M15 13a2 2 0 010 2" stroke="#B794F4" strokeWidth="1.2" strokeLinecap="round" opacity="0.7" />
-      <path d="M17 11.5a4 4 0 010 5" stroke="#B794F4" strokeWidth="1.2" strokeLinecap="round" opacity="0.5" />
+      <path d="M15 13a2 2 0 010 2" stroke="#1D63FF" strokeWidth="1.2" strokeLinecap="round" opacity="0.7" />
+      <path d="M17 11.5a4 4 0 010 5" stroke="#1D63FF" strokeWidth="1.2" strokeLinecap="round" opacity="0.5" />
     </svg>
   );
 }
@@ -109,31 +109,31 @@ const BADGES = [
     Icon: IconUAE,
     label: 'Dubai DED Registered',
     sub: 'Licensed tech agency · UAE',
-    color: '#00F0FF',
+    color: '#1D63FF',
   },
   {
     Icon: IconNoHiddenFees,
     label: 'No Hidden Fees',
     sub: '100% transparent pricing',
-    color: '#FFAA00',
+    color: '#1D63FF',
   },
   {
     Icon: IconStar,
     label: '4.9 / 5.0 Rating',
     sub: 'Verified UAE client reviews',
-    color: '#FFB800',
+    color: '#1D63FF',
   },
   {
     Icon: IconGoogleAds,
     label: 'Google Ads Certified',
     sub: 'High-converting lead gen',
-    color: '#00FF66',
+    color: '#1D63FF',
   },
   {
     Icon: IconPayments,
     label: 'UAE Payment Gateways',
     sub: 'Stripe · Apple Pay · Tabby',
-    color: '#B026FF',
+    color: '#1D63FF',
   },
 ];
 
