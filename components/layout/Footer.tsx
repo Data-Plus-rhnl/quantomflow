@@ -90,7 +90,7 @@ export default function Footer() {
               <Link href="/#industries">Industries</Link>
               <Link href="/#process">Our process</Link>
               <Link href="/#blog">Blog</Link>
-              <a href="#contact">Careers</a>
+              <Link href="/request-quote">Request a Quote</Link>
             </div>
           </div>
 

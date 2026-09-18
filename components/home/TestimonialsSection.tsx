@@ -19,7 +19,7 @@ export default function TestimonialsSection() {
               Real client testimonials coming soon. In the meantime, reach out and we&apos;ll connect you with teams we&apos;ve partnered with.
             </p>
             <div style={{ marginTop: '32px' }}>
-              <Link href="#contact" className="btn btn-primary">
+              <Link href="/request-quote" className="btn btn-primary">
                 Get in Touch →
               </Link>
             </div>

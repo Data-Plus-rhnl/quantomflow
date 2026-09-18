@@ -17,7 +17,7 @@ const BUSINESS_TYPES = [
     desc: 'Direct online ordering systems, live kitchen dispatch, digital QR menus, and direct delivery channels to protect your restaurant margins in Dubai.',
     capabilities: ['Direct Online Ordering', 'QR Tableside Pay & Menu', 'WhatsApp Ordering Bot'],
     color: '#FF8C42',
-    href: '#contact',
+    href: '/request-quote',
   },
   {
     iconSrc: '/industries/industry-clinic.png',
@@ -27,7 +27,7 @@ const BUSINESS_TYPES = [
     desc: 'Patient booking funnels, doctor profile showcases, automated WhatsApp reminders, and SEO tuned for high-intent aesthetic and dental searches in Dubai.',
     capabilities: ['Instant Doctor Scheduling', 'Patient Inquiry Funnel', 'Local Clinic SEO Engine'],
     color: '#F472B6',
-    href: '#contact',
+    href: '/request-quote',
   },
   {
     iconSrc: '/industries/industry-retail.png',
@@ -37,7 +37,7 @@ const BUSINESS_TYPES = [
     desc: 'Sub-second Next.js storefronts with Tabby & Tamara BNPL, 1-click Apple Pay checkout, Instagram Shop sync, and automated UAE courier tracking.',
     capabilities: ['1-Click Apple Pay & BNPL', 'Instagram Shop Sync', 'UAE Courier Integration'],
     color: '#A78BFA',
-    href: '#contact',
+    href: '/request-quote',
   },
   {
     iconSrc: '/industries/industry-corporate.png',
@@ -47,7 +47,7 @@ const BUSINESS_TYPES = [
     desc: 'Institutional-grade corporate websites, investor pitch portals, and B2B lead generation funnels designed to win high-ticket contracts in the GCC.',
     capabilities: ['High-Ticket Lead Funnels', 'Investor Data Rooms', 'Multilingual Arabic/EN'],
     color: '#34D399',
-    href: '#contact',
+    href: '/request-quote',
   },
   {
     iconSrc: '/industries/industry-realestate.png',
@@ -57,7 +57,7 @@ const BUSINESS_TYPES = [
     desc: 'High-converting property listing portals, off-plan developer showcases, interactive floorplans, and WhatsApp CRM automations for Dubai brokers.',
     capabilities: ['Off-Plan Project Portals', 'WhatsApp Lead Routing', 'Interactive Floorplans'],
     color: '#38BDF8',
-    href: '#contact',
+    href: '/request-quote',
   },
   {
     iconSrc: '/industries/industry-fitness.png',
@@ -67,7 +67,7 @@ const BUSINESS_TYPES = [
     desc: 'Class scheduling engines, recurring membership subscriptions, trainer booking calendars, and mobile-first portals built to maximize client retention.',
     capabilities: ['Automated Memberships', 'Class & PT Scheduler', 'Custom Member PWA'],
     color: '#FBBF24',
-    href: '#contact',
+    href: '/request-quote',
   },
 ];
 

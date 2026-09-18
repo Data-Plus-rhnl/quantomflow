@@ -18,7 +18,6 @@ import BusinessTypesSection from '@/components/home/BusinessTypesSection';
 import BlogSection from '@/components/home/BlogSection';
 import TestimonialsSection from '@/components/home/TestimonialsSection';
 import LeadGenStrip from '@/components/home/LeadGenStrip';
-import CtaBand from '@/components/home/CtaBand';
 import AIChatBot from '@/components/ui/AIChatBot';
 import FloatingWhatsApp from '@/components/ui/FloatingWhatsApp';
 
@@ -42,7 +41,6 @@ export default function HomePage() {
         <BlogSection />
         <TestimonialsSection />
         <LeadGenStrip />
-        <CtaBand />
       </main>
       <Footer />
       <AIChatBot />

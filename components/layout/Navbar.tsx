@@ -276,7 +276,7 @@ export default function Navbar() {
 
             {/* Primary CTA */}
             <Link
-              href={href('contact')}
+              href="/request-quote"
               className="nav-cta-primary"
               style={{
                 fontFamily: 'var(--qf-font-display)',
@@ -378,6 +378,23 @@ export default function Navbar() {
               {label}
             </Link>
           ))}
+          <div style={{ marginTop: '24px' }}>
+            <Link
+              href="/request-quote"
+              onClick={close}
+              className="btn btn-primary"
+              style={{
+                width: '100%',
+                textAlign: 'center',
+                padding: '14px',
+                fontSize: '15px',
+                fontWeight: 700,
+                display: 'block',
+              }}
+            >
+              Start a Project / Request Quote →
+            </Link>
+          </div>
         </nav>
       </div>
 

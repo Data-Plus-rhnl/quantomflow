@@ -75,7 +75,7 @@ export default function PackagesSection(_props: PackagesSectionProps) {
                       marginBottom: '14px',
                     }}
                   >
-                    <span>⚡ {LANDING_PAGE_DEAL.badge}</span>
+                    <span>{LANDING_PAGE_DEAL.badge}</span>
                   </div>
 
                   <h3
@@ -369,7 +369,7 @@ export default function PackagesSection(_props: PackagesSectionProps) {
 
                   {/* Action button */}
                   <Link
-                    href="#contact"
+                    href={`/request-quote?package=${encodeURIComponent(pkg.name)}`}
                     className={`btn ${pkg.popular ? 'btn-primary' : 'btn-ghost'}`}
                     style={{ width: '100%', textAlign: 'center' }}
                   >

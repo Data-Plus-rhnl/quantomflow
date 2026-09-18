@@ -97,7 +97,7 @@ export default function Hero() {
             </p>
 
             <div className="hero-actions">
-              <Link href="#contact" className="btn btn-primary">Start a Project →</Link>
+              <Link href="/request-quote" className="btn btn-primary">Start a Project →</Link>
               <Link href="#portfolio" className="btn btn-ghost">See Our Work ↓</Link>
             </div>
 

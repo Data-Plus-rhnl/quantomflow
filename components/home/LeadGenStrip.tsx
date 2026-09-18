@@ -14,7 +14,7 @@ function IconWhatsApp() {
 
 export default function LeadGenStrip() {
   return (
-    <section style={{ position: 'relative', zIndex: 1, paddingBlock: 'clamp(40px,6vw,64px)' }}>
+    <section id="contact" style={{ position: 'relative', zIndex: 1, paddingBlock: 'clamp(40px,6vw,64px)' }}>
       <div className="wrap">
         <ScrollReveal>
           <div
@@ -99,7 +99,7 @@ export default function LeadGenStrip() {
             {/* CTA row */}
             <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', justifyContent: 'center' }}>
               <Link
-                href="#contact"
+                href="/request-quote"
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',

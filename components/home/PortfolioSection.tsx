@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import ScrollReveal from '../ui/ScrollReveal';
 import { PORTFOLIO_PROJECTS } from '@/lib/portfolio-data';
 import { PortfolioProject } from '@/lib/types';
@@ -646,9 +647,9 @@ function ProjectPresentationDeck({
               </a>
             )}
 
-            <a href="#contact" className="deck-secondary-link">
+            <Link href="/request-quote" className="deck-secondary-link">
               Build Similar System &rarr;
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -1134,13 +1135,13 @@ function CaseStudyModal({
               >
                 Close
               </button>
-              <a
-                href="#contact"
+              <Link
+                href="/request-quote"
                 className="btn btn-primary btn-sm"
                 onClick={() => onClose()}
               >
                 Start a Project →
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -1449,9 +1450,9 @@ export default function PortfolioSection() {
                   Tell us what you want to build &mdash; we reply within one business day.
                 </p>
               </div>
-              <a href="#contact" className="btn btn-primary" style={{ flexShrink: 0 }}>
+              <Link href="/request-quote" className="btn btn-primary" style={{ flexShrink: 0 }}>
                 Start a Project &rarr;
-              </a>
+              </Link>
             </div>
           </ScrollReveal>
 
