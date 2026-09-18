@@ -385,6 +385,7 @@ export default function ContactModal({ isOpen, onClose, initialPackage }: Contac
                       outline: 'none',
                     }}
                   >
+                    <option value="Landing Page Campaign Deal (AED 999)">Landing Page Campaign Deal (AED 999)</option>
                     <option value="Starter Launchpad (AED 4,500)">Starter Launchpad (AED 4,500)</option>
                     <option value="Growth & Direct Commerce (AED 8,900)">Growth & Direct Commerce (AED 8,900)</option>
                     <option value="Enterprise Scale & Custom Apps (AED 16,500+)">Enterprise Scale & Custom Apps (AED 16,500+)</option>

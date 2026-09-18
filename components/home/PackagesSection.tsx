@@ -3,17 +3,21 @@
 import React from 'react';
 import Link from 'next/link';
 import ScrollReveal from '../ui/ScrollReveal';
-import { SERVICE_PACKAGES } from '@/lib/packages-data';
+import { SERVICE_PACKAGES, LANDING_PAGE_DEAL } from '@/lib/packages-data';
 
 interface PackagesSectionProps {}
 
 export default function PackagesSection(_props: PackagesSectionProps) {
+  const waLandingUrl = `https://wa.me/971528903292?text=${encodeURIComponent(
+    'Hello Quantum Flow! I would like to claim the 999 AED Landing Page Special Offer.'
+  )}`;
+
   return (
     <>
       <section className="section section-alt" id="packages">
         <div className="wrap">
           <ScrollReveal
-            style={{ textAlign: 'center', maxWidth: '680px', marginInline: 'auto', marginBottom: '56px' }}
+            style={{ textAlign: 'center', maxWidth: '680px', marginInline: 'auto', marginBottom: '44px' }}
           >
             <div className="eyebrow" style={{ justifyContent: 'center' }}>
               Transparent Agency Pricing
@@ -28,6 +32,189 @@ export default function PackagesSection(_props: PackagesSectionProps) {
             </p>
           </ScrollReveal>
 
+          {/* ⚡ 999 AED Special Landing Page Deal — Featured Above the 3 Packages */}
+          <ScrollReveal style={{ marginBottom: '44px' }}>
+            <div
+              id="special-offer"
+              style={{
+                scrollMarginTop: '100px',
+                backgroundColor: '#0c1322',
+                border: '1.5px solid rgba(52, 211, 153, 0.5)',
+                borderRadius: '16px',
+                padding: 'clamp(24px, 4vw, 36px)',
+                position: 'relative',
+                boxShadow: '0 16px 40px rgba(0, 0, 0, 0.5)',
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: '24px',
+                }}
+              >
+                {/* Left side: details */}
+                <div style={{ flex: '1 1 500px', minWidth: '280px' }}>
+                  <div
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '5px 12px',
+                      borderRadius: '999px',
+                      backgroundColor: '#062e24',
+                      border: '1px solid #059669',
+                      color: '#34d399',
+                      fontFamily: 'var(--qf-font-mono)',
+                      fontSize: '11.5px',
+                      fontWeight: 700,
+                      letterSpacing: '0.05em',
+                      textTransform: 'uppercase',
+                      marginBottom: '14px',
+                    }}
+                  >
+                    <span>⚡ {LANDING_PAGE_DEAL.badge}</span>
+                  </div>
+
+                  <h3
+                    style={{
+                      fontFamily: 'var(--qf-font-display)',
+                      fontSize: 'clamp(22px, 3vw, 28px)',
+                      fontWeight: 700,
+                      color: '#ffffff',
+                      marginBottom: '10px',
+                      letterSpacing: '-0.01em',
+                    }}
+                  >
+                    {LANDING_PAGE_DEAL.name}
+                  </h3>
+
+                  <p
+                    style={{
+                      fontSize: '14.5px',
+                      color: '#94a3b8',
+                      lineHeight: '1.6',
+                      marginBottom: '20px',
+                      maxWidth: '640px',
+                    }}
+                  >
+                    {LANDING_PAGE_DEAL.description}
+                  </p>
+
+                  <div
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+                      gap: '10px 16px',
+                    }}
+                  >
+                    {LANDING_PAGE_DEAL.features.map((feat, i) => (
+                      <div
+                        key={i}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          fontSize: '13px',
+                          color: '#e2e8f0',
+                        }}
+                      >
+                        <span style={{ color: '#34d399', fontWeight: 700 }}>✓</span>
+                        <span>{feat}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Right side: price and action */}
+                <div
+                  style={{
+                    flex: '0 0 auto',
+                    minWidth: '240px',
+                    backgroundColor: '#111827',
+                    border: '1px solid #1f293d',
+                    borderRadius: '12px',
+                    padding: '24px 22px',
+                    textAlign: 'center',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: '11px',
+                      fontFamily: 'var(--qf-font-mono)',
+                      color: '#94a3b8',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.06em',
+                      marginBottom: '4px',
+                    }}
+                  >
+                    Special Campaign Price
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', marginBottom: '4px' }}>
+                    <span style={{ fontFamily: 'var(--qf-font-mono)', fontSize: '14px', color: 'var(--qf-accent)' }}>
+                      AED
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--qf-font-display)',
+                        fontSize: '42px',
+                        fontWeight: 800,
+                        color: '#ffffff',
+                        lineHeight: 1,
+                      }}
+                    >
+                      {LANDING_PAGE_DEAL.priceAed}
+                    </span>
+                  </div>
+                  <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '16px' }}>
+                    {LANDING_PAGE_DEAL.priceNote}
+                  </div>
+
+                  <a
+                    href={waLandingUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn"
+                    style={{
+                      width: '100%',
+                      backgroundColor: '#25d366',
+                      color: '#000000',
+                      fontWeight: 700,
+                      fontSize: '13.5px',
+                      padding: '11px 16px',
+                      borderRadius: '8px',
+                      textDecoration: 'none',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    Claim 999 AED Deal →
+                  </a>
+                </div>
+              </div>
+            </div>
+          </ScrollReveal>
+
+          {/* Subtitle above the 3 packages */}
+          <div
+            style={{
+              textAlign: 'center',
+              marginBottom: '32px',
+              color: '#94a3b8',
+              fontSize: '14px',
+              letterSpacing: '0.02em',
+              fontWeight: 500,
+            }}
+          >
+            Or select a complete multi-page business system below:
+          </div>
+
+          {/* The 3 Core Packages */}
           <div
             style={{
               display: 'grid',
@@ -186,7 +373,7 @@ export default function PackagesSection(_props: PackagesSectionProps) {
                     className={`btn ${pkg.popular ? 'btn-primary' : 'btn-ghost'}`}
                     style={{ width: '100%', textAlign: 'center' }}
                   >
-                    {pkg.popular ? 'Start a Project →' : 'Start a Project →'}
+                    Start a Project →
                   </Link>
                 </div>
               </ScrollReveal>

@@ -1,5 +1,25 @@
 import { ServicePackage } from './types';
 
+export const LANDING_PAGE_DEAL = {
+  id: 'landing-page-deal',
+  name: 'Landing Page Campaign Sprint',
+  badge: 'Special Deal · Ads & Campaign Ready',
+  priceAed: '999',
+  priceNote: 'One-time investment · 100% ownership',
+  turnaround: '3–5 Business Days',
+  tagline: 'High-Converting Single Page for Google Ads & Promotions',
+  description:
+    'Designed specifically for a single service, product launch, or paid Google Ads campaign. Provides a clear, direct funnel from first impression to WhatsApp enquiry.',
+  features: [
+    '1 Bespoke, High-Converting Landing Page',
+    'Designed for Google Ads & Social Campaigns',
+    'Direct 1-Tap WhatsApp Lead Capture Integration',
+    'Quote & Contact Form with Instant Email Alerts',
+    'Google Ads & Analytics Conversion Tracking Setup',
+    'Fast 3–5 Business Days Turnaround',
+  ],
+};
+
 export const SERVICE_PACKAGES: ServicePackage[] = [
   {
     id: 'starter-launchpad',
