@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { ContactFormData, ServicePackage } from '@/lib/types';
 
 interface ContactModalProps {
@@ -10,6 +11,7 @@ interface ContactModalProps {
 }
 
 export default function ContactModal({ isOpen, onClose, initialPackage }: ContactModalProps) {
+  const router = useRouter();
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
@@ -54,6 +56,8 @@ export default function ContactModal({ isOpen, onClose, initialPackage }: Contac
       }
 
       setStatus('success');
+      onClose();
+      router.push('/thank-you');
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Failed to submit form.';
       setErrorMessage(msg);
