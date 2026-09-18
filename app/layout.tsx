@@ -31,16 +31,16 @@ export const metadata: Metadata = {
   title: 'Quantum Flow — Web Design & Digital Marketing Agency Dubai | Website Development UAE',
   description:
     'Top web design & digital marketing agency in Dubai. We build fast websites, run Google Ads, and handle SEO for restaurants, clinics, salons & local businesses across the UAE. Get a free quote today.',
-  keywords: 'web design Dubai, website development Dubai, digital marketing Dubai, SEO Dubai, Google Ads Dubai, website design agency UAE, lead generation Dubai, business website Dubai, website maintenance Dubai, web development company Dubai',
+  keywords:
+    'web design Dubai, website development Dubai, digital marketing Dubai, SEO Dubai, Google Ads Dubai, website design agency UAE, lead generation Dubai, business website Dubai, website maintenance Dubai, web development company Dubai',
   metadataBase: new URL('https://quantumflowit.com'),
+  alternates: {
+    canonical: 'https://quantumflowit.com',
+  },
   icons: {
-    icon: [
-      { url: '/qf-logo-avatar.png', type: 'image/png' },
-    ],
+    icon: [{ url: '/qf-logo-avatar.png', type: 'image/png' }],
     shortcut: '/qf-logo-avatar.png',
-    apple: [
-      { url: '/qf-logo-avatar.png', sizes: '180x180', type: 'image/png' },
-    ],
+    apple: [{ url: '/qf-logo-avatar.png', sizes: '180x180', type: 'image/png' }],
   },
   openGraph: {
     title: 'Quantum Flow — Web Design & Digital Marketing Agency Dubai',
@@ -48,13 +48,23 @@ export const metadata: Metadata = {
       'Fast websites, Google Ads & SEO for Dubai restaurants, clinics, salons & local businesses. Free consultation available.',
     url: 'https://quantumflowit.com',
     siteName: 'Quantum Flow',
+    locale: 'en_AE',
     type: 'website',
+    images: [
+      {
+        url: 'https://quantumflowit.com/QuantumFlowLogo.jpeg',
+        width: 1200,
+        height: 630,
+        alt: 'Quantum Flow — Web Design & Digital Marketing Agency Dubai',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Quantum Flow — Web Design & Digital Marketing Agency Dubai',
     description:
       'Fast websites, Google Ads & SEO for Dubai restaurants, clinics, salons & local businesses. Free consultation available.',
+    images: ['https://quantumflowit.com/QuantumFlowLogo.jpeg'],
   },
 };
 
@@ -65,12 +75,74 @@ export default function RootLayout({
 }) {
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
+    '@type': ['ProfessionalService', 'LocalBusiness', 'Organization'],
     name: 'Quantum Flow Information Technologies',
+    alternateName: 'Quantum Flow Dubai',
     description:
-      'Premium website design, online ordering systems, and mobile apps for local cafes, restaurants, and shops in Dubai, UAE.',
+      'Leading website design, online ordering platforms, and digital marketing agency for clinics, restaurants, salons, and businesses in Dubai, UAE.',
     url: 'https://quantumflowit.com',
     logo: 'https://quantumflowit.com/QuantumFlowLogo.jpeg',
+    image: 'https://quantumflowit.com/QuantumFlowLogo.jpeg',
+    telephone: '+971528903292',
+    email: 'support@quantumflowit.com',
+    priceRange: 'AED 4,500 – AED 25,000',
+    currenciesAccepted: 'AED, USD',
+    paymentAccepted: 'Cash, Credit Card, Bank Transfer, Stripe',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Dubai',
+      addressRegion: 'Dubai',
+      addressCountry: 'AE',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 25.2048,
+      longitude: 55.2708,
+    },
+    areaServed: [
+      { '@type': 'City', name: 'Dubai' },
+      { '@type': 'City', name: 'Abu Dhabi' },
+      { '@type': 'City', name: 'Sharjah' },
+      { '@type': 'Country', name: 'United Arab Emirates' },
+    ],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Agency Services',
+      itemListElement: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Web Design & Web Development',
+            description: 'Custom high-performance websites built with Next.js and React.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'E-Commerce & Online Ordering',
+            description: 'Direct commerce websites with UAE payment gateway integration.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Google Ads & Performance Marketing',
+            description: 'High-converting search and display ad campaigns for Dubai businesses.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Local SEO & Google Maps Optimization',
+            description: 'Rank local UAE businesses on Google Search and Google Maps.',
+          },
+        },
+      ],
+    },
     contactPoint: {
       '@type': 'ContactPoint',
       email: 'support@quantumflowit.com',
