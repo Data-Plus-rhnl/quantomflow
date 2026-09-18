@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from 'next';
 import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { NavbarProvider } from '@/components/layout/NavbarContext';
+import { ThemeProvider } from '@/components/theme/ThemeContext';
+import IntroAnimation from '@/components/ui/IntroAnimation';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -161,8 +163,29 @@ export default function RootLayout({
         <link rel="icon" href="/qf-logo-avatar.png" type="image/png" />
         <link rel="apple-touch-icon" href="/qf-logo-avatar.png" />
         <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('qf-theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}else{document.documentElement.setAttribute('data-theme','dark');}}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();`,
+          }}
+        />
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              #qf-intro-curtain {
+                position: fixed;
+                inset: 0;
+                width: 100vw;
+                height: 100vh;
+                z-index: 999999;
+                pointer-events: none;
+                overflow: hidden;
+                background-color: #070B16;
+              }
+            `,
+          }}
         />
       </head>
       <body>
@@ -173,9 +196,12 @@ export default function RootLayout({
         <div className="bg-field" aria-hidden="true"></div>
         <div className="bg-grid" aria-hidden="true"></div>
         <div className="noise" aria-hidden="true"></div>
-        <NavbarProvider>
-          {children}
-        </NavbarProvider>
+        <IntroAnimation />
+        <ThemeProvider>
+          <NavbarProvider>
+            {children}
+          </NavbarProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTheme } from '@/components/theme/ThemeContext';
 
 const ROTATING_INDUSTRIES = [
   'restaurants & cafés',
@@ -22,6 +23,8 @@ const MOSAIC = [
 export default function Hero() {
   const [industryIndex, setIndustryIndex] = useState(0);
   const [visible, setVisible] = useState(true);
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -35,44 +38,92 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="hero" id="top">
+    <section
+      className="hero"
+      id="top"
+      style={{
+        background: isDark ? '#070B16' : '#FFFFFF',
+        position: 'relative',
+        transition: 'background 0.3s ease',
+      }}
+    >
 
-      {/* ── Background diagonal strips ── */}
-      <div aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: 0, overflow: 'hidden', pointerEvents: 'none', transform: 'translate3d(0, 0, 0)', backfaceVisibility: 'hidden' }}>
-        {[
-          '/portfolio/restaurant-ordering.jpg',
-          '/portfolio/clinic-booking.jpg',
-          '/portfolio/camofriday.png',
-          '/portfolio/salon-spa.jpg',
-          '/portfolio/AnnarChildcare.png',
-          '/portfolio/corporate-portal.jpg',
-          '/portfolio/VahidDorri.png',
-        ].map((src, i) => (
-          <div key={src} style={{
-            position: 'absolute', top: '-20%', left: `${i * 14.5 - 5}%`,
-            width: '18%', height: '140%', transform: 'translate3d(0, 0, 0) skewX(-18deg)',
-            willChange: 'transform', backfaceVisibility: 'hidden',
-            backgroundImage: `url(${src})`, backgroundSize: 'cover', backgroundPosition: 'center',
-            opacity: 0.28, outline: '2px solid rgba(10,14,26,0.9)',
-          }} />
-        ))}
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(10,14,26,0.55)' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, var(--qf-bg) 0%, transparent 18%, transparent 82%, var(--qf-bg) 100%)' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(10,14,26,0.85) 0%, rgba(10,14,26,0.5) 38%, transparent 60%)' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 80% 55% at 72% 110%, rgba(29,99,255,0.18) 0%, transparent 65%), radial-gradient(ellipse 60% 40% at 20% -10%, rgba(29,99,255,0.12) 0%, transparent 60%)' }} />
-      </div>
+      {/* ── Background: Dark ribbons in Dark Mode, Dedicated single light architectural image in Light Mode ── */}
+      {isDark ? (
+        <div aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: 0, overflow: 'hidden', pointerEvents: 'none', transform: 'translate3d(0, 0, 0)', backfaceVisibility: 'hidden' }}>
+          {[
+            '/portfolio/restaurant-ordering.jpg',
+            '/portfolio/clinic-booking.jpg',
+            '/portfolio/camofriday.png',
+            '/portfolio/salon-spa.jpg',
+            '/portfolio/AnnarChildcare.png',
+            '/portfolio/corporate-portal.jpg',
+            '/portfolio/VahidDorri.png',
+          ].map((src, i) => (
+            <div key={src} style={{
+              position: 'absolute', top: '-20%', left: `${i * 14.5 - 5}%`,
+              width: '18%', height: '140%', transform: 'translate3d(0, 0, 0) skewX(-18deg)',
+              willChange: 'transform', backfaceVisibility: 'hidden',
+              backgroundImage: `url(${src})`, backgroundSize: 'cover', backgroundPosition: 'center',
+              opacity: 0.22, outline: '2px solid rgba(7, 11, 22, 0.9)',
+            }} />
+          ))}
+          <div style={{ position: 'absolute', inset: 0, background: 'rgba(7, 11, 22, 0.55)' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, #070B16 0%, transparent 18%, transparent 82%, #070B16 100%)' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(7, 11, 22, 0.88) 0%, rgba(7, 11, 22, 0.55) 38%, transparent 60%)' }} />
+        </div>
+      ) : (
+        <div aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+          {/* Single continuous subtle light architectural background */}
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              backgroundImage: 'url(/light-hero-bg.jpg)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center 40%',
+              opacity: 0.75,
+            }}
+          />
+          {/* Directional text shield to guarantee 100% high-contrast readability */}
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.88) 36%, rgba(255, 255, 255, 0.25) 70%, transparent 100%)',
+            }}
+          />
+          {/* Top and bottom subtle blend */}
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, transparent 18%, transparent 85%, #FFFFFF 100%)',
+            }}
+          />
+        </div>
+      )}
 
       <div className="wrap" style={{ position: 'relative', zIndex: 1 }}>
         <div className="hero-layout">
 
           {/* ── LEFT: copy ── */}
           <div className="hero-copy">
-            <div className="hero-badge">
-              <span className="dot" />
+            <div
+              className="hero-badge"
+              style={{
+                background: isDark ? '#121A2E' : '#FFFFFF',
+                border: isDark ? '1px solid rgba(255, 255, 255, 0.12)' : '1px solid #CBD5E1',
+                color: isDark ? '#94A3B8' : '#334155',
+                boxShadow: isDark ? 'none' : '0 2px 6px rgba(0, 0, 0, 0.04)',
+                fontWeight: 600,
+              }}
+            >
+              <span className="dot" style={{ background: '#10B981', boxShadow: '0 0 0 3px rgba(16, 185, 129, 0.18)' }} />
               Dubai Web Agency · Est. 2022
             </div>
 
-            <h1>
+            <h1 style={{ color: isDark ? '#FFFFFF' : '#070B16' }}>
               Helping Dubai&apos;s
               <br />
               <span style={{ display: 'block', height: '1.1em', overflow: 'hidden', position: 'relative' }}>
@@ -80,6 +131,8 @@ export default function Hero() {
                   className="accent"
                   style={{
                     display: 'block',
+                    color: '#1D63FF',
+                    fontWeight: 800,
                     transition: 'opacity 0.32s ease, transform 0.32s ease',
                     opacity: visible ? 1 : 0,
                     transform: visible ? 'translateY(0)' : 'translateY(8px)',
@@ -92,17 +145,56 @@ export default function Hero() {
               thrive online.
             </h1>
 
-            <p className="hero-sub">
+            <p
+              className="hero-sub"
+              style={{
+                color: isDark ? '#94A3B8' : '#334155',
+                fontWeight: 450,
+                lineHeight: 1.65,
+              }}
+            >
               We design and build fast, modern websites and mobile apps for businesses in Dubai. From online shops and booking systems to custom business portals—we build it all, start to finish.
             </p>
 
             <div className="hero-actions">
-              <Link href="/request-quote" className="btn btn-primary">Start a Project →</Link>
-              <Link href="#portfolio" className="btn btn-ghost">See Our Work ↓</Link>
+              <Link
+                href="/request-quote"
+                className="btn btn-primary"
+                style={{
+                  background: '#1D63FF',
+                  color: '#FFFFFF',
+                  border: '1px solid #1D63FF',
+                  boxShadow: 'none',
+                  fontWeight: 600,
+                }}
+              >
+                Start a Project →
+              </Link>
+              <Link
+                href="#portfolio"
+                className="btn btn-ghost"
+                style={{
+                  background: isDark ? 'transparent' : '#FFFFFF',
+                  color: isDark ? '#FFFFFF' : '#070B16',
+                  border: isDark ? '1px solid rgba(255, 255, 255, 0.18)' : '1.5px solid #CBD5E1',
+                  boxShadow: isDark ? 'none' : '0 2px 6px rgba(0, 0, 0, 0.03)',
+                  fontWeight: 600,
+                }}
+              >
+                See Our Work ↓
+              </Link>
             </div>
 
-            <div className="hero-meta" style={{ marginTop: '28px', gap: '6px' }}>
-              <span style={{ color: 'var(--qf-success)', fontSize: '11px' }}>●</span>
+            <div
+              className="hero-meta"
+              style={{
+                marginTop: '28px',
+                gap: '8px',
+                color: isDark ? '#64748B' : '#475569',
+                fontWeight: 500,
+              }}
+            >
+              <span style={{ color: '#10B981', fontSize: '11px' }}>●</span>
               <span>7 live client projects &nbsp;·&nbsp; Dubai DED Licensed &nbsp;·&nbsp; DIFC &amp; Marina</span>
             </div>
           </div>
@@ -119,34 +211,64 @@ export default function Hero() {
                   transform: `rotate(${item.rotate})`,
                   zIndex: item.zIndex,
                   borderRadius: '14px', overflow: 'hidden',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  boxShadow: '0 20px 60px -12px rgba(0,0,0,0.7), 0 0 0 1px rgba(29,99,255,0.15)',
+                  border: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1.5px solid #E2E8F0',
+                  boxShadow: isDark
+                    ? '0 20px 60px -12px rgba(0,0,0,0.7)'
+                    : '0 16px 36px -8px rgba(15, 23, 42, 0.12), 0 2px 6px -1px rgba(15, 23, 42, 0.04)',
                   animation: `heroCardFloat ${6 + i * 1.4}s ease-in-out ${i * 0.8}s infinite alternate`,
                   willChange: 'transform',
-                  background: '#0A0E1A',
+                  background: isDark ? '#0A0E1A' : '#FFFFFF',
                 }}
               >
                 <div style={{ position: 'relative', width: '100%', aspectRatio: '16/10' }}>
                   <Image src={item.src} alt={item.label} fill sizes="260px" style={{ objectFit: 'cover' }} />
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 50%, rgba(5,8,16,0.75) 100%)' }} />
+                  <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: isDark
+                      ? 'linear-gradient(180deg, transparent 50%, rgba(5,8,16,0.75) 100%)'
+                      : 'linear-gradient(180deg, transparent 65%, rgba(15,23,42,0.12) 100%)',
+                  }} />
                 </div>
                 <div style={{
-                  padding: '10px 13px', background: 'rgba(16,22,43,0.95)',
-                  backdropFilter: 'blur(8px)', display: 'flex', alignItems: 'center',
+                  padding: '11px 14px',
+                  background: isDark ? 'rgba(16, 22, 43, 0.95)' : '#FFFFFF',
+                  display: 'flex', alignItems: 'center',
                   justifyContent: 'space-between', gap: '8px',
-                  borderTop: '1px solid rgba(35,43,71,0.8)',
+                  borderTop: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #F1F5F9',
                 }}>
-                  <span style={{ fontFamily: 'var(--qf-font-display)', fontSize: '11px', fontWeight: 600, color: 'rgba(232,236,245,0.9)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  <span style={{
+                    fontFamily: 'var(--qf-font-display)',
+                    fontSize: '12px',
+                    fontWeight: 700,
+                    color: isDark ? '#FFFFFF' : '#070B16',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}>
                     {item.label}
                   </span>
-                  <span style={{ fontFamily: 'var(--qf-font-mono)', fontSize: '9.5px', color: '#4FD1FF', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                  <span style={{
+                    fontFamily: 'var(--qf-font-mono)',
+                    fontSize: '10px',
+                    fontWeight: 700,
+                    color: '#1D63FF',
+                    whiteSpace: 'nowrap',
+                    flexShrink: 0,
+                  }}>
                     {item.sub}
                   </span>
                 </div>
               </div>
             ))}
-            <div className="particles" aria-hidden="true">
-              {[...Array(8)].map((_, i) => <div key={i} className="particle" />)}
+            <div className="particles" aria-hidden="true" style={{ opacity: isDark ? 0.35 : 0.12 }}>
+              {[...Array(8)].map((_, i) => (
+                <div
+                  key={i}
+                  className="particle"
+                  style={{ background: '#1D63FF' }}
+                />
+              ))}
             </div>
           </div>
 
@@ -163,6 +285,17 @@ export default function Hero() {
         .hero-copy {
           position: relative;
           z-index: 1;
+        }
+        .hero-copy .btn-primary:hover {
+          background: #1751D0 !important;
+          border-color: #1751D0 !important;
+          transform: translateY(-2px);
+        }
+        .hero-copy .btn-ghost:hover {
+          background: ${isDark ? 'rgba(255, 255, 255, 0.08)' : '#F8FAFC'} !important;
+          border-color: ${isDark ? 'rgba(255, 255, 255, 0.35)' : '#070B16'} !important;
+          color: ${isDark ? '#FFFFFF' : '#070B16'} !important;
+          transform: translateY(-2px);
         }
         .hero-mosaic {
           position: relative;

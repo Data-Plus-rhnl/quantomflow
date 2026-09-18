@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import ScrollReveal from '../ui/ScrollReveal';
+import { useTheme } from '@/components/theme/ThemeContext';
 import { PORTFOLIO_PROJECTS } from '@/lib/portfolio-data';
 import { PortfolioProject } from '@/lib/types';
 
@@ -120,11 +121,13 @@ function ProjectCard({
   index: number;
   onClick: () => void;
 }) {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   const [hovered, setHovered] = useState(false);
-  const accent = CATEGORY_ACCENT[project.category] ?? '#4FD1FF';
+  const accent = CATEGORY_ACCENT[project.category] ?? '#1D63FF';
 
   return (
-    <ScrollReveal delayMs={index * 60}>
+    <ScrollReveal delayMs={index * 60} style={{ height: '100%', minHeight: '100%', minWidth: 0, display: 'flex', flexDirection: 'column', flex: '1 1 100%', width: '100%' }}>
       <article
         role="button"
         tabIndex={0}
@@ -134,21 +137,29 @@ function ProjectCard({
         onClick={onClick}
         onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onClick()}
         style={{
-          background: hovered
-            ? '#0F1626'
-            : '#090D18',
-          border: `1.5px solid ${hovered ? accent : '#1E293B'}`,
+          background: isDark
+            ? (hovered ? '#0F1626' : '#090D18')
+            : (hovered ? '#FFFFFF' : '#F8FAFC'),
+          border: `1.5px solid ${hovered ? accent : isDark ? '#1E293B' : '#CBD5E1'}`,
           borderRadius: '16px',
           overflow: 'hidden',
           cursor: 'pointer',
           display: 'flex',
           flexDirection: 'column',
+          flex: '1 1 100%',
           height: '100%',
+          minHeight: '100%',
+          minWidth: 0,
+          width: '100%',
           transition: 'all 0.25s ease',
           transform: hovered ? 'translateY(-4px)' : 'translateY(0)',
           boxShadow: hovered
-            ? `0 16px 36px rgba(0,0,0,0.7), 0 0 0 1px ${accent}44`
-            : '0 4px 16px rgba(0,0,0,0.4)',
+            ? isDark
+              ? `0 16px 36px rgba(0,0,0,0.7), 0 0 0 1px ${accent}44`
+              : `0 16px 36px rgba(0,0,0,0.1), 0 0 0 1px ${accent}33`
+            : isDark
+            ? '0 4px 16px rgba(0,0,0,0.4)'
+            : '0 4px 16px rgba(0,0,0,0.06)',
           outline: 'none',
         }}
       >
@@ -159,7 +170,7 @@ function ProjectCard({
             width: '100%',
             aspectRatio: '16/10',
             overflow: 'hidden',
-            background: '#080D1A',
+            background: isDark ? '#080D1A' : '#E2E8F0',
             flexShrink: 0,
           }}
         >
@@ -253,82 +264,125 @@ function ProjectCard({
         {/* Content */}
         <div
           style={{
-            padding: '22px 24px 24px',
+            padding: '18px 20px 20px',
             display: 'flex',
             flexDirection: 'column',
-            flexGrow: 1,
+            flex: '1 1 auto',
+            justifyContent: 'space-between',
+            minHeight: 0,
           }}
         >
-          {/* Client + location */}
-          <div
-            style={{
-              fontFamily: 'var(--qf-font-mono)',
-              fontSize: '11px',
-              color: 'rgba(91,100,128,0.9)',
-              marginBottom: '8px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-            }}
-          >
-            <span>{project.clientName}</span>
-            <span style={{ color: 'rgba(91,100,128,0.4)' }}>&middot;</span>
-            <span>{project.location}</span>
-          </div>
+          <div>
+            {/* Client + location - strictly 1 line */}
+            <div
+              style={{
+                fontFamily: 'var(--qf-font-mono)',
+                fontSize: '11px',
+                color: isDark ? 'rgba(91,100,128,0.9)' : '#64748B',
+                marginBottom: '6px',
+                height: '18px',
+                lineHeight: '18px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              <span style={{ fontWeight: 600 }}>{project.clientName}</span>
+              <span style={{ opacity: 0.5 }}>&middot;</span>
+              <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{project.location}</span>
+            </div>
 
-          {/* Title */}
-          <h3
-            style={{
-              fontFamily: 'var(--qf-font-display)',
-              fontSize: '17px',
-              fontWeight: 600,
-              color: hovered ? '#E8ECF5' : '#C8D0E0',
-              marginBottom: '10px',
-              lineHeight: 1.3,
-              transition: 'color 0.25s ease',
-            }}
-          >
-            {project.title}
-          </h3>
+            {/* Title - uniform 2-line height across every card */}
+            <h3
+              style={{
+                fontFamily: 'var(--qf-font-display)',
+                fontSize: '16.5px',
+                fontWeight: 600,
+                color: isDark
+                  ? (hovered ? '#E8ECF5' : '#C8D0E0')
+                  : (hovered ? '#1D63FF' : '#0F172A'),
+                marginBottom: '8px',
+                lineHeight: '22px',
+                height: '44px',
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                transition: 'color 0.25s ease',
+              }}
+            >
+              {project.title}
+            </h3>
 
-          {/* Summary */}
-          <p
-            style={{
-              fontSize: '13px',
-              color: 'rgba(139,147,168,0.85)',
-              lineHeight: 1.65,
-              flexGrow: 1,
-              marginBottom: '18px',
-            }}
-          >
-            {project.summary}
-          </p>
+            {/* Summary - uniform 2-line height across every card */}
+            <p
+              style={{
+                fontSize: '12.5px',
+                color: isDark ? 'rgba(139,147,168,0.85)' : '#475569',
+                lineHeight: '19px',
+                marginBottom: '14px',
+                height: '38px',
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+            >
+              {project.summary}
+            </p>
 
-          {/* Tech stack */}
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: '6px',
-              marginBottom: '18px',
-            }}
-          >
-            {project.techStack.map((tech) => (
-              <span
-                key={tech}
-                style={{
-                  fontFamily: 'var(--qf-font-mono)',
-                  fontSize: '10px',
-                  color: 'rgba(91,100,128,0.9)',
-                  background: 'rgba(10,14,26,0.8)',
-                  border: '1px solid rgba(35,43,71,0.9)',
-                  padding: '3px 8px',
-                  borderRadius: '6px',
-                }}
-              >
-                {tech}
-              </span>
-            ))}
+            {/* Tech stack - strictly 1 row with top 3 chips + counter */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                marginBottom: '16px',
+                height: '24px',
+                overflow: 'hidden',
+              }}
+            >
+              {project.techStack.slice(0, 3).map((tech) => (
+                <span
+                  key={tech}
+                  style={{
+                    fontFamily: 'var(--qf-font-mono)',
+                    fontSize: '10px',
+                    color: isDark ? 'rgba(91,100,128,0.9)' : '#334155',
+                    background: isDark ? 'rgba(10,14,26,0.8)' : '#F1F5F9',
+                    border: isDark ? '1px solid rgba(35,43,71,0.9)' : '1px solid #CBD5E1',
+                    padding: '3px 8px',
+                    borderRadius: '6px',
+                    whiteSpace: 'nowrap',
+                    fontWeight: 500,
+                  }}
+                >
+                  {tech}
+                </span>
+              ))}
+              {project.techStack.length > 3 && (
+                <span
+                  style={{
+                    fontFamily: 'var(--qf-font-mono)',
+                    fontSize: '10px',
+                    color: isDark ? 'rgba(91,100,128,0.75)' : '#475569',
+                    background: isDark ? 'rgba(10,14,26,0.5)' : '#E2E8F0',
+                    border: isDark ? '1px solid rgba(35,43,71,0.6)' : '1px solid #CBD5E1',
+                    padding: '3px 6px',
+                    borderRadius: '6px',
+                    whiteSpace: 'nowrap',
+                    fontWeight: 600,
+                  }}
+                >
+                  +{project.techStack.length - 3}
+                </span>
+              )}
+            </div>
           </div>
 
           {/* Footer row */}
@@ -338,7 +392,7 @@ function ProjectCard({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              borderTop: '1px solid rgba(35,43,71,0.6)',
+              borderTop: isDark ? '1px solid rgba(35,43,71,0.6)' : '1px solid #E2E8F0',
               paddingTop: '14px',
               gap: '12px',
             }}
@@ -347,7 +401,7 @@ function ProjectCard({
               style={{
                 fontFamily: 'var(--qf-font-mono)',
                 fontSize: '11px',
-                color: 'rgba(139,147,168,0.85)',
+                color: isDark ? 'rgba(139,147,168,0.85)' : '#475569',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '6px',
@@ -378,7 +432,11 @@ function ProjectCard({
                 fontFamily: 'var(--qf-font-mono)',
                 fontSize: '11.5px',
                 fontWeight: 700,
-                color: hovered ? '#040711' : accent,
+                color: hovered
+                  ? '#FFFFFF'
+                  : isDark
+                  ? accent
+                  : '#1D63FF',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '6px',
@@ -386,8 +444,12 @@ function ProjectCard({
                 flexShrink: 0,
                 padding: '5px 12px',
                 borderRadius: '999px',
-                background: hovered ? accent : `${accent}18`,
-                border: `1.5px solid ${accent}`,
+                background: hovered
+                  ? accent
+                  : isDark
+                  ? `${accent}18`
+                  : '#EFF6FF',
+                border: `1.5px solid ${hovered ? accent : isDark ? accent : '#BFDBFE'}`,
                 transition: 'all 0.2s ease',
               }}
             >
@@ -1153,6 +1215,8 @@ function CaseStudyModal({
 }
 
 export default function PortfolioSection() {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>('all');
   const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
   const [viewMode, setViewMode] = useState<'presentation' | 'grid'>('presentation');
@@ -1211,7 +1275,7 @@ export default function PortfolioSection() {
               <h2 className="h2">
                 Results-driven websites.
                 <br />
-                <span style={{ color: '#FFFFFF', fontWeight: 800 }}>
+                <span style={{ color: isDark ? '#FFFFFF' : '#0F172A', fontWeight: 800 }}>
                   Real client growth.
                 </span>
               </h2>
@@ -1224,16 +1288,16 @@ export default function PortfolioSection() {
                 gap: '8px',
                 fontFamily: 'var(--qf-font-mono)',
                 fontSize: '11.5px',
-                color: '#34D399',
-                background: '#0D1322',
-                border: '1px solid #1E293B',
+                color: '#10B981',
+                background: isDark ? '#0D1322' : '#F1F5F9',
+                border: isDark ? '1px solid #1E293B' : '1px solid #CBD5E1',
                 padding: '6px 14px',
                 borderRadius: '999px',
                 marginTop: '24px',
               }}>
                 <span style={{
                   width: '6px', height: '6px', borderRadius: '50%',
-                  background: '#34D399', display: 'inline-block',
+                  background: '#10B981', display: 'inline-block',
                 }} />
                 {totalProjects} live client platforms &nbsp;&middot;&nbsp; Verified UAE Results
               </div>
@@ -1250,92 +1314,117 @@ export default function PortfolioSection() {
               flexWrap: 'wrap',
               marginBottom: '32px',
             }}>
-              {/* Category filter tabs */}
-              <div style={{
-                overflowX: 'auto',
-                WebkitOverflowScrolling: 'touch' as React.CSSProperties['WebkitOverflowScrolling'],
-                scrollbarWidth: 'none',
-                maxWidth: '100%',
-              }}>
-                <div style={{
+              {/* Category filter tabs - pure solid color, high contrast, zero opacity */}
+              <div
+                style={{
                   display: 'flex',
+                  flexWrap: 'wrap',
+                  alignItems: 'center',
                   gap: '8px',
-                  padding: '6px',
-                  background: '#090D18',
-                  border: '1px solid #1E293B',
-                  borderRadius: '14px',
-                  width: 'fit-content',
-                }}>
-                  {CATEGORIES.map((cat) => {
-                    const isActive = activeCategory === cat.id;
-                    const accent = CATEGORY_ACCENT[cat.id] ?? '#00F0FF';
-                    const count = cat.id === 'all'
-                      ? PORTFOLIO_PROJECTS.length
-                      : PORTFOLIO_PROJECTS.filter((p) => p.category === cat.id).length;
-                    if (count === 0) return null;
-                    return (
-                      <button
-                        key={cat.id}
-                        type="button"
-                        onClick={() => handleCategoryChange(cat.id)}
-                        style={{
-                          fontFamily: 'var(--qf-font-mono)',
-                          fontSize: '12px',
-                          fontWeight: isActive ? 700 : 500,
-                          padding: '7px 14px',
-                          borderRadius: '99px',
-                          border: isActive ? `1.5px solid ${accent}` : '1px solid #1E293B',
-                          background: isActive ? `${accent}20` : 'transparent',
-                          color: isActive ? '#FFFFFF' : '#94A3B8',
-                          cursor: 'pointer',
-                          transition: 'all 0.18s ease',
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '7px',
-                          whiteSpace: 'nowrap',
-                          flexShrink: 0,
-                        }}
-                        onMouseEnter={(e) => {
-                          if (!isActive) {
-                            e.currentTarget.style.color = '#FFFFFF';
-                            e.currentTarget.style.borderColor = '#475569';
-                            e.currentTarget.style.background = '#111827';
-                          }
-                        }}
-                        onMouseLeave={(e) => {
-                          if (!isActive) {
-                            e.currentTarget.style.color = '#94A3B8';
-                            e.currentTarget.style.borderColor = '#1E293B';
-                            e.currentTarget.style.background = 'transparent';
-                          }
-                        }}
-                      >
-                        {cat.label}
-                        <span style={{
-                          background: isActive ? accent : '#131C30',
-                          border: isActive ? 'none' : '1px solid #1E293B',
-                          color: isActive ? '#040711' : '#94A3B8',
-                          padding: '1px 7px',
-                          borderRadius: '999px',
-                          fontSize: '10.5px',
-                          fontWeight: 800,
-                          lineHeight: '16px',
-                        }}>
-                          {count}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
+                  flex: '1 1 auto',
+                  minWidth: 0,
+                }}
+              >
+                {CATEGORIES.map((cat) => {
+                  const isActive = activeCategory === cat.id;
+                  const count = cat.id === 'all'
+                    ? PORTFOLIO_PROJECTS.length
+                    : PORTFOLIO_PROJECTS.filter((p) => p.category === cat.id).length;
+                  if (count === 0) return null;
+
+                  // Pure solid colors (NO opacity), high contrast in both themes
+                  const bg = isActive
+                    ? '#1D63FF'
+                    : isDark
+                    ? '#0D1424'
+                    : '#F1F5F9';
+                  const border = isActive
+                    ? '1.5px solid #1D63FF'
+                    : isDark
+                    ? '1.5px solid #1E293B'
+                    : '1.5px solid #CBD5E1';
+                  const textColor = isActive
+                    ? '#FFFFFF'
+                    : isDark
+                    ? '#94A3B8'
+                    : '#0F172A';
+                  const badgeBg = isActive
+                    ? '#FFFFFF'
+                    : isDark
+                    ? '#162034'
+                    : '#E2E8F0';
+                  const badgeText = isActive
+                    ? '#1D63FF'
+                    : isDark
+                    ? '#94A3B8'
+                    : '#334155';
+                  const badgeBorder = isActive
+                    ? 'none'
+                    : isDark
+                    ? '1px solid #1E293B'
+                    : '1px solid #CBD5E1';
+
+                  return (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      onClick={() => handleCategoryChange(cat.id)}
+                      style={{
+                        fontFamily: 'var(--qf-font-mono)',
+                        fontSize: '11.5px',
+                        fontWeight: isActive ? 700 : 600,
+                        padding: '7px 14px',
+                        borderRadius: '999px',
+                        border: border,
+                        background: bg,
+                        color: textColor,
+                        cursor: 'pointer',
+                        transition: 'all 0.18s ease',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '7px',
+                        whiteSpace: 'nowrap',
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!isActive) {
+                          e.currentTarget.style.color = isDark ? '#FFFFFF' : '#000000';
+                          e.currentTarget.style.borderColor = isDark ? '#475569' : '#94A3B8';
+                          e.currentTarget.style.background = isDark ? '#162238' : '#E2E8F0';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isActive) {
+                          e.currentTarget.style.color = textColor;
+                          e.currentTarget.style.borderColor = isDark ? '#1E293B' : '#CBD5E1';
+                          e.currentTarget.style.background = bg;
+                        }
+                      }}
+                    >
+                      {cat.label}
+                      <span style={{
+                        background: badgeBg,
+                        border: badgeBorder,
+                        color: badgeText,
+                        padding: '1px 7px',
+                        borderRadius: '999px',
+                        fontSize: '10.5px',
+                        fontWeight: 800,
+                        lineHeight: '15px',
+                      }}>
+                        {count}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
 
-              {/* View mode toggle */}
+              {/* View mode toggle - theme adaptive */}
               <div style={{
                 display: 'inline-flex',
                 gap: '4px',
                 padding: '4px',
-                background: '#090D18',
-                border: '1px solid #1E293B',
+                background: isDark ? '#090D18' : '#F1F5F9',
+                border: isDark ? '1.5px solid #1E293B' : '1.5px solid #CBD5E1',
                 borderRadius: '10px',
                 flexShrink: 0,
               }}>
@@ -1351,7 +1440,7 @@ export default function PortfolioSection() {
                     borderRadius: '7px',
                     border: 'none',
                     background: viewMode === 'presentation' ? '#1D63FF' : 'transparent',
-                    color: viewMode === 'presentation' ? '#FFFFFF' : '#94A3B8',
+                    color: viewMode === 'presentation' ? '#FFFFFF' : isDark ? '#94A3B8' : '#475569',
                     cursor: 'pointer',
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -1379,7 +1468,7 @@ export default function PortfolioSection() {
                     borderRadius: '7px',
                     border: 'none',
                     background: viewMode === 'grid' ? '#1D63FF' : 'transparent',
-                    color: viewMode === 'grid' ? '#FFFFFF' : '#94A3B8',
+                    color: viewMode === 'grid' ? '#FFFFFF' : isDark ? '#94A3B8' : '#475569',
                     cursor: 'pointer',
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -1427,28 +1516,34 @@ export default function PortfolioSection() {
             <div style={{
               marginTop: '64px',
               padding: 'clamp(28px, 4vw, 40px) clamp(24px, 4vw, 40px)',
-              background: 'linear-gradient(135deg, rgba(16,22,43,0.9) 0%, rgba(10,14,26,0.7) 100%)',
-              border: '1px solid rgba(79,209,255,0.15)',
+              background: '#090D18',
+              border: '1.5px solid #2B3854',
               borderRadius: '20px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
               gap: '24px',
               flexWrap: 'wrap',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
+              boxShadow: isDark
+                ? '0 16px 36px rgba(0,0,0,0.6)'
+                : '0 16px 36px rgba(15,23,42,0.12)',
             }}>
               <div>
                 <div style={{
                   fontFamily: 'var(--qf-font-display)',
-                  fontSize: 'clamp(17px, 2.2vw, 22px)',
-                  fontWeight: 600,
-                  color: '#E8ECF5',
+                  fontSize: 'clamp(18px, 2.2vw, 24px)',
+                  fontWeight: 700,
+                  color: '#FFFFFF',
                   marginBottom: '6px',
                 }}>
                   Ready to be our next success story?
                 </div>
-                <p style={{ fontSize: '13.5px', color: 'rgba(139,147,168,0.8)' }}>
+                <p style={{
+                  fontSize: '14px',
+                  color: '#E2E8F0',
+                  fontWeight: 500,
+                  margin: 0,
+                }}>
                   Tell us what you want to build &mdash; we reply within one business day.
                 </p>
               </div>
@@ -1482,14 +1577,60 @@ export default function PortfolioSection() {
 
         .portfolio-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          grid-auto-rows: 1fr;
           gap: 24px;
+          align-items: stretch;
+          width: 100%;
         }
+        .portfolio-grid > div {
+          min-width: 0 !important;
+          max-width: 100% !important;
+          display: flex !important;
+          flex-direction: column !important;
+          height: 100% !important;
+          min-height: 100%;
+          width: 100%;
+        }
+        .portfolio-grid > div > article {
+          min-width: 0 !important;
+          max-width: 100% !important;
+          display: flex !important;
+          flex-direction: column !important;
+          flex: 1 1 100% !important;
+          height: 100% !important;
+          min-height: 100%;
+          width: 100%;
+        }
+
+        /* Orphan item centering: When the last card is alone on a 3-column row, start in the middle column (col 2) */
+        .portfolio-grid > :last-child:nth-child(3n + 1) {
+          grid-column: 2;
+        }
+
         @media (max-width: 1100px) {
-          .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+          .portfolio-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+          .portfolio-grid > :last-child:nth-child(3n + 1) {
+            grid-column: auto;
+          }
+          /* In 2-column tablet layout, center single orphan card */
+          .portfolio-grid > :last-child:nth-child(2n + 1) {
+            grid-column: 1 / -1;
+            max-width: 480px;
+            width: 100%;
+            margin-inline: auto;
+          }
         }
         @media (max-width: 640px) {
-          .portfolio-grid { grid-template-columns: 1fr; }
+          .portfolio-grid {
+            grid-template-columns: minmax(0, 1fr);
+          }
+          .portfolio-grid > :last-child:nth-child(2n + 1) {
+            grid-column: auto;
+            max-width: 100%;
+          }
         }
 
         /* ── Presentation Deck High Contrast Styling (Zero Glow) ── */
@@ -1856,23 +1997,24 @@ export default function PortfolioSection() {
         .deck-timeline-bar {
           border-top: 1px solid #1E293B;
           background: #080C16;
-          padding: 14px 24px;
+          padding: 12px 20px;
           overflow-x: auto;
-          scrollbar-width: none;
+          scrollbar-width: thin;
+          scrollbar-color: #1E293B transparent;
         }
         .deck-timeline-track {
           display: flex;
-          gap: 8px;
+          gap: 6px;
           min-width: 100%;
           width: fit-content;
         }
 
         .deck-timeline-item {
           font-family: var(--qf-font-mono);
-          font-size: 11.5px;
+          font-size: 11px;
           border: 1px solid #1E293B;
           border-radius: 8px;
-          padding: 7px 14px;
+          padding: 6px 12px;
           background: #0D1322;
           color: #94A3B8;
           cursor: pointer;

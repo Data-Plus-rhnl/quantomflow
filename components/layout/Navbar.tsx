@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useNavbar } from './NavbarContext';
+import { useTheme } from '@/components/theme/ThemeContext';
 
 const NAV_LINKS = [
   { label: 'Work',       anchor: 'portfolio'   },
@@ -20,6 +21,8 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [isScrolled, setIsScrolled]     = useState(false);
   const { menuOpen, setMenuOpen }       = useNavbar();
+  const { theme, toggleTheme }          = useTheme();
+  const isDark                          = theme === 'dark';
   const [activeSection, setActiveSection] = useState('');
   const pathname  = usePathname();
   const isHome    = pathname === '/';
@@ -71,18 +74,34 @@ export default function Navbar() {
           width: '100%',
           zIndex: 50,
           transition: 'all 0.35s cubic-bezier(0.22,0.61,0.36,1)',
-          ...(isScrolled ? {
-            background: 'rgba(10,14,26,0.94)',
-            backdropFilter: 'blur(24px) saturate(180%)',
-            WebkitBackdropFilter: 'blur(24px) saturate(180%)',
-            borderBottom: '1px solid rgba(79,209,255,0.16)',
-            boxShadow: '0 8px 32px -8px rgba(0,0,0,0.7), 0 0 0 1px rgba(79,209,255,0.06)',
+          ...(isDark ? {
+            ...(isScrolled ? {
+              background: 'rgba(7, 11, 22, 0.96)',
+              backdropFilter: 'blur(24px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.14)',
+              boxShadow: '0 8px 32px -8px rgba(0,0,0,0.7)',
+            } : {
+              background: 'rgba(10, 14, 26, 0.85)',
+              backdropFilter: 'blur(16px) saturate(150%)',
+              WebkitBackdropFilter: 'blur(16px) saturate(150%)',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+              boxShadow: 'none',
+            }),
           } : {
-            background: 'rgba(10,14,26,0.75)',
-            backdropFilter: 'blur(16px) saturate(150%)',
-            WebkitBackdropFilter: 'blur(16px) saturate(150%)',
-            borderBottom: '1px solid rgba(35,43,71,0.5)',
-            boxShadow: 'none',
+            ...(isScrolled ? {
+              background: 'rgba(255, 255, 255, 0.98)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              borderBottom: '1.5px solid #94A3B8',
+              boxShadow: '0 4px 20px rgba(15, 23, 42, 0.08)',
+            } : {
+              background: '#FFFFFF',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+              borderBottom: '1.5px solid #CBD5E1',
+              boxShadow: '0 2px 10px rgba(15, 23, 42, 0.05)',
+            }),
           }),
         }}
       >
@@ -125,9 +144,9 @@ export default function Navbar() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: isScrolled 
-                  ? '0 3px 12px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255,255,255,0.1)' 
-                  : '0 4px 18px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255,255,255,0.15)',
+                boxShadow: isDark
+                  ? '0 2px 8px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.12)'
+                  : '0 2px 8px rgba(0, 0, 0, 0.08), 0 0 0 1px #CBD5E1',
                 transition: 'all 0.35s cubic-bezier(0.22,0.61,0.36,1)',
                 flexShrink: 0,
               }}
@@ -152,7 +171,7 @@ export default function Navbar() {
                 fontFamily: 'var(--qf-font-display)',
                 fontSize: isScrolled ? '20px' : '24px',
                 fontWeight: 800,
-                color: '#FFFFFF',
+                color: isDark ? '#FFFFFF' : '#070B16',
                 letterSpacing: '-0.025em',
                 lineHeight: 1,
                 transition: 'all 0.35s ease',
@@ -160,11 +179,11 @@ export default function Navbar() {
                 alignItems: 'baseline',
               }}
             >
-              Quantum<span style={{ color: 'var(--qf-accent, #4FD1FF)', marginLeft: '2px' }}>Flow</span>
+              Quantum<span style={{ color: '#1D63FF', marginLeft: '2px' }}>Flow</span>
             </span>
           </Link>
 
-          {/* Desktop nav links — now left-aligned with better spacing */}
+          {/* Desktop nav links */}
           <nav
             style={{
               display: 'flex',
@@ -184,25 +203,31 @@ export default function Navbar() {
                   style={{
                     fontFamily: 'var(--qf-font-body)',
                     fontSize: '13px',
-                    fontWeight: active ? 600 : 500,
-                    color: active ? '#E8ECF5' : 'rgba(139,147,168,0.85)',
+                    fontWeight: active ? 700 : 500,
+                    color: isDark
+                      ? (active ? '#1D63FF' : '#94A3B8')
+                      : (active ? '#1D63FF' : '#334155'),
                     padding: '7px 11px',
                     borderRadius: '7px',
-                    background: active ? 'rgba(79,209,255,0.08)' : 'transparent',
-                    border: active ? '1px solid rgba(79,209,255,0.15)' : '1px solid transparent',
+                    background: active
+                      ? (isDark ? 'rgba(29, 99, 255, 0.12)' : 'rgba(29, 99, 255, 0.08)')
+                      : 'transparent',
+                    border: active
+                      ? (isDark ? '1px solid rgba(29, 99, 255, 0.28)' : '1px solid rgba(29, 99, 255, 0.25)')
+                      : '1px solid transparent',
                     transition: 'all 0.18s ease',
                     whiteSpace: 'nowrap',
                     textDecoration: 'none',
                   }}
                   onMouseEnter={(e) => {
                     if (!active) {
-                      e.currentTarget.style.color = '#E8ECF5';
-                      e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                      e.currentTarget.style.color = isDark ? '#FFFFFF' : '#070B16';
+                      e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.06)' : '#F1F5F9';
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (!active) {
-                      e.currentTarget.style.color = 'rgba(139,147,168,0.85)';
+                      e.currentTarget.style.color = isDark ? '#94A3B8' : '#334155';
                       e.currentTarget.style.background = 'transparent';
                     }
                   }}
@@ -213,7 +238,7 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Right CTAs — more compact */}
+          {/* Right CTAs */}
           <div className="nav-right" style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
             {/* Blog link */}
             <Link
@@ -223,7 +248,7 @@ export default function Navbar() {
                 fontFamily: 'var(--qf-font-body)',
                 fontSize: '13px',
                 fontWeight: 500,
-                color: 'rgba(139,147,168,0.85)',
+                color: isDark ? '#94A3B8' : '#334155',
                 padding: '7px 14px',
                 borderRadius: '7px',
                 background: 'transparent',
@@ -232,11 +257,11 @@ export default function Navbar() {
                 whiteSpace: 'nowrap',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.color = '#E8ECF5';
-                e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                e.currentTarget.style.color = isDark ? '#FFFFFF' : '#070B16';
+                e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.06)' : '#F1F5F9';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.color = 'rgba(139,147,168,0.85)';
+                e.currentTarget.style.color = isDark ? '#94A3B8' : '#334155';
                 e.currentTarget.style.background = 'transparent';
               }}
             >
@@ -250,29 +275,87 @@ export default function Navbar() {
               style={{
                 fontFamily: 'var(--qf-font-body)',
                 fontSize: '13px',
-                fontWeight: 500,
-                color: 'rgba(139,147,168,0.85)',
+                fontWeight: 600,
+                color: isDark ? '#FFFFFF' : '#070B16',
                 padding: '7px 14px',
                 borderRadius: '7px',
-                border: '1px solid rgba(35,43,71,0.8)',
-                background: 'transparent',
+                border: isDark ? '1px solid rgba(255, 255, 255, 0.18)' : '1px solid #CBD5E1',
+                background: isDark ? 'transparent' : '#FFFFFF',
                 transition: 'all 0.18s ease',
                 textDecoration: 'none',
                 whiteSpace: 'nowrap',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.color = '#E8ECF5';
-                e.currentTarget.style.borderColor = 'rgba(79,209,255,0.3)';
-                e.currentTarget.style.background = 'rgba(79,209,255,0.06)';
+                if (isDark) {
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.35)';
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                } else {
+                  e.currentTarget.style.borderColor = '#94A3B8';
+                  e.currentTarget.style.background = '#F8FAFC';
+                }
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.color = 'rgba(139,147,168,0.85)';
-                e.currentTarget.style.borderColor = 'rgba(35,43,71,0.8)';
-                e.currentTarget.style.background = 'transparent';
+                if (isDark) {
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.18)';
+                  e.currentTarget.style.background = 'transparent';
+                } else {
+                  e.currentTarget.style.borderColor = '#CBD5E1';
+                  e.currentTarget.style.background = '#FFFFFF';
+                }
               }}
             >
               Contact
             </Link>
+
+            {/* Light / Night Mode Switch Button */}
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label={isDark ? 'Switch to Light mode' : 'Switch to Dark mode'}
+              title={isDark ? 'Switch to Light mode' : 'Switch to Dark mode'}
+              className="nav-theme-toggle"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '7px 12px',
+                borderRadius: '8px',
+                border: isDark ? '1px solid rgba(255, 255, 255, 0.18)' : '1.5px solid #CBD5E1',
+                background: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F1F5F9',
+                color: isDark ? '#FFFFFF' : '#070B16',
+                cursor: 'pointer',
+                fontFamily: 'var(--qf-font-body)',
+                fontSize: '12.5px',
+                fontWeight: 600,
+                transition: 'all 0.18s ease',
+                flexShrink: 0,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.15)' : '#E2E8F0';
+                e.currentTarget.style.borderColor = isDark ? 'rgba(255, 255, 255, 0.35)' : '#94A3B8';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.08)' : '#F1F5F9';
+                e.currentTarget.style.borderColor = isDark ? 'rgba(255, 255, 255, 0.18)' : '#CBD5E1';
+              }}
+            >
+              {isDark ? (
+                <>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="4" />
+                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+                  </svg>
+                  <span className="theme-toggle-label">Light</span>
+                </>
+              ) : (
+                <>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                  </svg>
+                  <span className="theme-toggle-label">Dark</span>
+                </>
+              )}
+            </button>
 
             {/* Primary CTA */}
             <Link
@@ -286,8 +369,8 @@ export default function Navbar() {
                 padding: '9px 18px',
                 borderRadius: '9px',
                 background: '#1D63FF',
-                border: '1px solid rgba(255,255,255,0.15)',
-                boxShadow: '0 4px 14px rgba(29, 99, 255, 0.35)',
+                border: '1px solid #1D63FF',
+                boxShadow: 'none',
                 transition: 'all 0.18s ease',
                 textDecoration: 'none',
                 whiteSpace: 'nowrap',
@@ -321,9 +404,9 @@ export default function Navbar() {
                 width: '40px',
                 height: '40px',
                 borderRadius: '10px',
-                background: 'rgba(22,29,51,0.8)',
-                border: '1px solid rgba(35,43,71,0.8)',
-                color: 'rgba(200,208,224,0.9)',
+                background: isDark ? 'rgba(22, 29, 51, 0.8)' : '#F1F5F9',
+                border: isDark ? '1px solid rgba(255, 255, 255, 0.15)' : '1px solid #CBD5E1',
+                color: isDark ? '#FFFFFF' : '#070B16',
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
@@ -345,7 +428,7 @@ export default function Navbar() {
           position: 'fixed',
           inset: 0,
           zIndex: 49,
-          background: 'rgba(10,14,26,0.97)',
+          background: isDark ? 'rgba(7, 11, 22, 0.98)' : 'rgba(255, 255, 255, 0.98)',
           backdropFilter: 'blur(24px)',
           WebkitBackdropFilter: 'blur(24px)',
           display: 'flex',
@@ -358,6 +441,29 @@ export default function Navbar() {
           overflowY: 'auto',
         }}
       >
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '16px' }}>
+          <button
+            type="button"
+            onClick={toggleTheme}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '8px 14px',
+              borderRadius: '8px',
+              border: isDark ? '1px solid rgba(255, 255, 255, 0.18)' : '1px solid #CBD5E1',
+              background: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F1F5F9',
+              color: isDark ? '#FFFFFF' : '#070B16',
+              fontFamily: 'var(--qf-font-body)',
+              fontSize: '13px',
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
+          >
+            {isDark ? 'Switch to Light Mode ☀️' : 'Switch to Dark Mode 🌙'}
+          </button>
+        </div>
+
         <nav style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
           {[...NAV_LINKS, { label: 'Blog', anchor: 'blog' }, { label: 'Contact', anchor: 'contact' }].map(({ label, anchor }) => (
             <Link
@@ -368,9 +474,11 @@ export default function Navbar() {
                 fontFamily: 'var(--qf-font-display)',
                 fontSize: '22px',
                 fontWeight: 600,
-                color: activeSection === anchor ? '#4FD1FF' : 'rgba(232,236,245,0.85)',
+                color: activeSection === anchor
+                  ? '#1D63FF'
+                  : (isDark ? '#FFFFFF' : '#070B16'),
                 padding: '14px 0',
-                borderBottom: '1px solid rgba(35,43,71,0.5)',
+                borderBottom: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #E2E8F0',
                 textDecoration: 'none',
                 transition: 'color 0.15s ease',
               }}
@@ -390,6 +498,9 @@ export default function Navbar() {
                 fontSize: '15px',
                 fontWeight: 700,
                 display: 'block',
+                background: '#1D63FF',
+                color: '#FFFFFF',
+                boxShadow: 'none',
               }}
             >
               Start a Project / Request Quote →
@@ -415,7 +526,6 @@ export default function Navbar() {
           header {
             margin: 0 !important;
             border-radius: 0 !important;
-            border-bottom: 1px solid rgba(79, 209, 255, 0.15) !important;
           }
           .nav-container {
             padding: 0 12px !important;
@@ -436,6 +546,12 @@ export default function Navbar() {
           }
           .nav-right {
             gap: 6px !important;
+          }
+          .theme-toggle-label {
+            display: none !important;
+          }
+          .nav-theme-toggle {
+            padding: 6px 8px !important;
           }
           .nav-cta-primary {
             display: inline-flex !important;

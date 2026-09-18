@@ -37,9 +37,47 @@
   --qf-gutter:         clamp(24px, 5vw, 72px);
 
   --qf-shadow-card:    0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 20px 40px -24px rgba(0, 0, 0, 0.6);
-  --qf-shadow-glow:    0 0 0 1px var(--qf-accent-line);
+  --qf-shadow-glow:    none;
 
   --qf-ease:           cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+[data-theme="light"] {
+  --qf-bg:            #FFFFFF;
+  --qf-bg-alt:        #F8FAFC;
+  --qf-bg-raised:     #FFFFFF;
+  --qf-line:          #CBD5E1;
+  --qf-line-soft:     #E2E8F0;
+
+  --qf-text:          #070B16;
+  --qf-text-muted:    #334155;
+  --qf-text-faint:    #64748B;
+
+  --qf-accent:        #1D63FF;
+  --qf-accent-dim:    rgba(29, 99, 255, 0.08);
+  --qf-accent-line:   rgba(29, 99, 255, 0.25);
+  --qf-accent-2:      #1D63FF;
+  --qf-accent-2-dim:  rgba(29, 99, 255, 0.06);
+
+  --qf-shadow-card:   0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.05);
+}
+
+[data-theme="light"] body {
+  background: #FFFFFF;
+  color: #070B16;
+}
+
+[data-theme="light"] .orb {
+  display: none !important;
+}
+
+[data-theme="light"] .bg-grid {
+  opacity: 0.03;
+  filter: invert(1);
+}
+
+[data-theme="light"] .noise {
+  opacity: 0.015;
 }
 
 *, *::before, *::after {
@@ -269,33 +307,20 @@ button {
   background: var(--qf-accent);
   color: #FFFFFF !important;
   font-weight: 600;
-  box-shadow: 0 4px 18px -4px rgba(29, 99, 255, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 2px 8px rgba(29, 99, 255, 0.25);
+  border: 1px solid var(--qf-accent);
   position: relative;
   overflow: hidden;
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  background: #2E72FF;
-  box-shadow: 0 8px 24px -4px rgba(29, 99, 255, 0.65);
+  transform: translateY(-1px);
+  background: #1751D0;
+  box-shadow: 0 4px 12px rgba(29, 99, 255, 0.3);
 }
 
 .btn-primary::after {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: inherit;
-  background: var(--qf-accent);
-  opacity: 0.4;
-  filter: blur(12px);
-  animation: btnPulse 3s ease-in-out infinite;
-  z-index: -1;
-}
-
-@keyframes btnPulse {
-  0%, 100% { opacity: 0.3; transform: scale(0.95); }
-  50%      { opacity: 0.5; transform: scale(1.05); }
+  display: none;
 }
 
 .btn-ghost {

@@ -1,6 +1,5 @@
-'use client';
-
 import React from 'react';
+import { useTheme } from '@/components/theme/ThemeContext';
 
 // ─── Real hand-crafted SVG icons — each one purpose-built for its badge ──────
 
@@ -140,16 +139,20 @@ const BADGES = [
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function TrustBadges() {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   return (
     <div
       style={{
-        borderTop: '1px solid #1E293B',
-        borderBottom: '1px solid #1E293B',
-        background: '#060A14',
+        borderTop: isDark ? '1px solid #1E293B' : '1.5px solid #CBD5E1',
+        borderBottom: isDark ? '1px solid #1E293B' : '1px solid #E2E8F0',
+        background: isDark ? '#060A14' : '#FFFFFF',
         paddingBlock: '0',
         position: 'relative',
         zIndex: 2,
         overflow: 'hidden',
+        transition: 'background 0.3s ease, border-color 0.3s ease',
       }}
     >
       <div className="wrap">
@@ -167,13 +170,13 @@ export default function TrustBadges() {
                 padding: '18px 22px',
                 borderRight:
                   i < BADGES.length - 1
-                    ? '1px solid #1E293B'
+                    ? (isDark ? '1px solid #1E293B' : '1px solid #E2E8F0')
                     : 'none',
                 transition: 'background 0.2s ease',
                 cursor: 'default',
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLDivElement).style.background = '#0B1120';
+                (e.currentTarget as HTMLDivElement).style.background = isDark ? '#0B1120' : '#F8FAFC';
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLDivElement).style.background = 'transparent';
@@ -185,8 +188,8 @@ export default function TrustBadges() {
                   width: '42px',
                   height: '42px',
                   borderRadius: '10px',
-                  background: '#0A0F1D',
-                  border: `1.5px solid ${color}`,
+                  background: isDark ? '#0A0F1D' : '#F1F5F9',
+                  border: isDark ? `1.5px solid ${color}` : '1.5px solid #CBD5E1',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -204,7 +207,7 @@ export default function TrustBadges() {
                     fontFamily: 'var(--qf-font-display)',
                     fontSize: '13px',
                     fontWeight: 700,
-                    color: '#FFFFFF',
+                    color: isDark ? '#FFFFFF' : '#070B16',
                     lineHeight: 1.25,
                     marginBottom: '3px',
                     letterSpacing: '-0.01em',
@@ -216,7 +219,7 @@ export default function TrustBadges() {
                   style={{
                     fontFamily: 'var(--qf-font-mono)',
                     fontSize: '11px',
-                    color: '#94A3B8',
+                    color: isDark ? '#94A3B8' : '#475569',
                     lineHeight: 1.35,
                     fontWeight: 500,
                   }}
@@ -237,7 +240,7 @@ export default function TrustBadges() {
         @media (max-width: 560px) {
           .trust-grid { grid-template-columns: repeat(2, 1fr) !important; }
           .trust-grid > div:nth-child(2n) { border-right: none !important; }
-          .trust-grid > div { border-bottom: 1px solid #1E293B; }
+          .trust-grid > div { border-bottom: ${isDark ? '1px solid #1E293B' : '1px solid #E2E8F0'}; }
           .trust-grid > div:nth-last-child(-n+2) { border-bottom: none; }
         }
       `}</style>
