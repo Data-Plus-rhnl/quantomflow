@@ -1,6 +1,6 @@
+'use client';
+
 import React from 'react';
-import { useTheme } from '@/components/theme/ThemeContext';
-import ScrollReveal from '../ui/ScrollReveal';
 
 // ─── Real hand-crafted SVG icons — each one purpose-built for its badge ──────
 
@@ -33,15 +33,15 @@ function IconNoHiddenFees() {
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
         d="M12 2L3.5 6v6.2c0 5.17 3.63 10.01 8.5 11.23 4.87-1.22 8.5-6.06 8.5-11.23V6L12 2z"
-        stroke="#1D63FF"
+        stroke="#FFB454"
         strokeWidth="1.7"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="rgba(29, 99, 255, 0.12)"
+        fill="rgba(255,180,84,0.1)"
       />
       <path
         d="M9 12l2 2 4-4"
-        stroke="#1D63FF"
+        stroke="#FFB454"
         strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -50,24 +50,24 @@ function IconNoHiddenFees() {
   );
 }
 
-// 4.9 star: filled star in Royal Cobalt Blue
+// 4.9 star: filled gold star with a subtle half-fill
 function IconStar() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       {/* Full filled star */}
       <path
         d="M12 2l2.9 5.9 6.5.95-4.7 4.58 1.1 6.43L12 17.02l-5.8 3.05 1.1-6.43L2.6 8.85l6.5-.95L12 2z"
-        fill="#1D63FF"
-        stroke="#1D63FF"
+        fill="#FFB454"
+        stroke="#FFB454"
         strokeWidth="0.5"
       />
       {/* Shine glint */}
       <path
         d="M12 4.5l1.8 3.6 4 .58-2.9 2.82.68 3.97L12 13.3"
-        fill="rgba(255,255,255,0.25)"
+        fill="rgba(255,255,255,0.18)"
       />
       {/* 4.9 text hint — small dot below */}
-      <circle cx="12" cy="21" r="1" fill="#1D63FF" opacity="0.6" />
+      <circle cx="12" cy="21" r="1" fill="#FFB454" opacity="0.6" />
     </svg>
   );
 }
@@ -85,19 +85,19 @@ function IconGoogleAds() {
   );
 }
 
-// Payment: credit card with Royal Blue styling
+// Payment: credit card with Stripe purple + Apple Pay styling
 function IconPayments() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       {/* Card body */}
-      <rect x="2" y="5" width="20" height="14" rx="3" fill="#0C1322" stroke="#1D63FF" strokeWidth="1.2" />
+      <rect x="2" y="5" width="20" height="14" rx="3" fill="#1A1F36" stroke="#B794F4" strokeWidth="1.2" />
       {/* Magnetic stripe */}
-      <rect x="2" y="9" width="20" height="3" fill="#1D63FF" opacity="0.35" />
+      <rect x="2" y="9" width="20" height="3" fill="#B794F4" opacity="0.35" />
       {/* Chip */}
-      <rect x="5" y="13.5" width="5" height="3" rx="1" fill="#1D63FF" opacity="0.6" />
+      <rect x="5" y="13.5" width="5" height="3" rx="1" fill="#B794F4" opacity="0.6" />
       {/* Contactless waves */}
-      <path d="M15 13a2 2 0 010 2" stroke="#1D63FF" strokeWidth="1.2" strokeLinecap="round" opacity="0.7" />
-      <path d="M17 11.5a4 4 0 010 5" stroke="#1D63FF" strokeWidth="1.2" strokeLinecap="round" opacity="0.5" />
+      <path d="M15 13a2 2 0 010 2" stroke="#B794F4" strokeWidth="1.2" strokeLinecap="round" opacity="0.7" />
+      <path d="M17 11.5a4 4 0 010 5" stroke="#B794F4" strokeWidth="1.2" strokeLinecap="round" opacity="0.5" />
     </svg>
   );
 }
@@ -109,130 +109,124 @@ const BADGES = [
     Icon: IconUAE,
     label: 'Dubai DED Registered',
     sub: 'Licensed tech agency · UAE',
-    color: '#1D63FF',
+    color: '#00F0FF',
   },
   {
     Icon: IconNoHiddenFees,
     label: 'No Hidden Fees',
     sub: '100% transparent pricing',
-    color: '#1D63FF',
+    color: '#FFAA00',
   },
   {
     Icon: IconStar,
     label: '4.9 / 5.0 Rating',
     sub: 'Verified UAE client reviews',
-    color: '#1D63FF',
+    color: '#FFB800',
   },
   {
     Icon: IconGoogleAds,
     label: 'Google Ads Certified',
     sub: 'High-converting lead gen',
-    color: '#1D63FF',
+    color: '#00FF66',
   },
   {
     Icon: IconPayments,
     label: 'UAE Payment Gateways',
     sub: 'Stripe · Apple Pay · Tabby',
-    color: '#1D63FF',
+    color: '#B026FF',
   },
 ];
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function TrustBadges() {
-  const { theme } = useTheme();
-  const isDark = theme === 'dark';
-
   return (
     <div
       style={{
-        borderTop: isDark ? '1px solid #1E293B' : '1.5px solid #CBD5E1',
-        borderBottom: isDark ? '1px solid #1E293B' : '1px solid #E2E8F0',
-        background: isDark ? '#060A14' : '#FFFFFF',
+        borderTop: '1px solid #1E293B',
+        borderBottom: '1px solid #1E293B',
+        background: '#060A14',
         paddingBlock: '0',
         position: 'relative',
         zIndex: 2,
         overflow: 'hidden',
-        transition: 'background 0.3s ease, border-color 0.3s ease',
       }}
     >
       <div className="wrap">
-        <ScrollReveal>
-          <div
-            className="trust-grid"
-            style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0' }}
-          >
-            {BADGES.map(({ Icon, label, sub, color }, i) => (
+        <div
+          className="trust-grid"
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0' }}
+        >
+          {BADGES.map(({ Icon, label, sub, color }, i) => (
+            <div
+              key={label}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '14px',
+                padding: '18px 22px',
+                borderRight:
+                  i < BADGES.length - 1
+                    ? '1px solid #1E293B'
+                    : 'none',
+                transition: 'background 0.2s ease',
+                cursor: 'default',
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLDivElement).style.background = '#0B1120';
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLDivElement).style.background = 'transparent';
+              }}
+            >
+              {/* Icon container — crisp high contrast, zero glow */}
               <div
-                key={label}
                 style={{
+                  width: '42px',
+                  height: '42px',
+                  borderRadius: '10px',
+                  background: '#0A0F1D',
+                  border: `1.5px solid ${color}`,
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '14px',
-                  padding: '18px 22px',
-                  borderRight:
-                    i < BADGES.length - 1
-                      ? (isDark ? '1px solid #1E293B' : '1px solid #E2E8F0')
-                      : 'none',
-                  transition: 'background 0.2s ease',
-                  cursor: 'default',
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.background = isDark ? '#0B1120' : '#F8FAFC';
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLDivElement).style.background = 'transparent';
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                  boxShadow: 'none',
                 }}
               >
-                {/* Icon container — crisp high contrast, zero glow */}
+                <Icon />
+              </div>
+
+              {/* High-Contrast Text */}
+              <div>
                 <div
                   style={{
-                    width: '42px',
-                    height: '42px',
-                    borderRadius: '10px',
-                    background: isDark ? '#0A0F1D' : '#F1F5F9',
-                    border: isDark ? `1.5px solid ${color}` : '1.5px solid #CBD5E1',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0,
-                    boxShadow: 'none',
+                    fontFamily: 'var(--qf-font-display)',
+                    fontSize: '13px',
+                    fontWeight: 700,
+                    color: '#FFFFFF',
+                    lineHeight: 1.25,
+                    marginBottom: '3px',
+                    letterSpacing: '-0.01em',
                   }}
                 >
-                  <Icon />
+                  {label}
                 </div>
-
-                {/* High-Contrast Text */}
-                <div>
-                  <div
-                    style={{
-                      fontFamily: 'var(--qf-font-display)',
-                      fontSize: '13px',
-                      fontWeight: 700,
-                      color: isDark ? '#FFFFFF' : '#070B16',
-                      lineHeight: 1.25,
-                      marginBottom: '3px',
-                      letterSpacing: '-0.01em',
-                    }}
-                  >
-                    {label}
-                  </div>
-                  <div
-                    style={{
-                      fontFamily: 'var(--qf-font-mono)',
-                      fontSize: '11px',
-                      color: isDark ? '#94A3B8' : '#475569',
-                      lineHeight: 1.35,
-                      fontWeight: 500,
-                    }}
-                  >
-                    {sub}
-                  </div>
+                <div
+                  style={{
+                    fontFamily: 'var(--qf-font-mono)',
+                    fontSize: '11px',
+                    color: '#94A3B8',
+                    lineHeight: 1.35,
+                    fontWeight: 500,
+                  }}
+                >
+                  {sub}
                 </div>
               </div>
-            ))}
-          </div>
-        </ScrollReveal>
+            </div>
+          ))}
+        </div>
       </div>
 
       <style>{`
@@ -243,7 +237,7 @@ export default function TrustBadges() {
         @media (max-width: 560px) {
           .trust-grid { grid-template-columns: repeat(2, 1fr) !important; }
           .trust-grid > div:nth-child(2n) { border-right: none !important; }
-          .trust-grid > div { border-bottom: ${isDark ? '1px solid #1E293B' : '1px solid #E2E8F0'}; }
+          .trust-grid > div { border-bottom: 1px solid #1E293B; }
           .trust-grid > div:nth-last-child(-n+2) { border-bottom: none; }
         }
       `}</style>

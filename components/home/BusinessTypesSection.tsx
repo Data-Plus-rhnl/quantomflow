@@ -2,23 +2,15 @@
 
 import React from 'react';
 import Link from 'next/link';
-import {
-  UtensilsCrossed,
-  Stethoscope,
-  ShoppingBag,
-  Building2,
-  Home,
-  Dumbbell,
-  Check,
-  ArrowRight,
-} from 'lucide-react';
+import Image from 'next/image';
+import { Check, ArrowRight } from 'lucide-react';
 import ScrollReveal from '../ui/ScrollReveal';
 
-// ─── Industry Categories with Vector Icons ───────────────────────────────────
+// ─── Clean 3D Industry Assets ────────────────────────────────────────────────
 
 const BUSINESS_TYPES = [
   {
-    Icon: UtensilsCrossed,
+    iconSrc: '/industries/industry-restaurant.png',
     badge: '0% Talabat Fee',
     title: 'Restaurants & Cafés',
     subtitle: 'F&B & Hospitality',
@@ -28,7 +20,7 @@ const BUSINESS_TYPES = [
     href: '/request-quote',
   },
   {
-    Icon: Stethoscope,
+    iconSrc: '/industries/industry-clinic.png',
     badge: 'DHA & MOHAP Ready',
     title: 'Clinics & Aesthetics',
     subtitle: 'Healthcare & Beauty',
@@ -38,7 +30,7 @@ const BUSINESS_TYPES = [
     href: '/request-quote',
   },
   {
-    Icon: ShoppingBag,
+    iconSrc: '/industries/industry-retail.png',
     badge: 'Apple Pay & Tabby',
     title: 'Retail & E-Commerce',
     subtitle: 'D2C & Luxury Brands',
@@ -48,7 +40,7 @@ const BUSINESS_TYPES = [
     href: '/request-quote',
   },
   {
-    Icon: Building2,
+    iconSrc: '/industries/industry-corporate.png',
     badge: 'DIFC & ADGM Ready',
     title: 'Corporate & Startups',
     subtitle: 'Finance, Tech & Legal',
@@ -58,7 +50,7 @@ const BUSINESS_TYPES = [
     href: '/request-quote',
   },
   {
-    Icon: Home,
+    iconSrc: '/industries/industry-realestate.png',
     badge: 'Bayut & CRM Sync',
     title: 'Luxury Real Estate',
     subtitle: 'Agencies & Developers',
@@ -68,7 +60,7 @@ const BUSINESS_TYPES = [
     href: '/request-quote',
   },
   {
-    Icon: Dumbbell,
+    iconSrc: '/industries/industry-fitness.png',
     badge: 'ClassPass Sync',
     title: 'Fitness & Wellness',
     subtitle: 'Gyms, Studios & Spas',
@@ -101,12 +93,12 @@ export default function BusinessTypesSection() {
             Built for every Dubai business.
           </h2>
           <p className="lede" style={{ marginInline: 'auto', marginTop: '16px', fontSize: '16px', lineHeight: 1.65 }}>
-            From high-volume Downtown restaurants to DIFC corporate portals and luxury clinics in Jumeirah &mdash; we build bespoke platforms tailored to local UAE customer behavior and payment rails.
+            From high-volume Downtown restaurants to DIFC corporate portals and luxury clinics in Jumeirah — we build bespoke platforms tailored to local UAE customer behavior and payment rails.
           </p>
         </ScrollReveal>
 
         <div className="biz-grid">
-          {BUSINESS_TYPES.map(({ Icon, badge, title, subtitle, desc, capabilities, color, href }, i) => (
+          {BUSINESS_TYPES.map(({ iconSrc, badge, title, subtitle, desc, capabilities, color, href }, i) => (
             <ScrollReveal key={title} delayMs={i * 60}>
               <Link
                 href={href}
@@ -116,25 +108,23 @@ export default function BusinessTypesSection() {
                   className="biz-card group"
                   style={{ '--biz-color': color } as React.CSSProperties}
                 >
-                  {/* Top Bar: Icon Badge + High-Contrast Tag */}
+                  {/* Top Bar: Elevated Glass Pedestal Icon + High-Contrast Badge */}
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '22px' }}>
-                    <div
-                      className="biz-icon-box"
-                      style={{
-                        width: '54px',
-                        height: '54px',
-                        borderRadius: '16px',
-                        background: `${color}18`,
-                        border: `1.5px solid ${color}44`,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: color,
-                        flexShrink: 0,
-                        transition: 'all 0.25s ease',
-                      }}
-                    >
-                      <Icon size={26} strokeWidth={2.2} color={color} />
+                    <div className="biz-icon-box">
+                      <Image
+                        src={iconSrc}
+                        alt={title}
+                        width={48}
+                        height={48}
+                        className="biz-icon-img"
+                        style={{
+                          width: '46px',
+                          height: '46px',
+                          objectFit: 'contain',
+                          display: 'block',
+                          transition: 'transform 0.25s ease',
+                        }}
+                      />
                     </div>
 
                     <span
@@ -293,17 +283,25 @@ export default function BusinessTypesSection() {
         }
         /* Elevated pedestal for the icon so it pops */
         .biz-icon-box {
-          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+          width: 60px;
+          height: 60px;
+          border-radius: 16px;
+          background: linear-gradient(145deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.03) 100%);
+          border: 1px solid rgba(255, 255, 255, 0.16);
+          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+          display: flex;
+          align-items: center;
+          justifyContent: center;
+          flex-shrink: 0;
+          transition: all 0.25s ease;
         }
         .biz-card:hover .biz-icon-box {
           border-color: var(--biz-color);
-          background: var(--biz-color);
-          transform: scale(1.08);
-          box-shadow: 0 0 20px var(--biz-color);
+          background: linear-gradient(145deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.05) 100%);
+          transform: scale(1.05);
         }
-        .biz-card:hover .biz-icon-box svg {
-          color: #FFFFFF !important;
-          stroke: #FFFFFF !important;
+        .biz-card:hover .biz-icon-img {
+          transform: scale(1.08);
         }
         .biz-card:hover .biz-arrow {
           transform: translateX(4px);

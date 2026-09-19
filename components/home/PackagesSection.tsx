@@ -1,21 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import ScrollReveal from '../ui/ScrollReveal';
-import { useTheme } from '@/components/theme/ThemeContext';
 import { SERVICE_PACKAGES, LANDING_PAGE_DEAL } from '@/lib/packages-data';
 
 interface PackagesSectionProps {}
 
 export default function PackagesSection(_props: PackagesSectionProps) {
-  const { theme } = useTheme();
-  const isDark = theme === 'dark';
-  const [hoveredPackageIndex, setHoveredPackageIndex] = useState<number | null>(null);
-
-  // Default highlight is middle card (index 1). Hovering any card dynamically shifts highlight, and leaving restores middle.
-  const activeIndex = hoveredPackageIndex !== null ? hoveredPackageIndex : 1;
-
   const waLandingUrl = `https://wa.me/971528903292?text=${encodeURIComponent(
     'Hello Quantum Flow! I would like to claim the 999 AED Landing Page Special Offer.'
   )}`;
@@ -224,7 +216,6 @@ export default function PackagesSection(_props: PackagesSectionProps) {
 
           {/* The 3 Core Packages */}
           <div
-            onMouseLeave={() => setHoveredPackageIndex(null)}
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
@@ -232,214 +223,161 @@ export default function PackagesSection(_props: PackagesSectionProps) {
               alignItems: 'stretch',
             }}
           >
-            {SERVICE_PACKAGES.map((pkg, idx) => {
-              const isHighlighted = activeIndex === idx;
-
-              return (
-                <ScrollReveal key={pkg.id} delayMs={idx * 100}>
+            {SERVICE_PACKAGES.map((pkg, idx) => (
+              <ScrollReveal key={pkg.id} delayMs={idx * 100}>
+                <div
+                  className="tech-card"
+                  style={{
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    padding: '36px 28px',
+                    textAlign: 'left',
+                    alignItems: 'stretch',
+                    background: pkg.popular ? 'rgba(22, 29, 51, 0.85)' : 'rgba(22, 29, 51, 0.45)',
+                    border: pkg.popular ? '1px solid var(--qf-accent)' : '1px solid var(--qf-line)',
+                    boxShadow: pkg.popular
+                      ? '0 0 50px -10px rgba(79, 209, 255, 0.25), 0 20px 40px -20px rgba(0,0,0,0.6)'
+                      : 'var(--qf-shadow-card)',
+                  }}
+                >
+                  {/* Top Header */}
                   <div
-                    className="tech-card"
-                    onMouseEnter={() => setHoveredPackageIndex(idx)}
                     style={{
-                      height: '100%',
                       display: 'flex',
-                      flexDirection: 'column',
-                      padding: '36px 28px',
-                      textAlign: 'left',
-                      alignItems: 'stretch',
-                      background: isHighlighted
-                        ? (isDark ? 'rgba(29, 99, 255, 0.12)' : '#FFFFFF')
-                        : (isDark ? 'rgba(22, 29, 51, 0.45)' : 'rgba(22, 29, 51, 0.45)'),
-                      border: isHighlighted
-                        ? '2px solid var(--qf-accent)'
-                        : '1px solid var(--qf-line)',
-                      boxShadow: isHighlighted
-                        ? (isDark
-                            ? '0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--qf-accent)'
-                            : '0 20px 40px -15px rgba(29, 99, 255, 0.25), 0 0 0 1px var(--qf-accent)')
-                        : 'var(--qf-shadow-card)',
-                      transform: isHighlighted ? 'translateY(-6px)' : 'translateY(0)',
-                      transition: 'all 0.28s cubic-bezier(0.22, 0.61, 0.36, 1)',
-                      cursor: 'pointer',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      marginBottom: '16px',
                     }}
                   >
-                    {/* Top Header */}
-                    <div
+                    <span
                       style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        marginBottom: '16px',
+                        fontFamily: 'var(--qf-font-mono)',
+                        fontSize: '12px',
+                        letterSpacing: '0.08em',
+                        textTransform: 'uppercase',
+                        color: pkg.popular ? 'var(--qf-accent)' : 'var(--qf-text-faint)',
                       }}
                     >
+                      {pkg.turnaround}
+                    </span>
+                    {pkg.badge && (
                       <span
                         style={{
+                          background: pkg.popular ? 'var(--qf-accent)' : 'var(--qf-bg-raised)',
+                          color: pkg.popular ? '#052430' : 'var(--qf-accent-2)',
+                          border: pkg.popular ? 'none' : '1px solid rgba(255, 180, 84, 0.4)',
                           fontFamily: 'var(--qf-font-mono)',
-                          fontSize: '12px',
-                          letterSpacing: '0.08em',
+                          fontSize: '11px',
+                          fontWeight: 700,
+                          padding: '3px 10px',
+                          borderRadius: 'var(--qf-radius-pill)',
+                          letterSpacing: '0.04em',
                           textTransform: 'uppercase',
-                          color: isHighlighted ? 'var(--qf-accent)' : 'var(--qf-text-faint)',
-                          transition: 'color 0.25s ease',
-                          fontWeight: 600,
                         }}
                       >
-                        {pkg.turnaround}
+                        {pkg.badge}
                       </span>
-                      {pkg.badge && (
-                        <span
-                          style={{
-                            background: isHighlighted
-                              ? 'var(--qf-accent)'
-                              : (isDark ? 'var(--qf-bg-raised)' : '#E2E8F0'),
-                            color: isHighlighted
-                              ? '#FFFFFF'
-                              : (isDark ? '#94A3B8' : '#334155'),
-                            border: isHighlighted ? 'none' : '1px solid rgba(29, 99, 255, 0.3)',
-                            fontFamily: 'var(--qf-font-mono)',
-                            fontSize: '11px',
-                            fontWeight: 700,
-                            padding: '3px 10px',
-                            borderRadius: 'var(--qf-radius-pill)',
-                            letterSpacing: '0.04em',
-                            textTransform: 'uppercase',
-                            transition: 'all 0.25s ease',
-                          }}
-                        >
-                          {pkg.badge}
-                        </span>
-                      )}
-                    </div>
+                    )}
+                  </div>
 
-                    <h3
-                      style={{
-                        fontFamily: 'var(--qf-font-display)',
-                        fontSize: '22px',
-                        fontWeight: 700,
-                        color: isHighlighted && !isDark ? '#070B16' : 'var(--qf-text)',
-                        marginBottom: '6px',
-                        transition: 'color 0.25s ease',
-                      }}
-                    >
-                      {pkg.name}
-                    </h3>
+                  <h3
+                    style={{
+                      fontFamily: 'var(--qf-font-display)',
+                      fontSize: '22px',
+                      fontWeight: 700,
+                      color: 'var(--qf-text)',
+                      marginBottom: '6px',
+                    }}
+                  >
+                    {pkg.name}
+                  </h3>
 
-                    <p style={{
-                      fontSize: '13.5px',
-                      color: isHighlighted && !isDark ? '#475569' : 'var(--qf-text-muted)',
+                  <p style={{ fontSize: '13.5px', color: 'var(--qf-text-muted)', marginBottom: '24px', minHeight: '40px' }}>
+                    {pkg.tagline}
+                  </p>
+
+                  {/* Pricing Box */}
+                  <div
+                    style={{
+                      background: 'var(--qf-bg)',
+                      border: '1px solid var(--qf-line-soft)',
+                      borderRadius: 'var(--qf-radius-md)',
+                      padding: '16px 20px',
                       marginBottom: '24px',
-                      minHeight: '40px',
-                      transition: 'color 0.25s ease',
-                    }}>
-                      {pkg.tagline}
-                    </p>
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
+                      <span style={{ fontFamily: 'var(--qf-font-mono)', fontSize: '14px', color: 'var(--qf-accent)' }}>
+                        AED
+                      </span>
+                      <span
+                        style={{
+                          fontFamily: 'var(--qf-font-display)',
+                          fontSize: '36px',
+                          fontWeight: 700,
+                          color: 'var(--qf-text)',
+                          lineHeight: 1,
+                        }}
+                      >
+                        {pkg.priceAed}
+                      </span>
+                    </div>
+                    <div style={{ fontSize: '12px', color: 'var(--qf-text-faint)', marginTop: '6px' }}>
+                      {pkg.priceNote}
+                    </div>
+                  </div>
 
-                    {/* Pricing Box */}
+                  {/* Description */}
+                  <p style={{ fontSize: '13.5px', color: 'var(--qf-text-muted)', lineHeight: 1.6, marginBottom: '24px' }}>
+                    {pkg.description}
+                  </p>
+
+                  {/* Deliverables checklist */}
+                  <div style={{ flexGrow: 1, marginBottom: '28px' }}>
                     <div
                       style={{
-                        background: 'var(--qf-bg)',
-                        border: isHighlighted ? '1.5px solid rgba(29, 99, 255, 0.4)' : '1px solid var(--qf-line-soft)',
-                        borderRadius: 'var(--qf-radius-md)',
-                        padding: '16px 20px',
-                        marginBottom: '24px',
-                        transition: 'all 0.25s ease',
+                        fontFamily: 'var(--qf-font-mono)',
+                        fontSize: '11.5px',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.06em',
+                        color: 'var(--qf-text-faint)',
+                        marginBottom: '14px',
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
-                        <span style={{
-                          fontFamily: 'var(--qf-font-mono)',
-                          fontSize: '14px',
-                          color: 'var(--qf-accent)',
-                          fontWeight: 700,
-                        }}>
-                          AED
-                        </span>
-                        <span
+                      Included Deliverables:
+                    </div>
+                    <ul style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      {pkg.features.map((feat, i) => (
+                        <li
+                          key={i}
                           style={{
-                            fontFamily: 'var(--qf-font-display)',
-                            fontSize: '36px',
-                            fontWeight: 700,
+                            display: 'flex',
+                            alignItems: 'flex-start',
+                            gap: '10px',
+                            fontSize: '13px',
                             color: 'var(--qf-text)',
-                            lineHeight: 1,
+                            lineHeight: 1.5,
                           }}
                         >
-                          {pkg.priceAed}
-                        </span>
-                      </div>
-                      <div style={{ fontSize: '12px', color: 'var(--qf-text-faint)', marginTop: '6px' }}>
-                        {pkg.priceNote}
-                      </div>
-                    </div>
-
-                    {/* Description */}
-                    <p style={{
-                      fontSize: '13.5px',
-                      color: isHighlighted && !isDark ? '#334155' : 'var(--qf-text-muted)',
-                      lineHeight: 1.6,
-                      marginBottom: '24px',
-                      transition: 'color 0.25s ease',
-                    }}>
-                      {pkg.description}
-                    </p>
-
-                    {/* Deliverables checklist */}
-                    <div style={{ flexGrow: 1, marginBottom: '28px' }}>
-                      <div
-                        style={{
-                          fontFamily: 'var(--qf-font-mono)',
-                          fontSize: '11.5px',
-                          textTransform: 'uppercase',
-                          letterSpacing: '0.06em',
-                          color: 'var(--qf-text-faint)',
-                          marginBottom: '14px',
-                        }}
-                      >
-                        Included Deliverables:
-                      </div>
-                      <ul style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                        {pkg.features.map((feat, i) => (
-                          <li
-                            key={i}
-                            style={{
-                              display: 'flex',
-                              alignItems: 'flex-start',
-                              gap: '10px',
-                              fontSize: '13px',
-                              color: isHighlighted && !isDark ? '#070B16' : 'var(--qf-text)',
-                              lineHeight: 1.5,
-                              transition: 'color 0.25s ease',
-                            }}
-                          >
-                            <span style={{ color: 'var(--qf-success)', flexShrink: 0, marginTop: '1px' }}>✓</span>
-                            <span>{feat}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Action button */}
-                    <Link
-                      href={`/request-quote?package=${encodeURIComponent(pkg.name)}`}
-                      className={`btn ${isHighlighted ? 'btn-primary' : 'btn-ghost'}`}
-                      style={{
-                        width: '100%',
-                        textAlign: 'center',
-                        transition: 'all 0.25s ease',
-                        ...(isHighlighted
-                          ? {
-                              background: 'var(--qf-accent)',
-                              borderColor: 'var(--qf-accent)',
-                              color: '#FFFFFF',
-                              boxShadow: '0 4px 14px rgba(29, 99, 255, 0.4)',
-                            }
-                          : {}),
-                      }}
-                    >
-                      Start a Project →
-                    </Link>
+                          <span style={{ color: 'var(--qf-success)', flexShrink: 0, marginTop: '1px' }}>✓</span>
+                          <span>{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                </ScrollReveal>
-              );
-            })}
+
+                  {/* Action button */}
+                  <Link
+                    href={`/request-quote?package=${encodeURIComponent(pkg.name)}`}
+                    className={`btn ${pkg.popular ? 'btn-primary' : 'btn-ghost'}`}
+                    style={{ width: '100%', textAlign: 'center' }}
+                  >
+                    Start a Project →
+                  </Link>
+                </div>
+              </ScrollReveal>
+            ))}
           </div>
         </div>
       </section>

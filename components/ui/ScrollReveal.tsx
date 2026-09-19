@@ -13,7 +13,7 @@ interface ScrollRevealProps {
 export default function ScrollReveal({
   children,
   className = '',
-  threshold = 0.08,
+  threshold = 0.12,
   delayMs = 0,
   style,
 }: ScrollRevealProps) {
@@ -22,16 +22,6 @@ export default function ScrollReveal({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-
-    // If inside an already active card deck, reveal immediately
-    const parentCard = el.closest('.deck-section-sheet') as HTMLElement | null;
-    if (parentCard && parentCard.getAttribute('data-card-active') === 'true') {
-      if (delayMs > 0) {
-        setTimeout(() => el.classList.add('is-visible'), delayMs);
-      } else {
-        el.classList.add('is-visible');
-      }
-    }
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -44,13 +34,11 @@ export default function ScrollReveal({
             } else {
               el.classList.add('is-visible');
             }
+            observer.unobserve(el);
           }
         });
       },
-      {
-        threshold,
-        rootMargin: '0px 0px -6% 0px',
-      }
+      { threshold }
     );
 
     observer.observe(el);
@@ -61,14 +49,7 @@ export default function ScrollReveal({
   }, [threshold, delayMs]);
 
   return (
-    <div
-      ref={ref}
-      className={`reveal ${className}`}
-      style={{
-        ...style,
-        ...(delayMs > 0 ? { transitionDelay: `${delayMs}ms` } : {}),
-      }}
-    >
+    <div ref={ref} className={`reveal ${className}`} style={style}>
       {children}
     </div>
   );

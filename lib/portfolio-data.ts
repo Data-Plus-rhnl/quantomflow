@@ -2,93 +2,6 @@ import { PortfolioProject } from './types';
 
 export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
   {
-    id: 'annar-childcare',
-    title: 'Premium Childcare Centre Website & Enrolment Platform',
-    clientName: 'Annar Childcare',
-    location: 'Dubai, UAE',
-    category: 'childcare',
-    categoryLabel: 'Childcare & Education',
-    image: '/portfolio/AnnarChildcare.png',
-    metrics: {
-      primary: '+3x',
-      label: 'Enrolment enquiries in first month',
-    },
-    summary:
-      'A warm, trust-first childcare website built to convert anxious parents into enrolled families — featuring virtual tour integration, transparent curriculum showcases, and a seamless online enquiry flow.',
-    challenge:
-      'Annar Childcare was relying on word-of-mouth and a dated static site that gave parents no confidence in the safety standards, curriculum quality, or enrolment process before visiting in person.',
-    solution:
-      'We designed a reassuring, premium web presence with a virtual centre walkthrough, staff credentials showcase, EYFS curriculum breakdown, and a frictionless multi-step enquiry form with instant WhatsApp confirmation.',
-    deliverables: [
-      'Trust-Forward Homepage with Virtual Tour',
-      'EYFS Curriculum & Age-Group Programme Pages',
-      'Staff & Qualifications Showcase',
-      'Multi-Step Enrolment Enquiry Form',
-      'WhatsApp Instant Confirmation Workflow',
-      'Local Dubai SEO & Google Maps Optimisation',
-    ],
-    techStack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'WhatsApp Business API', 'Vercel'],
-    liveUrl: undefined,
-  },
-  {
-    id: 'camo-friday',
-    title: 'Mental Health Awareness Movement & Apparel Platform',
-    clientName: '#CAMOFRIDAY',
-    location: 'Canada & Global Online Community',
-    category: 'ecommerce',
-    categoryLabel: 'E-Commerce & Apparel',
-    image: '/portfolio/camofriday.png',
-    metrics: {
-      primary: '100%',
-      label: 'Proceeds fund mental health initiatives & scholarships',
-    },
-    summary:
-      'A purpose-driven movement platform and official merchandise storefront designed to bring mental illness out from camouflage — fostering honest conversations through community gear, volunteer squad onboarding, and direct donation portals.',
-    challenge:
-      'The #CAMOFRIDAY movement needed a unified digital destination to educate the public on mental health realities (1 in 5 people), organize nationwide "Wear Camo on Friday" campaigns, and sell official merchandise where 100% of proceeds fund scholarships.',
-    solution:
-      'Quantum Flow engineered a modern, high-conversion web experience featuring an interactive community handbook, story submission portal, volunteer registration engine, and an apparel storefront with seamless online checkout.',
-    deliverables: [
-      'Movement Awareness & Story Showcase Engine',
-      'Official Camo Merchandise Apparel Storefront',
-      'Volunteer Squad Application & Onboarding Flow',
-      'Direct Donation & Mental Health Scholarship Gateway',
-      'Interactive Mental Health Resource Handbook',
-      'Global Community Social Campaign Sync',
-    ],
-    techStack: ['React', 'TypeScript', 'Tailwind CSS', 'Vite', 'Stripe', 'Vercel Edge'],
-    liveUrl: 'https://camo-friday.vercel.app/',
-  },
-  {
-    id: 'vahid-dorri-personal-brand',
-    title: 'Executive Personal Brand & Portfolio Website',
-    clientName: 'Vahid Dorri',
-    location: 'Dubai, UAE',
-    category: 'personal-brand',
-    categoryLabel: 'Personal Brand & Executive',
-    image: '/portfolio/VahidDorri.png',
-    metrics: {
-      primary: '10x',
-      label: 'LinkedIn profile visit-to-enquiry rate',
-    },
-    summary:
-      'A sleek executive personal brand platform that positions Vahid Dorri as a thought leader — combining a curated project portfolio, speaking engagements timeline, and a direct high-value consultation booking funnel.',
-    challenge:
-      'Despite a high-profile career and strong industry reputation, there was no single authoritative online destination to direct investors, media, or potential partners — leading to lost high-value opportunities.',
-    solution:
-      'Crafted a minimalist prestige personal site with an animated hero statement, curated career highlights, media appearances log, and a gated consultation booking form with calendar integration.',
-    deliverables: [
-      'Executive Hero & Personal Statement Design',
-      'Career Highlights & Portfolio Showcase',
-      'Speaking & Media Appearances Timeline',
-      'Gated Consultation Booking with Calendar Sync',
-      'LinkedIn & Social Meta Card Optimisation',
-      'Performance-First Deployment on Vercel Edge',
-    ],
-    techStack: ['Next.js', 'TypeScript', 'Framer Motion', 'Calendly API', 'Vercel Edge'],
-    liveUrl: undefined,
-  },
-  {
     id: 'the-roastery-al-quoz',
     title: 'Direct Online Ordering & Delivery System',
     clientName: 'The Roastery & Kitchen',
@@ -143,6 +56,35 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     techStack: ['Next.js', 'TypeScript', 'Tailored CSS', 'Twilio SMS', 'Google Ads API'],
   },
   {
+    id: 'camo-friday',
+    title: 'Mental Health Awareness Movement & Apparel Platform',
+    clientName: '#CAMOFRIDAY',
+    location: 'Canada & Global Online Community',
+    category: 'ecommerce',
+    categoryLabel: 'E-Commerce & Apparel',
+    image: '/portfolio/camofriday.png',
+    metrics: {
+      primary: '100%',
+      label: 'Proceeds fund mental health initiatives & scholarships',
+    },
+    summary:
+      'A purpose-driven movement platform and official merchandise storefront designed to bring mental illness out from camouflage — fostering honest conversations through community gear, volunteer squad onboarding, and direct donation portals.',
+    challenge:
+      'The #CAMOFRIDAY movement needed a unified digital destination to educate the public on mental health realities (1 in 5 people), organize nationwide "Wear Camo on Friday" campaigns, and sell official merchandise where 100% of proceeds fund scholarships.',
+    solution:
+      'Quantum Flow engineered a modern, high-conversion web experience featuring an interactive community handbook, story submission portal, volunteer registration engine, and an apparel storefront with seamless online checkout.',
+    deliverables: [
+      'Movement Awareness & Story Showcase Engine',
+      'Official Camo Merchandise Apparel Storefront',
+      'Volunteer Squad Application & Onboarding Flow',
+      'Direct Donation & Mental Health Scholarship Gateway',
+      'Interactive Mental Health Resource Handbook',
+      'Global Community Social Campaign Sync',
+    ],
+    techStack: ['React', 'TypeScript', 'Tailwind CSS', 'Vite', 'Stripe', 'Vercel Edge'],
+    liveUrl: 'https://camo-friday.vercel.app/',
+  },
+  {
     id: 'velvet-lounge-palm-jumeirah',
     title: 'Boutique Salon & Wellness Reservation Platform',
     clientName: 'Velvet Hair & Wellness Lounge',
@@ -168,6 +110,64 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       'Local Dubai SEO & Google Maps Verification',
     ],
     techStack: ['Next.js', 'React', 'Cloudflare Workers', 'Google Maps API'],
+  },
+  {
+    id: 'annar-childcare',
+    title: 'Premium Childcare Centre Website & Enrolment Platform',
+    clientName: 'Annar Childcare',
+    location: 'Dubai, UAE',
+    category: 'childcare',
+    categoryLabel: 'Childcare & Education',
+    image: '/portfolio/AnnarChildcare.png',
+    metrics: {
+      primary: '+3x',
+      label: 'Enrolment enquiries in first month',
+    },
+    summary:
+      'A warm, trust-first childcare website built to convert anxious parents into enrolled families — featuring virtual tour integration, transparent curriculum showcases, and a seamless online enquiry flow.',
+    challenge:
+      'Annar Childcare was relying on word-of-mouth and a dated static site that gave parents no confidence in the safety standards, curriculum quality, or enrolment process before visiting in person.',
+    solution:
+      'We designed a reassuring, premium web presence with a virtual centre walkthrough, staff credentials showcase, EYFS curriculum breakdown, and a frictionless multi-step enquiry form with instant WhatsApp confirmation.',
+    deliverables: [
+      'Trust-Forward Homepage with Virtual Tour',
+      'EYFS Curriculum & Age-Group Programme Pages',
+      'Staff & Qualifications Showcase',
+      'Multi-Step Enrolment Enquiry Form',
+      'WhatsApp Instant Confirmation Workflow',
+      'Local Dubai SEO & Google Maps Optimisation',
+    ],
+    techStack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'WhatsApp Business API', 'Vercel'],
+    liveUrl: undefined,
+  },
+  {
+    id: 'vahid-dorri-personal-brand',
+    title: 'Executive Personal Brand & Portfolio Website',
+    clientName: 'Vahid Dorri',
+    location: 'Dubai, UAE',
+    category: 'personal-brand',
+    categoryLabel: 'Personal Brand & Executive',
+    image: '/portfolio/VahidDorri.png',
+    metrics: {
+      primary: '10x',
+      label: 'LinkedIn profile visit-to-enquiry rate',
+    },
+    summary:
+      'A sleek executive personal brand platform that positions Vahid Dorri as a thought leader — combining a curated project portfolio, speaking engagements timeline, and a direct high-value consultation booking funnel.',
+    challenge:
+      'Despite a high-profile career and strong industry reputation, there was no single authoritative online destination to direct investors, media, or potential partners — leading to lost high-value opportunities.',
+    solution:
+      'Crafted a minimalist prestige personal site with an animated hero statement, curated career highlights, media appearances log, and a gated consultation booking form with calendar integration.',
+    deliverables: [
+      'Executive Hero & Personal Statement Design',
+      'Career Highlights & Portfolio Showcase',
+      'Speaking & Media Appearances Timeline',
+      'Gated Consultation Booking with Calendar Sync',
+      'LinkedIn & Social Meta Card Optimisation',
+      'Performance-First Deployment on Vercel Edge',
+    ],
+    techStack: ['Next.js', 'TypeScript', 'Framer Motion', 'Calendly API', 'Vercel Edge'],
+    liveUrl: undefined,
   },
   {
     id: 'al-wasl-capital-difc',

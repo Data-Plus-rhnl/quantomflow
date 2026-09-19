@@ -17,104 +17,92 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 
-// ─── Feature data with distinct brand colors matching Services Section ──────────────────
+// ─── Feature data with distinct brand colors ──────────────────────────────────
 
 const FEATURES = [
   {
     Icon: CreditCard,
     title: 'Secure Payments',
     description: 'Apple Pay, Google Pay & Stripe — zero-friction checkout your customers trust.',
-    badgeBg: '#EEF2FF',
-    iconColor: '#2563EB',
+    color: '#38BDF8',
     tag: 'Payments',
   },
   {
     Icon: Smartphone,
     title: 'Mobile-First Design',
     description: 'Every pixel engineered for the phone screen where 80% of your traffic comes from.',
-    badgeBg: '#ECFDF5',
-    iconColor: '#059669',
-    tag: 'Mobile UI',
+    color: '#A78BFA',
+    tag: 'Design',
   },
   {
     Icon: CalendarCheck,
     title: 'Online Booking',
     description: 'Real-time table reservations & appointment scheduling, zero phone calls needed.',
-    badgeBg: '#F5F3FF',
-    iconColor: '#7C3AED',
-    tag: 'Reservations',
+    color: '#34D399',
+    tag: 'Booking',
   },
   {
     Icon: UtensilsCrossed,
     title: 'Digital Menus',
     description: 'Interactive, fast-loading menus with live price and availability updates.',
-    badgeBg: '#FFF7ED',
-    iconColor: '#EA580C',
-    tag: 'F&B Menus',
+    color: '#FF8C42',
+    tag: 'F&B',
   },
   {
     Icon: MessageCircle,
     title: 'WhatsApp Chat',
     description: 'Direct order updates & customer support via the channel they already use daily.',
-    badgeBg: '#F0FDF4',
-    iconColor: '#16A34A',
-    tag: 'Instant Chat',
+    color: '#34D399',
+    tag: 'Messaging',
   },
   {
     Icon: MapPin,
     title: 'Local SEO',
     description: 'Google Maps 3-Pack optimisation so nearby customers find you first, every time.',
-    badgeBg: '#FEF2F2',
-    iconColor: '#E11D48',
-    tag: 'Google Maps',
+    color: '#38BDF8',
+    tag: 'SEO',
   },
   {
     Icon: ShoppingBag,
     title: 'Instagram Shop',
     description: 'Sync your product catalogue to Instagram & Facebook for seamless social selling.',
-    badgeBg: '#FDF2F8',
-    iconColor: '#DB2777',
-    tag: 'Social Commerce',
+    color: '#F472B6',
+    tag: 'Social',
   },
   {
     Icon: LayoutDashboard,
     title: 'Easy Dashboard',
     description: 'Update prices, photos, and inventory in seconds — no developer required.',
-    badgeBg: '#EFF6FF',
-    iconColor: '#0284C7',
-    tag: 'Client CMS',
+    color: '#22D3EE',
+    tag: 'CMS',
   },
   {
     Icon: Zap,
     title: 'Sub-Second Loading',
     description: 'Edge-deployed, image-optimised pages that score 95+ on Google PageSpeed.',
-    badgeBg: '#FEFCE8',
-    iconColor: '#D97706',
-    tag: '95+ Speed',
+    color: '#FBBF24',
+    tag: 'Performance',
   },
   {
     Icon: Mail,
     title: 'Email Newsletters',
     description: 'Automated loyalty sequences and promotional campaigns that bring customers back.',
-    badgeBg: '#F0FDFA',
-    iconColor: '#0D9488',
-    tag: 'Retention',
+    color: '#F472B6',
+    tag: 'Marketing',
   },
   {
     Icon: BarChart3,
     title: 'Revenue Analytics',
     description: 'Live dashboards tracking visits, conversions, and sales down to the dirham.',
-    badgeBg: '#EEF2FF',
-    iconColor: '#4F46E5',
-    tag: 'Live Metrics',
+    color: '#A78BFA',
+    tag: 'Analytics',
   },
   {
     Icon: ShieldCheck,
     title: 'Enterprise Security',
     description: 'SSL, DDoS protection, and Cloudflare Enterprise — uptime guaranteed.',
-    badgeBg: '#F1F5F9',
-    iconColor: '#2563EB',
-    tag: 'Cloudflare',
+    color: '#34D399',
+    tag: 'Security',
   },
 ];
 
@@ -122,7 +110,7 @@ const FEATURES = [
 
 export default function TechShowcase() {
   return (
-    <section className="section" id="tech">
+    <section className="section section-alt" id="tech">
       <div className="wrap">
 
         {/* ── Header ── */}
@@ -130,103 +118,114 @@ export default function TechShowcase() {
           <div
             style={{
               textAlign: 'center',
-              maxWidth: '720px',
+              maxWidth: '680px',
               marginInline: 'auto',
-              marginBottom: '64px',
+              marginBottom: '56px',
             }}
           >
             <div className="eyebrow" style={{ justifyContent: 'center' }}>
+              <span
+                style={{
+                  width: '6px',
+                  height: '6px',
+                  borderRadius: '50%',
+                  background: '#4FD1FF',
+                  display: 'inline-block',
+                  marginRight: '6px',
+                }}
+              />
               Features &amp; Integrations
             </div>
-            <h2
-              className="h2"
-              style={{
-                fontSize: 'clamp(36px, 5vw, 56px)',
-                fontWeight: 800,
-                lineHeight: 1.1,
-                marginTop: '16px',
-                marginBottom: '16px',
-                letterSpacing: '-0.02em',
-              }}
-            >
-              Everything your website
-              <br />
-              needs to <span style={{ color: '#1D63FF' }}>grow.</span>
+            <h2 className="h2" style={{ marginBottom: '16px', marginTop: '12px', letterSpacing: '-0.02em' }}>
+              Everything your website{' '}
+              <span
+                style={{
+                  background: 'linear-gradient(90deg, #4FD1FF, #7B61FF)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
+                needs to grow.
+              </span>
             </h2>
-            <p className="lede" style={{ marginInline: 'auto', marginTop: '16px', fontSize: 'clamp(15px, 1.8vw, 18px)' }}>
+            <p className="lede" style={{ marginInline: 'auto', fontSize: '16px', lineHeight: 1.65 }}>
               Battle-tested features that make booking, ordering, and finding your business
-              effortless &mdash; for both you and your customers.
+              effortless — for both you and your customers.
             </p>
           </div>
         </ScrollReveal>
 
-        {/* ── Feature Cards Grid ── */}
+        {/* ── High-Contrast Feature Cards Grid ── */}
         <div className="tech-features-grid">
-          {FEATURES.map(({ Icon, title, description, badgeBg, iconColor, tag }, i) => (
-            <ScrollReveal key={title} delayMs={i * 30}>
-              <div className="tech-card group">
-                {/* Colored icon badge matching ServicesSection */}
+          {FEATURES.map(({ Icon, title, description, color, tag }, i) => (
+            <ScrollReveal key={title} delayMs={i * 35}>
+              <div
+                className="tech-card group"
+                style={{
+                  '--feat-color': color,
+                  textAlign: 'center',
+                  alignItems: 'center',
+                } as React.CSSProperties}
+              >
+                {/* Prominently Centered Icon Pedestal */}
                 <div
                   className="tech-icon-box"
                   style={{
-                    width: '52px',
-                    height: '52px',
-                    borderRadius: '14px',
-                    background: badgeBg,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
                     marginBottom: '20px',
-                    color: iconColor,
-                    flexShrink: 0,
+                    borderColor: `${color}66`,
                   }}
                 >
-                  <Icon size={26} strokeWidth={2.2} color={iconColor} />
+                  <Icon size={26} strokeWidth={2.2} color={color} />
                 </div>
 
                 {/* Title & Description */}
-                <h3>{title}</h3>
-                <p>{description}</p>
-
-                {/* Tag pill */}
-                <div style={{ marginTop: '18px' }}>
-                  <span
-                    style={{
-                      background: badgeBg,
-                      color: iconColor,
-                      padding: '4px 12px',
-                      borderRadius: '999px',
-                      fontSize: '12px',
-                      fontWeight: 600,
-                      fontFamily: 'var(--qf-font-display)',
-                      display: 'inline-block',
-                    }}
-                  >
-                    {tag}
-                  </span>
-                </div>
+                <h3
+                  style={{
+                    fontFamily: 'var(--qf-font-display)',
+                    fontSize: '17px',
+                    fontWeight: 600,
+                    marginBottom: '8px',
+                    color: '#FFFFFF',
+                    lineHeight: 1.3,
+                    letterSpacing: '-0.01em',
+                  }}
+                >
+                  {title}
+                </h3>
+                <p
+                  style={{
+                    fontSize: '13px',
+                    color: '#94A3B8',
+                    lineHeight: 1.6,
+                    margin: 0,
+                  }}
+                >
+                  {description}
+                </p>
               </div>
             </ScrollReveal>
           ))}
         </div>
 
-        {/* ── Bottom stat row ── */}
+        {/* ── Bottom stat row (Elevated Cardholders) ── */}
         <ScrollReveal>
           <div className="tech-stats-grid">
             {[
-              { value: '< 1s', label: 'Average page load time', color: '#1D63FF' },
-              { value: '99.9%', label: 'Uptime SLA guarantee', color: '#1D63FF' },
-              { value: '95+', label: 'Google PageSpeed score', color: '#1D63FF' },
+              { value: '< 1s', label: 'Average page load time', color: '#38BDF8' },
+              { value: '99.9%', label: 'Uptime SLA guarantee', color: '#34D399' },
+              { value: '95+', label: 'Google PageSpeed score', color: '#FBBF24' },
             ].map(({ value, label, color }) => (
               <div
                 key={label}
                 className="tech-stat-card"
+                style={{ '--stat-color': color } as React.CSSProperties}
               >
                 <div
                   style={{
                     fontFamily: 'var(--qf-font-display)',
-                    fontSize: 'clamp(28px, 2.5vw, 36px)',
-                    fontWeight: 800,
+                    fontSize: 'clamp(26px, 2.5vw, 32px)',
+                    fontWeight: 700,
                     color,
                     lineHeight: 1,
                     letterSpacing: '-0.02em',
@@ -237,10 +236,9 @@ export default function TechShowcase() {
                 </div>
                 <div
                   style={{
-                    fontFamily: 'var(--qf-font-display)',
-                    fontSize: '13.5px',
-                    fontWeight: 600,
-                    color: 'var(--qf-text-muted)',
+                    fontFamily: 'var(--qf-font-mono)',
+                    fontSize: '12px',
+                    color: '#CBD5E1',
                     lineHeight: 1.4,
                   }}
                 >
@@ -260,69 +258,67 @@ export default function TechShowcase() {
           grid-template-columns: repeat(4, 1fr);
           gap: 20px;
         }
-        /* Card matching ServicesSection */
+        /* High-contrast, non-blending card holder */
         .tech-card {
-          background: var(--qf-bg);
-          border: 1.5px solid var(--qf-line-soft);
+          background: #0D1322;
+          border: 1px solid #1E293B;
           border-radius: 18px;
-          padding: 28px 22px 24px;
+          padding: 28px 24px 24px;
           display: flex;
           flex-direction: column;
           align-items: center;
           text-align: center;
           height: 100%;
-          box-shadow: 0 2px 12px rgba(15, 23, 42, 0.05);
-          transition: transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+          transition: all 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
           cursor: default;
         }
         .tech-card:hover {
-          transform: translateY(-6px);
-          box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
-          border-color: var(--qf-line);
+          background: #111827;
+          border-color: var(--feat-color, #38BDF8);
+          transform: translateY(-4px);
+          box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
         }
+        /* Prominently centered pedestal for icon (zero glow) */
         .tech-icon-box {
-          transition: transform 0.25s ease;
+          width: 58px;
+          height: 58px;
+          border-radius: 14px;
+          background: #080D1A;
+          border: 1.5px solid rgba(255, 255, 255, 0.14);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          box-shadow: none;
+          transition: all 0.25s ease;
         }
         .tech-card:hover .tech-icon-box {
-          transform: scale(1.1);
-        }
-        .tech-card h3 {
-          font-family: var(--qf-font-display);
-          font-size: 19px;
-          font-weight: 700;
-          margin-bottom: 10px;
-          color: var(--qf-text);
-          line-height: 1.3;
-        }
-        .tech-card p {
-          font-size: 13.8px;
-          color: var(--qf-text-muted);
-          line-height: 1.65;
-          margin: 0;
-          flex-grow: 1;
+          border-color: var(--feat-color);
+          background: #0E162B;
+          transform: scale(1.08);
         }
         /* Bottom stats bar */
         .tech-stats-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 20px;
-          margin-top: 36px;
+          gap: 18px;
+          margin-top: 32px;
         }
         .tech-stat-card {
-          background: var(--qf-bg);
-          border: 1.5px solid var(--qf-line-soft);
-          border-radius: 18px;
-          padding: 24px 28px;
+          background: linear-gradient(180deg, #151D33 0%, #0D1322 100%);
+          border: 1px solid rgba(255, 255, 255, 0.14);
+          border-radius: 16px;
+          padding: 22px 26px;
           display: flex;
           align-items: center;
-          gap: 18px;
-          box-shadow: 0 2px 12px rgba(15, 23, 42, 0.05);
-          transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+          gap: 16px;
+          box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+          transition: transform 0.25s ease, border-color 0.25s ease;
         }
         .tech-stat-card:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 12px 32px rgba(15, 23, 42, 0.1);
-          border-color: var(--qf-line);
+          border-color: var(--stat-color);
+          transform: translateY(-2px);
         }
         @media (max-width: 1120px) {
           .tech-features-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; }
@@ -333,7 +329,7 @@ export default function TechShowcase() {
         }
         @media (max-width: 500px) {
           .tech-features-grid { grid-template-columns: 1fr; gap: 14px; }
-          .tech-card { padding: 22px 18px; }
+          .tech-card { padding: 20px 18px; }
         }
       `}</style>
     </section>

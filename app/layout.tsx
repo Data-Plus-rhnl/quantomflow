@@ -2,8 +2,6 @@ import type { Metadata, Viewport } from 'next';
 import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { NavbarProvider } from '@/components/layout/NavbarContext';
-import { ThemeProvider } from '@/components/theme/ThemeContext';
-import IntroAnimation from '@/components/ui/IntroAnimation';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -162,57 +160,9 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/qf-logo-avatar.png" type="image/png" />
         <link rel="apple-touch-icon" href="/qf-logo-avatar.png" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@600;700;800;900&family=Pirata+One&family=UnifrakturCook:wght@700&family=UnifrakturMaguntia&family=New+Rocker&display=swap"
-          rel="stylesheet"
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){
-              try {
-                if ('scrollRestoration' in history) {
-                  history.scrollRestoration = 'manual';
-                }
-                window.scrollTo(0, 0);
-                document.documentElement.scrollTop = 0;
-                document.body.scrollTop = 0;
-
-                var initialized = localStorage.getItem('qf-theme-v3-init');
-                var t = localStorage.getItem('qf-theme-pref');
-                if (!initialized || (t !== 'light' && t !== 'dark')) {
-                  t = 'light';
-                  localStorage.setItem('qf-theme-v3-init', '1');
-                  localStorage.setItem('qf-theme-pref', 'light');
-                  localStorage.setItem('qf-theme', 'light');
-                }
-                document.documentElement.setAttribute('data-theme', t);
-              } catch(e) {
-                document.documentElement.setAttribute('data-theme', 'light');
-              }
-            })();`,
-          }}
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-        <style
-          dangerouslySetInnerHTML={{
-            __html: `
-              #qf-intro-curtain {
-                position: fixed;
-                inset: 0;
-                width: 100vw;
-                height: 100vh;
-                z-index: 999999;
-                pointer-events: none;
-                overflow: hidden;
-                background-color: #070B16;
-              }
-            `,
-          }}
         />
       </head>
       <body>
@@ -223,12 +173,9 @@ export default function RootLayout({
         <div className="bg-field" aria-hidden="true"></div>
         <div className="bg-grid" aria-hidden="true"></div>
         <div className="noise" aria-hidden="true"></div>
-        <IntroAnimation />
-        <ThemeProvider>
-          <NavbarProvider>
-            {children}
-          </NavbarProvider>
-        </ThemeProvider>
+        <NavbarProvider>
+          {children}
+        </NavbarProvider>
       </body>
     </html>
   );
