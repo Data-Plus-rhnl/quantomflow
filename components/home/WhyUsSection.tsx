@@ -3,7 +3,9 @@ import ScrollReveal from '../ui/ScrollReveal';
 
 export default function WhyUsSection() {
   return (
-    <section className="section" id="why-us">
+    <section className="section why-us-section">
+      <div className="why-blue-overlay" aria-hidden="true" />
+      <div className="why-blue-glow" aria-hidden="true" />
       <div className="wrap">
         <ScrollReveal style={{ textAlign: 'center', maxWidth: '680px', marginInline: 'auto', marginBottom: '56px' }}>
           <div className="eyebrow" style={{ justifyContent: 'center' }}>Why Quantum Flow</div>

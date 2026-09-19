@@ -170,6 +170,65 @@ export default function DeckCard({
     };
   }, [zIndex]);
 
+  // Dedicated scroll color-transition logic for #why-us (White -> Royal Blue)
+  useEffect(() => {
+    if (id !== 'why-us') return;
+
+    let rafId: number | null = null;
+    let ticking = false;
+
+    const handleWhyScroll = () => {
+      if (!ticking) {
+        rafId = requestAnimationFrame(() => {
+          ticking = false;
+          const el = cardRef.current;
+          if (!el) return;
+
+          const rect = el.getBoundingClientRect();
+          const vh = window.innerHeight;
+          const nextEl = el.nextElementSibling as HTMLElement | null;
+          const nextRect = nextEl ? nextEl.getBoundingClientRect() : null;
+
+          let progress = 0;
+
+          // When top of card is at 75% of viewport, it starts at 0 (pure white)
+          // As it slides up to top: 0, progress smoothly goes to 1.0
+          if (rect.top > vh * 0.75) {
+            progress = 0;
+          } else if (rect.top > vh * 0.05) {
+            const slideRatio = (vh * 0.75 - rect.top) / (vh * 0.70);
+            progress = Math.max(0, Math.min(1, slideRatio));
+          } else {
+            // Once docked at top (rect.top <= vh * 0.05): full rich royal blue
+            progress = 1;
+          }
+
+          progress = Math.max(0, Math.min(1, progress));
+
+          // Set CSS custom properties on the card
+          el.style.setProperty('--why-progress', progress.toFixed(3));
+          el.style.setProperty('--why-spread', `${(progress * 160).toFixed(1)}%`);
+
+          // Toggle color shifted state for typography and frosted cards
+          if (progress >= 0.25) {
+            el.setAttribute('data-color-shifted', 'true');
+          } else {
+            el.removeAttribute('data-color-shifted');
+          }
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleWhyScroll, { passive: true });
+    handleWhyScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleWhyScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, [id]);
+
   const isFooter = id === 'footer';
   // User requirement: Remove curves from all card decks except the footer
   const shouldCurve = isFooter;
@@ -196,7 +255,7 @@ export default function DeckCard({
         display: isFooter ? 'block' : 'flex',
         flexDirection: isFooter ? undefined : 'column',
         justifyContent: isFooter ? undefined : 'center',
-        backgroundColor: isAlt ? 'var(--qf-bg-alt)' : 'var(--qf-bg)',
+        backgroundColor: id === 'why-us' ? undefined : isAlt ? 'var(--qf-bg-alt)' : 'var(--qf-bg)',
         borderTopLeftRadius: shouldCurve ? 'clamp(28px, 4vw, 46px)' : 0,
         borderTopRightRadius: shouldCurve ? 'clamp(28px, 4vw, 46px)' : 0,
         boxShadow: shadowStyle,
