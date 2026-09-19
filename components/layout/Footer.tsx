@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -135,19 +137,41 @@ export default function Footer() {
         <div className="footer-bottom">
           <span>© 2026 Quantum Flow Information Technologies LLC. All rights reserved.</span>
           <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
-            <Link href="/privacy-policy" style={{ color: 'rgba(255,255,255,0.45)', fontSize: '12.5px', fontFamily: 'var(--qf-font-mono)', textDecoration: 'none', transition: 'color .2s ease' }}
-              onMouseEnter={e => (e.currentTarget.style.color = '#fff')}
-              onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}>
+            <Link
+              href="/privacy-policy"
+              className="footer-legal-link"
+              style={{
+                color: 'rgba(255,255,255,0.45)',
+                fontSize: '12.5px',
+                fontFamily: 'var(--qf-font-mono)',
+                textDecoration: 'none',
+                transition: 'color .2s ease',
+              }}
+            >
               Privacy Policy
             </Link>
-            <Link href="/terms-of-service" style={{ color: 'rgba(255,255,255,0.45)', fontSize: '12.5px', fontFamily: 'var(--qf-font-mono)', textDecoration: 'none', transition: 'color .2s ease' }}
-              onMouseEnter={e => (e.currentTarget.style.color = '#fff')}
-              onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}>
+            <Link
+              href="/terms-of-service"
+              className="footer-legal-link"
+              style={{
+                color: 'rgba(255,255,255,0.45)',
+                fontSize: '12.5px',
+                fontFamily: 'var(--qf-font-mono)',
+                textDecoration: 'none',
+                transition: 'color .2s ease',
+              }}
+            >
               Terms of Service
             </Link>
           </div>
         </div>
       </div>
+
+      <style>{`
+        .footer-legal-link:hover {
+          color: #ffffff !important;
+        }
+      `}</style>
     </footer>
   );
 }
