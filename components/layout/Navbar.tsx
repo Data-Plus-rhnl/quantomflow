@@ -21,6 +21,7 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled]     = useState(false);
+  const [isVisible, setIsVisible]       = useState(true);
   const { menuOpen, setMenuOpen }       = useNavbar();
   const { theme, toggleTheme }          = useTheme();
   const isDark                          = theme === 'dark';
@@ -29,20 +30,41 @@ export default function Navbar() {
   const isHome    = pathname === '/';
 
   useEffect(() => {
+    let lastScrollY = typeof window !== 'undefined' ? window.scrollY : 0;
     let ticking = false;
+
     const onScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const next = window.scrollY > 20;
-          setIsScrolled((prev) => (prev !== next ? next : prev));
+          const currentScrollY = window.scrollY;
+
+          // Blur / compact state threshold
+          setIsScrolled(currentScrollY > 20);
+
+          // Hide on scroll down, show on scroll up
+          if (menuOpen) {
+            setIsVisible(true);
+          } else if (currentScrollY <= 60) {
+            // Near top of page: always visible
+            setIsVisible(true);
+          } else if (currentScrollY > lastScrollY && currentScrollY - lastScrollY > 6) {
+            // Scrolling down: hide
+            setIsVisible(false);
+          } else if (currentScrollY < lastScrollY && lastScrollY - currentScrollY > 6) {
+            // Scrolling up: show
+            setIsVisible(true);
+          }
+
+          lastScrollY = Math.max(0, currentScrollY);
           ticking = false;
         });
         ticking = true;
       }
     };
+
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [menuOpen]);
 
   useEffect(() => {
     if (!isHome) return;
@@ -60,8 +82,44 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ''; };
   }, [menuOpen]);
 
-  const close   = () => setMenuOpen(false);
-  const href    = (a: string) => (isHome ? `#${a}` : `/#${a}`);
+  const close = () => setMenuOpen(false);
+  const href  = (a: string) => (isHome ? `#${a}` : `/#${a}`);
+
+  /**
+   * Scroll to a section by id, accounting for:
+   *  - The fixed navbar height
+   *  - Sticky-positioned DeckCard elements (which report incorrect getBoundingClientRect
+   *    when already stacked/pinned). We resolve the true document offset by walking
+   *    offsetParent chains.
+   */
+  const scrollToSection = (e: React.MouseEvent, anchor: string) => {
+    if (!isHome) return; // Let Next.js handle cross-page navigation normally
+    e.preventDefault();
+    close();
+
+    if (anchor === 'top') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    const el = document.getElementById(anchor);
+    if (!el) return;
+
+    // Walk the offsetParent chain to get true document top offset
+    let offsetTop = 0;
+    let node: HTMLElement | null = el;
+    while (node) {
+      offsetTop += node.offsetTop;
+      node = node.offsetParent as HTMLElement | null;
+    }
+
+    // Subtract the navbar height so the section isn't hidden behind it
+    const navbarHeight = isScrolled ? 68 : 82;
+    const target = Math.max(0, offsetTop - navbarHeight);
+
+    setIsVisible(true);
+    window.scrollTo({ top: target, behavior: 'smooth' });
+  };
 
   return (
     <>
@@ -73,8 +131,9 @@ export default function Navbar() {
           left: 0,
           right: 0,
           width: '100%',
-          zIndex: 50,
-          transition: 'all 0.35s cubic-bezier(0.22,0.61,0.36,1)',
+          zIndex: 1000,
+          transform: isVisible || menuOpen ? 'translateY(0)' : 'translateY(-100%)',
+          transition: 'transform 0.35s cubic-bezier(0.22,0.61,0.36,1), background 0.35s cubic-bezier(0.22,0.61,0.36,1), border-color 0.35s cubic-bezier(0.22,0.61,0.36,1), box-shadow 0.35s cubic-bezier(0.22,0.61,0.36,1), height 0.35s cubic-bezier(0.22,0.61,0.36,1)',
           ...(isDark ? {
             ...(isScrolled ? {
               background: 'rgba(7, 11, 22, 0.96)',
@@ -123,7 +182,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link
             href={href('top')}
-            onClick={close}
+            onClick={(e) => scrollToSection(e, 'top')}
             className="nav-logo-link"
             style={{
               display: 'flex',
@@ -201,6 +260,7 @@ export default function Navbar() {
                 <Link
                   key={anchor}
                   href={href(anchor)}
+                  onClick={(e) => scrollToSection(e, anchor)}
                   style={{
                     fontFamily: 'var(--qf-font-body)',
                     fontSize: '13px',
@@ -244,6 +304,7 @@ export default function Navbar() {
             {/* Blog link */}
             <Link
               href={href('blog')}
+              onClick={(e) => scrollToSection(e, 'blog')}
               className="nav-blog-link"
               style={{
                 fontFamily: 'var(--qf-font-body)',
@@ -272,6 +333,7 @@ export default function Navbar() {
             {/* Contact link */}
             <Link
               href={href('contact')}
+              onClick={(e) => scrollToSection(e, 'contact')}
               className="nav-contact-link"
               style={{
                 fontFamily: 'var(--qf-font-body)',
@@ -438,7 +500,7 @@ export default function Navbar() {
             <Link
               key={anchor}
               href={href(anchor)}
-              onClick={close}
+              onClick={(e) => scrollToSection(e, anchor)}
               style={{
                 fontFamily: 'var(--qf-font-display)',
                 fontSize: '22px',

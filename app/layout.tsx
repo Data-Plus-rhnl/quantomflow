@@ -162,6 +162,12 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/qf-logo-avatar.png" type="image/png" />
         <link rel="apple-touch-icon" href="/qf-logo-avatar.png" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@600;700;800;900&family=Pirata+One&family=UnifrakturCook:wght@700&family=UnifrakturMaguntia&family=New+Rocker&display=swap"
+          rel="stylesheet"
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){

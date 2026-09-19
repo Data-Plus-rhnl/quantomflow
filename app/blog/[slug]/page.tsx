@@ -4,7 +4,6 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
-import FloatingWhatsApp from '@/components/ui/FloatingWhatsApp';
 import { BLOG_POSTS, getBlogPost } from '@/lib/blog-data';
 
 interface BlogPostPageProps {
@@ -126,8 +125,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       </main>
 
       <Footer />
-
-      <FloatingWhatsApp />
     </>
   );
 }

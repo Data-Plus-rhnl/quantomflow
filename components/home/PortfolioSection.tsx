@@ -54,14 +54,14 @@ function MetricBadge({ primary, label, accent }: { primary: string; label: strin
         bottom: '14px',
         left: '14px',
         right: '14px',
-        background: '#070B16',
+        background: '#16171B',
         border: `1.5px solid ${metricColor}55`,
         borderRadius: '12px',
         padding: '10px 14px',
         display: 'flex',
         alignItems: 'center',
         gap: '12px',
-        boxShadow: '0 8px 24px rgba(0,0,0,0.7)',
+        boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
       }}
     >
       <span
@@ -138,9 +138,9 @@ function ProjectCard({
         onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onClick()}
         style={{
           background: isDark
-            ? (hovered ? '#0F1626' : '#090D18')
+            ? (hovered ? '#1E1F24' : '#111215')
             : (hovered ? '#FFFFFF' : '#F8FAFC'),
-          border: `1.5px solid ${hovered ? accent : isDark ? '#1E293B' : '#CBD5E1'}`,
+          border: `1.5px solid ${hovered ? accent : isDark ? '#26272B' : '#CBD5E1'}`,
           borderRadius: '16px',
           overflow: 'hidden',
           cursor: 'pointer',
@@ -170,7 +170,7 @@ function ProjectCard({
             width: '100%',
             aspectRatio: '16/10',
             overflow: 'hidden',
-            background: isDark ? '#080D1A' : '#E2E8F0',
+            background: isDark ? '#0C0D0F' : '#E2E8F0',
             flexShrink: 0,
           }}
         >
@@ -191,7 +191,7 @@ function ProjectCard({
             style={{
               position: 'absolute',
               inset: 0,
-              background: `linear-gradient(180deg, transparent 40%, rgba(5,8,16,0.85) 100%)`,
+              background: `linear-gradient(180deg, transparent 40%, rgba(12,13,15,0.88) 100%)`,
               opacity: hovered ? 1 : 0.6,
               transition: 'opacity 0.25s ease',
             }}
@@ -203,7 +203,7 @@ function ProjectCard({
               position: 'absolute',
               top: '14px',
               left: '14px',
-              background: '#070B16',
+              background: '#16171B',
               border: `1.5px solid ${accent}88`,
               padding: '4px 11px',
               borderRadius: '999px',
@@ -241,7 +241,7 @@ function ProjectCard({
               position: 'absolute',
               top: '16px',
               right: '16px',
-              background: '#070B16',
+              background: '#16171B',
               border: `1.5px solid ${accent}`,
               borderRadius: '999px',
               padding: '4px 12px',
@@ -788,7 +788,7 @@ function CaseStudyModal({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 'clamp(16px, 3vw, 32px)',
-        background: 'rgba(4,6,14,0.92)',
+        background: 'rgba(10,10,12,0.92)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
       }}
@@ -801,7 +801,7 @@ function CaseStudyModal({
           maxWidth: '820px',
           maxHeight: '92vh',
           overflowY: 'auto',
-          background: 'linear-gradient(160deg, #0F1528 0%, #0A0E1A 100%)',
+          background: 'linear-gradient(160deg, #18191E 0%, #111215 100%)',
           border: `1px solid ${accent}33`,
           borderRadius: '24px',
           boxShadow: `0 40px 80px -16px rgba(0,0,0,0.9), 0 0 0 1px ${accent}22, 0 0 80px -20px ${accent}20`,
@@ -838,9 +838,9 @@ function CaseStudyModal({
             width: '36px',
             height: '36px',
             borderRadius: '50%',
-            background: 'rgba(22,29,51,0.9)',
-            border: '1px solid rgba(35,43,71,0.9)',
-            color: 'rgba(139,147,168,0.9)',
+            background: 'rgba(30,31,36,0.9)',
+            border: '1px solid rgba(46,48,54,0.9)',
+            color: 'rgba(161,161,170,0.9)',
             fontSize: '16px',
             cursor: 'pointer',
             display: 'flex',
@@ -855,9 +855,9 @@ function CaseStudyModal({
             e.currentTarget.style.color = accent;
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'rgba(22,29,51,0.9)';
-            e.currentTarget.style.borderColor = 'rgba(35,43,71,0.9)';
-            e.currentTarget.style.color = 'rgba(139,147,168,0.9)';
+            e.currentTarget.style.background = 'rgba(30,31,36,0.9)';
+            e.currentTarget.style.borderColor = 'rgba(46,48,54,0.9)';
+            e.currentTarget.style.color = 'rgba(161,161,170,0.9)';
           }}
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -923,8 +923,8 @@ function CaseStudyModal({
                 flexWrap: 'wrap',
               }}
             >
-              <span style={{ color: 'rgba(139,147,168,0.8)' }}>{project.clientName}</span>
-              <span style={{ color: 'rgba(35,43,71,1)' }}>&middot;</span>
+              <span style={{ color: 'rgba(161,161,170,0.8)' }}>{project.clientName}</span>
+              <span style={{ color: 'rgba(50,52,58,1)' }}>&middot;</span>
               <span>{project.location}</span>
             </div>
           </div>
@@ -939,7 +939,7 @@ function CaseStudyModal({
               overflow: 'hidden',
               marginBottom: '28px',
               border: `1px solid ${accent}22`,
-              boxShadow: `0 0 0 1px rgba(35,43,71,0.5), 0 20px 40px -12px rgba(0,0,0,0.6)`,
+              boxShadow: `0 0 0 1px rgba(50,52,58,0.5), 0 20px 40px -12px rgba(0,0,0,0.6)`,
             }}
           >
             <Image
@@ -1012,8 +1012,8 @@ function CaseStudyModal({
               <div
                 key={heading}
                 style={{
-                  background: 'rgba(10,14,26,0.7)',
-                  border: '1px solid rgba(35,43,71,0.8)',
+                  background: 'rgba(24,25,30,0.7)',
+                  border: '1px solid rgba(46,48,54,0.8)',
                   borderRadius: '14px',
                   padding: '20px',
                 }}
@@ -1050,7 +1050,7 @@ function CaseStudyModal({
                 <p
                   style={{
                     fontSize: '13px',
-                    color: 'rgba(139,147,168,0.9)',
+                    color: 'rgba(161,161,170,0.9)',
                     lineHeight: 1.65,
                   }}
                 >
@@ -1100,12 +1100,12 @@ function CaseStudyModal({
                     display: 'flex',
                     alignItems: 'flex-start',
                     gap: '10px',
-                    background: 'rgba(10,14,26,0.5)',
-                    border: '1px solid rgba(35,43,71,0.6)',
+                    background: 'rgba(24,25,30,0.5)',
+                    border: '1px solid rgba(46,48,54,0.6)',
                     borderRadius: '10px',
                     padding: '10px 14px',
                     fontSize: '12.5px',
-                    color: 'rgba(139,147,168,0.9)',
+                    color: 'rgba(161,161,170,0.9)',
                     lineHeight: 1.5,
                   }}
                 >
@@ -1162,7 +1162,7 @@ function CaseStudyModal({
               alignItems: 'center',
               flexWrap: 'wrap',
               gap: '16px',
-              borderTop: '1px solid rgba(26,33,56,0.9)',
+              borderTop: '1px solid rgba(38,39,43,0.9)',
               paddingTop: '20px',
             }}
           >
@@ -1289,8 +1289,8 @@ export default function PortfolioSection() {
                 fontFamily: 'var(--qf-font-mono)',
                 fontSize: '11.5px',
                 color: '#10B981',
-                background: isDark ? '#0D1322' : '#F1F5F9',
-                border: isDark ? '1px solid #1E293B' : '1px solid #CBD5E1',
+                background: isDark ? '#18191E' : '#F1F5F9',
+                border: isDark ? '1px solid #26272B' : '1px solid #CBD5E1',
                 padding: '6px 14px',
                 borderRadius: '999px',
                 marginTop: '24px',
@@ -1336,32 +1336,32 @@ export default function PortfolioSection() {
                   const bg = isActive
                     ? '#1D63FF'
                     : isDark
-                    ? '#0D1424'
+                    ? '#18191E'
                     : '#F1F5F9';
                   const border = isActive
                     ? '1.5px solid #1D63FF'
                     : isDark
-                    ? '1.5px solid #1E293B'
+                    ? '1.5px solid #26272B'
                     : '1.5px solid #CBD5E1';
                   const textColor = isActive
                     ? '#FFFFFF'
                     : isDark
-                    ? '#94A3B8'
+                    ? '#A1A1AA'
                     : '#0F172A';
                   const badgeBg = isActive
                     ? '#FFFFFF'
                     : isDark
-                    ? '#162034'
+                    ? '#222329'
                     : '#E2E8F0';
                   const badgeText = isActive
                     ? '#1D63FF'
                     : isDark
-                    ? '#94A3B8'
+                    ? '#A1A1AA'
                     : '#334155';
                   const badgeBorder = isActive
                     ? 'none'
                     : isDark
-                    ? '1px solid #1E293B'
+                    ? '1px solid #2E3036'
                     : '1px solid #CBD5E1';
 
                   return (
@@ -1388,14 +1388,14 @@ export default function PortfolioSection() {
                       onMouseEnter={(e) => {
                         if (!isActive) {
                           e.currentTarget.style.color = isDark ? '#FFFFFF' : '#000000';
-                          e.currentTarget.style.borderColor = isDark ? '#475569' : '#94A3B8';
-                          e.currentTarget.style.background = isDark ? '#162238' : '#E2E8F0';
+                          e.currentTarget.style.borderColor = isDark ? '#4B4D56' : '#94A3B8';
+                          e.currentTarget.style.background = isDark ? '#222329' : '#E2E8F0';
                         }
                       }}
                       onMouseLeave={(e) => {
                         if (!isActive) {
                           e.currentTarget.style.color = textColor;
-                          e.currentTarget.style.borderColor = isDark ? '#1E293B' : '#CBD5E1';
+                          e.currentTarget.style.borderColor = isDark ? '#26272B' : '#CBD5E1';
                           e.currentTarget.style.background = bg;
                         }
                       }}
@@ -1423,8 +1423,8 @@ export default function PortfolioSection() {
                 display: 'inline-flex',
                 gap: '4px',
                 padding: '4px',
-                background: isDark ? '#090D18' : '#F1F5F9',
-                border: isDark ? '1.5px solid #1E293B' : '1.5px solid #CBD5E1',
+                background: isDark ? '#111215' : '#F1F5F9',
+                border: isDark ? '1.5px solid #26272B' : '1.5px solid #CBD5E1',
                 borderRadius: '10px',
                 flexShrink: 0,
               }}>
@@ -1440,7 +1440,7 @@ export default function PortfolioSection() {
                     borderRadius: '7px',
                     border: 'none',
                     background: viewMode === 'presentation' ? '#1D63FF' : 'transparent',
-                    color: viewMode === 'presentation' ? '#FFFFFF' : isDark ? '#94A3B8' : '#475569',
+                    color: viewMode === 'presentation' ? '#FFFFFF' : isDark ? '#A1A1AA' : '#475569',
                     cursor: 'pointer',
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -1516,8 +1516,8 @@ export default function PortfolioSection() {
             <div style={{
               marginTop: '64px',
               padding: 'clamp(28px, 4vw, 40px) clamp(24px, 4vw, 40px)',
-              background: '#090D18',
-              border: '1.5px solid #2B3854',
+              background: '#111215',
+              border: '1.5px solid #26272B',
               borderRadius: '20px',
               display: 'flex',
               alignItems: 'center',
@@ -1635,8 +1635,8 @@ export default function PortfolioSection() {
 
         /* ── Presentation Deck High Contrast Styling (Zero Glow) ── */
         .presentation-deck {
-          background: #080C16;
-          border: 1px solid #1E293B;
+          background: #111215;
+          border: 1px solid #26272B;
           border-radius: 20px;
           box-shadow: 0 16px 36px rgba(0,0,0,0.6);
           overflow: hidden;
@@ -1648,8 +1648,8 @@ export default function PortfolioSection() {
           align-items: center;
           justifyContent: space-between;
           padding: 16px 28px;
-          border-bottom: 1px solid #1E293B;
-          background: #0B101E;
+          border-bottom: 1px solid #26272B;
+          background: #16171B;
           gap: 16px;
         }
 
@@ -1672,17 +1672,17 @@ export default function PortfolioSection() {
           font-weight: 800;
         }
         .deck-num-sep {
-          color: #475569;
+          color: #52525B;
           margin: 0 4px;
         }
         .deck-num-total {
-          color: #94A3B8;
+          color: #A1A1AA;
         }
 
         .deck-sep-line {
           width: 1px;
           height: 16px;
-          background: #1E293B;
+          background: #26272B;
         }
 
         .deck-category-badge {
@@ -1695,8 +1695,8 @@ export default function PortfolioSection() {
           display: inline-flex;
           align-items: center;
           gap: 6px;
-          background: #111827;
-          border: 1px solid #334155;
+          background: #1E1F24;
+          border: 1px solid #32343A;
           color: #FFFFFF;
           font-weight: 500;
         }
@@ -1710,7 +1710,7 @@ export default function PortfolioSection() {
         .deck-nav-hint {
           font-family: var(--qf-font-mono);
           font-size: 11px;
-          color: #94A3B8;
+          color: #A1A1AA;
           margin-right: 8px;
         }
 
@@ -1719,8 +1719,8 @@ export default function PortfolioSection() {
           font-size: 12px;
           font-weight: 600;
           color: #FFFFFF;
-          background: #0F172A;
-          border: 1px solid #334155;
+          background: #1E1F24;
+          border: 1px solid #32343A;
           border-radius: 8px;
           padding: 7px 14px;
           display: inline-flex;
@@ -1730,20 +1730,20 @@ export default function PortfolioSection() {
           transition: all 0.2s ease;
         }
         .deck-nav-btn:hover {
-          background: #1E293B;
-          border-color: #64748B;
+          background: #2A2B32;
+          border-color: #4B4D56;
           color: #FFFFFF;
         }
 
         .deck-nav-btn-next {
           background: #FFFFFF;
           border: 1px solid #FFFFFF;
-          color: #080C16;
+          color: #111215;
           font-weight: 700;
         }
         .deck-nav-btn-next:hover {
-          background: #E2E8F0;
-          border-color: #E2E8F0;
+          background: #E4E4E7;
+          border-color: #E4E4E7;
           color: #000000;
         }
 
@@ -1767,16 +1767,16 @@ export default function PortfolioSection() {
         }
 
         .deck-browser-frame {
-          background: #080C16;
-          border: 1px solid #1E293B;
+          background: #111215;
+          border: 1px solid #26272B;
           border-radius: 14px;
           overflow: hidden;
           box-shadow: 0 12px 32px rgba(0,0,0,0.5);
         }
 
         .deck-browser-header {
-          background: #0D1322;
-          border-bottom: 1px solid #1E293B;
+          background: #18191E;
+          border-bottom: 1px solid #26272B;
           padding: 10px 16px;
           display: flex;
           align-items: center;
@@ -1799,9 +1799,9 @@ export default function PortfolioSection() {
         .deck-window-url {
           font-family: var(--qf-font-mono);
           font-size: 11px;
-          color: #94A3B8;
-          background: #080C16;
-          border: 1px solid #1E293B;
+          color: #A1A1AA;
+          background: #111215;
+          border: 1px solid #26272B;
           border-radius: 6px;
           padding: 3px 12px;
           display: flex;
@@ -1816,7 +1816,7 @@ export default function PortfolioSection() {
         .deck-inspect-pill {
           font-family: var(--qf-font-mono);
           font-size: 10.5px;
-          color: #94A3B8;
+          color: #A1A1AA;
           font-weight: 500;
           white-space: nowrap;
         }
@@ -1826,7 +1826,7 @@ export default function PortfolioSection() {
           width: 100%;
           aspect-ratio: 16/10;
           overflow: hidden;
-          background: #060912;
+          background: #0C0D0F;
         }
 
         .deck-floating-metric {
@@ -1834,8 +1834,8 @@ export default function PortfolioSection() {
           bottom: 14px;
           left: 14px;
           right: 14px;
-          background: #090D18;
-          border: 1px solid #2B3854;
+          background: #16171B;
+          border: 1px solid #2E3036;
           border-radius: 12px;
           padding: 12px 18px;
           display: flex;
@@ -1902,8 +1902,8 @@ export default function PortfolioSection() {
         }
 
         .deck-systems-box {
-          background: #0D1322;
-          border: 1px solid #1E293B;
+          background: #18191E;
+          border: 1px solid #26272B;
           border-radius: 12px;
           padding: 14px 18px;
           margin-bottom: 20px;
@@ -1914,7 +1914,7 @@ export default function PortfolioSection() {
           font-size: 11px;
           text-transform: uppercase;
           letter-spacing: 0.08em;
-          color: #94A3B8;
+          color: #A1A1AA;
           font-weight: 600;
           margin-bottom: 10px;
         }
@@ -1929,7 +1929,7 @@ export default function PortfolioSection() {
         }
         .deck-systems-list li {
           font-size: 13px;
-          color: #F1F5F9;
+          color: #F4F4F5;
           font-weight: 500;
           display: flex;
           align-items: flex-start;
@@ -1945,9 +1945,9 @@ export default function PortfolioSection() {
         .deck-tech-chip {
           font-family: var(--qf-font-mono);
           font-size: 11px;
-          color: #CBD5E1;
-          background: #0D1322;
-          border: 1px solid #1E293B;
+          color: #D4D4D8;
+          background: #1E1F24;
+          border: 1px solid #2E3036;
           padding: 4px 10px;
           border-radius: 6px;
           font-weight: 500;
@@ -1972,12 +1972,12 @@ export default function PortfolioSection() {
           cursor: pointer;
           background: #FFFFFF;
           border: 1px solid #FFFFFF;
-          color: #080C16;
+          color: #111215;
           transition: all 0.2s ease;
         }
         .deck-primary-btn:hover {
-          background: #E2E8F0;
-          border-color: #E2E8F0;
+          background: #E4E4E7;
+          border-color: #E4E4E7;
           transform: translateY(-1px);
         }
 
@@ -1985,7 +1985,7 @@ export default function PortfolioSection() {
           font-family: var(--qf-font-mono);
           font-size: 12.5px;
           font-weight: 500;
-          color: #94A3B8;
+          color: #A1A1AA;
           text-decoration: none;
           transition: color 0.2s ease;
         }
@@ -1995,12 +1995,12 @@ export default function PortfolioSection() {
 
         /* ── Bottom Deck Timeline Navigation ── */
         .deck-timeline-bar {
-          border-top: 1px solid #1E293B;
-          background: #080C16;
+          border-top: 1px solid #26272B;
+          background: #111215;
           padding: 12px 20px;
           overflow-x: auto;
           scrollbar-width: thin;
-          scrollbar-color: #1E293B transparent;
+          scrollbar-color: #26272B transparent;
         }
         .deck-timeline-track {
           display: flex;
@@ -2012,11 +2012,11 @@ export default function PortfolioSection() {
         .deck-timeline-item {
           font-family: var(--qf-font-mono);
           font-size: 11px;
-          border: 1px solid #1E293B;
+          border: 1px solid #26272B;
           border-radius: 8px;
           padding: 6px 12px;
-          background: #0D1322;
-          color: #94A3B8;
+          background: #18191E;
+          color: #A1A1AA;
           cursor: pointer;
           display: inline-flex;
           align-items: center;
@@ -2026,13 +2026,13 @@ export default function PortfolioSection() {
           flex-shrink: 0;
         }
         .deck-timeline-item:hover {
-          background: #162036;
-          border-color: #334155;
+          background: #222329;
+          border-color: #383A42;
           color: #FFFFFF;
         }
         .deck-timeline-item.is-active {
           border-color: #FFFFFF;
-          background: #1E293B;
+          background: #26272B;
           color: #FFFFFF;
         }
 

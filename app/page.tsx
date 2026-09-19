@@ -19,7 +19,6 @@ import BlogSection from '@/components/home/BlogSection';
 import TestimonialsSection from '@/components/home/TestimonialsSection';
 import LeadGenStrip from '@/components/home/LeadGenStrip';
 import AIChatBot from '@/components/ui/AIChatBot';
-import FloatingWhatsApp from '@/components/ui/FloatingWhatsApp';
 import DeckCard from '@/components/ui/DeckCard';
 
 export default function HomePage() {
@@ -101,7 +100,6 @@ export default function HomePage() {
       </DeckCard>
 
       <AIChatBot />
-      <FloatingWhatsApp />
     </>
   );
 }
