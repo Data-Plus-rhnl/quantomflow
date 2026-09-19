@@ -164,7 +164,28 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/qf-logo-avatar.png" />
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('qf-theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}else{document.documentElement.setAttribute('data-theme','dark');}}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();`,
+            __html: `(function(){
+              try {
+                if ('scrollRestoration' in history) {
+                  history.scrollRestoration = 'manual';
+                }
+                window.scrollTo(0, 0);
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+
+                var initialized = localStorage.getItem('qf-theme-v3-init');
+                var t = localStorage.getItem('qf-theme-pref');
+                if (!initialized || (t !== 'light' && t !== 'dark')) {
+                  t = 'light';
+                  localStorage.setItem('qf-theme-v3-init', '1');
+                  localStorage.setItem('qf-theme-pref', 'light');
+                  localStorage.setItem('qf-theme', 'light');
+                }
+                document.documentElement.setAttribute('data-theme', t);
+              } catch(e) {
+                document.documentElement.setAttribute('data-theme', 'light');
+              }
+            })();`,
           }}
         />
         <script

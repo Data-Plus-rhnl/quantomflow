@@ -7,12 +7,36 @@ export default function IntroAnimation() {
   const [active, setActive] = useState(true);
 
   useEffect(() => {
-    // Unmount completely after sequence finishes (5.0s)
-    const timer = setTimeout(() => {
-      setActive(false);
-    }, 5000);
+    // Enforce manual scroll restoration and lock page to top (0, 0)
+    if (typeof window !== 'undefined') {
+      if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+      }
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
 
-    return () => clearTimeout(timer);
+      // Lock scrolling while the 5s intro animation is playing
+      const prevBodyOverflow = document.body.style.overflow;
+      const prevDocOverflow = document.documentElement.style.overflow;
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+
+      const timer = setTimeout(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        document.body.style.overflow = prevBodyOverflow || '';
+        document.documentElement.style.overflow = prevDocOverflow || '';
+        setActive(false);
+      }, 5000);
+
+      return () => {
+        clearTimeout(timer);
+        document.body.style.overflow = prevBodyOverflow || '';
+        document.documentElement.style.overflow = prevDocOverflow || '';
+      };
+    }
   }, []);
 
   if (!active) {

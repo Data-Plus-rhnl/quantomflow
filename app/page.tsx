@@ -25,7 +25,7 @@ export default function HomePage() {
   return (
     <>
       <Navbar />
-      <main id="top">
+      <main>
         <Hero />
         <TrustBadges />
         <MarqueeStrip />

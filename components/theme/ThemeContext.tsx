@@ -13,23 +13,27 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>('dark');
+  const [theme, setThemeState] = useState<Theme>('light');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     try {
-      const saved = localStorage.getItem('qf-theme') as Theme | null;
-      if (saved === 'light' || saved === 'dark') {
+      const initialized = localStorage.getItem('qf-theme-v3-init');
+      const saved = localStorage.getItem('qf-theme-pref') as Theme | null;
+      if (initialized && (saved === 'light' || saved === 'dark')) {
         setThemeState(saved);
         document.documentElement.setAttribute('data-theme', saved);
       } else {
-        // Default is dark mode
-        setThemeState('dark');
-        document.documentElement.setAttribute('data-theme', 'dark');
+        // Default is light mode
+        setThemeState('light');
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('qf-theme-v3-init', '1');
+        localStorage.setItem('qf-theme-pref', 'light');
+        localStorage.setItem('qf-theme', 'light');
       }
     } catch {
-      setThemeState('dark');
-      document.documentElement.setAttribute('data-theme', 'dark');
+      setThemeState('light');
+      document.documentElement.setAttribute('data-theme', 'light');
     }
     setMounted(true);
   }, []);
@@ -37,6 +41,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const setTheme = (t: Theme) => {
     setThemeState(t);
     try {
+      localStorage.setItem('qf-theme-pref', t);
       localStorage.setItem('qf-theme', t);
     } catch {}
     document.documentElement.setAttribute('data-theme', t);
@@ -48,7 +53,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <ThemeContext.Provider value={{ theme: mounted ? theme : 'dark', toggleTheme, setTheme }}>
+    <ThemeContext.Provider value={{ theme: mounted ? theme : 'light', toggleTheme, setTheme }}>
       {children}
     </ThemeContext.Provider>
   );
@@ -58,7 +63,7 @@ export function useTheme() {
   const context = useContext(ThemeContext);
   if (!context) {
     return {
-      theme: 'dark' as Theme,
+      theme: 'light' as Theme,
       toggleTheme: () => {},
       setTheme: () => {},
     };

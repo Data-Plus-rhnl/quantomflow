@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useNavbar } from './NavbarContext';
 import { useTheme } from '@/components/theme/ThemeContext';
+import PullChainSwitch from '@/components/ui/PullChainSwitch';
 
 const NAV_LINKS = [
   { label: 'Work',       anchor: 'portfolio'   },
@@ -307,56 +308,6 @@ export default function Navbar() {
               Contact
             </Link>
 
-            {/* Light / Night Mode Switch Button */}
-            <button
-              type="button"
-              onClick={toggleTheme}
-              aria-label={isDark ? 'Switch to Light mode' : 'Switch to Dark mode'}
-              title={isDark ? 'Switch to Light mode' : 'Switch to Dark mode'}
-              className="nav-theme-toggle"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                padding: '7px 12px',
-                borderRadius: '8px',
-                border: isDark ? '1px solid rgba(255, 255, 255, 0.18)' : '1.5px solid #CBD5E1',
-                background: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F1F5F9',
-                color: isDark ? '#FFFFFF' : '#070B16',
-                cursor: 'pointer',
-                fontFamily: 'var(--qf-font-body)',
-                fontSize: '12.5px',
-                fontWeight: 600,
-                transition: 'all 0.18s ease',
-                flexShrink: 0,
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.15)' : '#E2E8F0';
-                e.currentTarget.style.borderColor = isDark ? 'rgba(255, 255, 255, 0.35)' : '#94A3B8';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.08)' : '#F1F5F9';
-                e.currentTarget.style.borderColor = isDark ? 'rgba(255, 255, 255, 0.18)' : '#CBD5E1';
-              }}
-            >
-              {isDark ? (
-                <>
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <circle cx="12" cy="12" r="4" />
-                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-                  </svg>
-                  <span className="theme-toggle-label">Light</span>
-                </>
-              ) : (
-                <>
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                  </svg>
-                  <span className="theme-toggle-label">Dark</span>
-                </>
-              )}
-            </button>
-
             {/* Primary CTA */}
             <Link
               href="/request-quote"
@@ -420,6 +371,19 @@ export default function Navbar() {
             </button>
           </div>
         </div>
+
+        {/* Architectural Pull Cord Switch mounted at the absolute FURTHEST RIGHT of the header */}
+        <div
+          className="header-furthest-right-pull"
+          style={{
+            position: 'absolute',
+            top: 0,
+            right: 'clamp(14px, 2.2vw, 36px)',
+            zIndex: 60,
+          }}
+        >
+          <PullChainSwitch isDark={isDark} onToggle={toggleTheme} />
+        </div>
       </header>
 
       {/* ── Mobile drawer ── */}
@@ -441,27 +405,32 @@ export default function Navbar() {
           overflowY: 'auto',
         }}
       >
-        <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '16px' }}>
-          <button
-            type="button"
-            onClick={toggleTheme}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              padding: '8px 14px',
-              borderRadius: '8px',
-              border: isDark ? '1px solid rgba(255, 255, 255, 0.18)' : '1px solid #CBD5E1',
-              background: isDark ? 'rgba(255, 255, 255, 0.08)' : '#F1F5F9',
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: '20px',
+          paddingBottom: '16px',
+          borderBottom: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #E2E8F0',
+        }}>
+          <div>
+            <div style={{
+              fontFamily: 'var(--qf-font-display)',
+              fontSize: '15px',
+              fontWeight: 700,
               color: isDark ? '#FFFFFF' : '#070B16',
-              fontFamily: 'var(--qf-font-body)',
-              fontSize: '13px',
-              fontWeight: 600,
-              cursor: 'pointer',
-            }}
-          >
-            {isDark ? 'Switch to Light Mode ☀️' : 'Switch to Dark Mode 🌙'}
-          </button>
+            }}>
+              Appearance
+            </div>
+            <div style={{
+              fontSize: '12px',
+              color: isDark ? '#94A3B8' : '#64748B',
+              marginTop: '2px',
+            }}>
+              {isDark ? 'Dark Mode (Pull to switch)' : 'Light Mode (Pull to switch)'}
+            </div>
+          </div>
+          <PullChainSwitch isDark={isDark} onToggle={toggleTheme} />
         </div>
 
         <nav style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
@@ -528,7 +497,7 @@ export default function Navbar() {
             border-radius: 0 !important;
           }
           .nav-container {
-            padding: 0 12px !important;
+            padding: 0 46px 0 12px !important;
             height: 60px !important;
             gap: 6px !important;
           }
@@ -544,14 +513,10 @@ export default function Navbar() {
             font-size: 16.5px !important;
             letter-spacing: -0.02em !important;
           }
-          .nav-right {
-            gap: 6px !important;
-          }
-          .theme-toggle-label {
-            display: none !important;
-          }
-          .nav-theme-toggle {
-            padding: 6px 8px !important;
+          .header-furthest-right-pull {
+            right: 8px !important;
+            transform: scale(0.85);
+            transform-origin: top right;
           }
           .nav-cta-primary {
             display: inline-flex !important;
@@ -574,6 +539,9 @@ export default function Navbar() {
         @media (max-width: 375px) {
           .nav-cta-sub {
             display: none !important;
+          }
+          .nav-container {
+            padding: 0 40px 0 8px !important;
           }
         }
       `}</style>
