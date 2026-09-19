@@ -14,17 +14,90 @@ const ROTATING_INDUSTRIES = [
 ];
 
 const MOSAIC = [
-  { src: '/portfolio/VahidDorri.png',          label: 'Vahid Dorri',     sub: '10x enquiry rate',    rotate: '-4deg', top: '0%',  left: '0%',  zIndex: 1 },
-  { src: '/portfolio/AnnarChildcare.png',      label: 'Annar Childcare', sub: '+3x enrolment leads', rotate: '3deg',  top: '12%', left: '34%', zIndex: 2 },
-  { src: '/portfolio/camofriday.png',          label: '#CAMOFRIDAY',     sub: '100% Impact Merch',   rotate: '-2deg', top: '44%', left: '6%',  zIndex: 4 },
-  { src: '/portfolio/restaurant-ordering.jpg', label: 'The Roastery',    sub: '+184% direct orders', rotate: '4deg',  top: '54%', left: '40%', zIndex: 3 },
+  {
+    src: '/portfolio/VahidDorri.png',
+    label: 'Vahid Dorri',
+    sub: '10x enquiry rate',
+    baseRotate: -4,
+    top: '0%',
+    left: '0%',
+    zIndex: 1,
+    deltaX: -38,
+    deltaY: -55,
+    deltaRotate: -5,
+    deltaScale: -0.04,
+    zDepth: -15,
+  },
+  {
+    src: '/portfolio/AnnarChildcare.png',
+    label: 'Annar Childcare',
+    sub: '+3x enrolment leads',
+    baseRotate: 3,
+    top: '12%',
+    left: '34%',
+    zIndex: 2,
+    deltaX: 46,
+    deltaY: -35,
+    deltaRotate: 5,
+    deltaScale: 0.05,
+    zDepth: 25,
+  },
+  {
+    src: '/portfolio/camofriday.png',
+    label: '#CAMOFRIDAY',
+    sub: '100% Impact Merch',
+    baseRotate: -2,
+    top: '44%',
+    left: '6%',
+    zIndex: 4,
+    deltaX: -26,
+    deltaY: 50,
+    deltaRotate: -4,
+    deltaScale: 0.02,
+    zDepth: 10,
+  },
+  {
+    src: '/portfolio/restaurant-ordering.jpg',
+    label: 'The Roastery',
+    sub: '+184% direct orders',
+    baseRotate: 4,
+    top: '54%',
+    left: '40%',
+    zIndex: 3,
+    deltaX: 42,
+    deltaY: 75,
+    deltaRotate: 6,
+    deltaScale: -0.02,
+    zDepth: -10,
+  },
 ];
 
 export default function Hero() {
   const [industryIndex, setIndustryIndex] = useState(0);
   const [visible, setVisible] = useState(true);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const { theme } = useTheme();
   const isDark = theme === 'dark';
+
+  useEffect(() => {
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const y = window.scrollY;
+          const maxHeroScroll = 600;
+          const progress = Math.min(Math.max(y / maxHeroScroll, 0), 1);
+          setScrollProgress(progress);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -108,7 +181,15 @@ export default function Hero() {
         <div className="hero-layout">
 
           {/* ── LEFT: copy ── */}
-          <div className="hero-copy">
+          <div
+            className="hero-copy"
+            style={{
+              transform: `translate3d(0, ${-22 * scrollProgress}px, 0)`,
+              opacity: 1 - scrollProgress * 0.22,
+              willChange: 'transform, opacity',
+              transition: 'transform 0.08s linear, opacity 0.08s linear',
+            }}
+          >
             <div
               className="hero-badge"
               style={{
@@ -199,68 +280,105 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* ── RIGHT: mosaic — hidden on mobile ── */}
-          <div className="hero-mosaic" aria-hidden="true">
-            {MOSAIC.map((item, i) => (
-              <div
-                key={item.src}
-                style={{
-                  position: 'absolute',
-                  top: item.top, left: item.left,
-                  width: '54%', maxWidth: '260px',
-                  transform: `rotate(${item.rotate})`,
-                  zIndex: item.zIndex,
-                  borderRadius: '14px', overflow: 'hidden',
-                  border: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1.5px solid #E2E8F0',
-                  boxShadow: isDark
-                    ? '0 20px 60px -12px rgba(0,0,0,0.7)'
-                    : '0 16px 36px -8px rgba(15, 23, 42, 0.12), 0 2px 6px -1px rgba(15, 23, 42, 0.04)',
-                  animation: `heroCardFloat ${6 + i * 1.4}s ease-in-out ${i * 0.8}s infinite alternate`,
-                  willChange: 'transform',
-                  background: isDark ? '#0A0E1A' : '#FFFFFF',
-                }}
-              >
-                <div style={{ position: 'relative', width: '100%', aspectRatio: '16/10' }}>
-                  <Image src={item.src} alt={item.label} fill sizes="260px" style={{ objectFit: 'cover' }} />
-                  <div style={{
+          {/* ── RIGHT: mosaic with 3D scroll-driven parallax ── */}
+          <div
+            className="hero-mosaic"
+            aria-hidden="true"
+            style={{
+              perspective: '1200px',
+              perspectiveOrigin: '50% 50%',
+            }}
+          >
+            {MOSAIC.map((item, i) => {
+              // 3D Parallax coordinates linked to scrollProgress
+              const curX = item.deltaX * scrollProgress;
+              const curY = item.deltaY * scrollProgress;
+              const curRot = item.baseRotate + item.deltaRotate * scrollProgress;
+              const curScale = 1 + item.deltaScale * scrollProgress;
+              const curZ = item.zDepth * scrollProgress;
+
+              return (
+                <div
+                  key={item.src}
+                  style={{
                     position: 'absolute',
-                    inset: 0,
-                    background: isDark
-                      ? 'linear-gradient(180deg, transparent 50%, rgba(5,8,16,0.75) 100%)'
-                      : 'linear-gradient(180deg, transparent 65%, rgba(15,23,42,0.12) 100%)',
-                  }} />
+                    top: item.top,
+                    left: item.left,
+                    width: '54%',
+                    maxWidth: '260px',
+                    zIndex: item.zIndex,
+                    transform: `translate3d(${curX}px, ${curY}px, ${curZ}px) rotate(${curRot}deg) scale(${curScale})`,
+                    transformOrigin: 'center center',
+                    willChange: 'transform',
+                    transition: 'transform 0.08s linear',
+                  }}
+                >
+                  <div
+                    style={{
+                      borderRadius: '14px',
+                      overflow: 'hidden',
+                      border: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1.5px solid #E2E8F0',
+                      boxShadow: isDark
+                        ? '0 20px 60px -12px rgba(0,0,0,0.7)'
+                        : '0 16px 36px -8px rgba(15, 23, 42, 0.12), 0 2px 6px -1px rgba(15, 23, 42, 0.04)',
+                      animation: `heroCardFloat ${6 + i * 1.4}s ease-in-out ${i * 0.8}s infinite alternate`,
+                      willChange: 'transform',
+                      background: isDark ? '#0A0E1A' : '#FFFFFF',
+                    }}
+                  >
+                    <div style={{ position: 'relative', width: '100%', aspectRatio: '16/10' }}>
+                      <Image src={item.src} alt={item.label} fill sizes="260px" style={{ objectFit: 'cover' }} />
+                      <div
+                        style={{
+                          position: 'absolute',
+                          inset: 0,
+                          background: isDark
+                            ? 'linear-gradient(180deg, transparent 50%, rgba(5,8,16,0.75) 100%)'
+                            : 'linear-gradient(180deg, transparent 65%, rgba(15,23,42,0.12) 100%)',
+                        }}
+                      />
+                    </div>
+                    <div
+                      style={{
+                        padding: '11px 14px',
+                        background: isDark ? 'rgba(16, 22, 43, 0.95)' : '#FFFFFF',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        gap: '8px',
+                        borderTop: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #F1F5F9',
+                      }}
+                    >
+                      <span
+                        style={{
+                          fontFamily: 'var(--qf-font-display)',
+                          fontSize: '12px',
+                          fontWeight: 700,
+                          color: isDark ? '#FFFFFF' : '#070B16',
+                          whiteSpace: 'nowrap',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                        }}
+                      >
+                        {item.label}
+                      </span>
+                      <span
+                        style={{
+                          fontFamily: 'var(--qf-font-mono)',
+                          fontSize: '10px',
+                          fontWeight: 700,
+                          color: '#1D63FF',
+                          whiteSpace: 'nowrap',
+                          flexShrink: 0,
+                        }}
+                      >
+                        {item.sub}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <div style={{
-                  padding: '11px 14px',
-                  background: isDark ? 'rgba(16, 22, 43, 0.95)' : '#FFFFFF',
-                  display: 'flex', alignItems: 'center',
-                  justifyContent: 'space-between', gap: '8px',
-                  borderTop: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #F1F5F9',
-                }}>
-                  <span style={{
-                    fontFamily: 'var(--qf-font-display)',
-                    fontSize: '12px',
-                    fontWeight: 700,
-                    color: isDark ? '#FFFFFF' : '#070B16',
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                  }}>
-                    {item.label}
-                  </span>
-                  <span style={{
-                    fontFamily: 'var(--qf-font-mono)',
-                    fontSize: '10px',
-                    fontWeight: 700,
-                    color: '#1D63FF',
-                    whiteSpace: 'nowrap',
-                    flexShrink: 0,
-                  }}>
-                    {item.sub}
-                  </span>
-                </div>
-              </div>
-            ))}
+              );
+            })}
             <div className="particles" aria-hidden="true" style={{ opacity: isDark ? 0.35 : 0.12 }}>
               {[...Array(8)].map((_, i) => (
                 <div
@@ -303,8 +421,8 @@ export default function Hero() {
           min-height: 380px;
         }
         @keyframes heroCardFloat {
-          0%   { transform: rotate(var(--r, 0deg)) translateY(0px); }
-          100% { transform: rotate(var(--r, 0deg)) translateY(-10px); }
+          0%   { transform: translateY(0px); }
+          100% { transform: translateY(-8px); }
         }
         /* Tablet: stack layout, hide mosaic */
         @media (max-width: 980px) {

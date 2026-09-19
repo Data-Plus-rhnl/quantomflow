@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTheme } from '@/components/theme/ThemeContext';
+import ScrollReveal from '../ui/ScrollReveal';
 
 // ─── Real hand-crafted SVG icons — each one purpose-built for its badge ──────
 
@@ -156,80 +157,82 @@ export default function TrustBadges() {
       }}
     >
       <div className="wrap">
-        <div
-          className="trust-grid"
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0' }}
-        >
-          {BADGES.map(({ Icon, label, sub, color }, i) => (
-            <div
-              key={label}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '14px',
-                padding: '18px 22px',
-                borderRight:
-                  i < BADGES.length - 1
-                    ? (isDark ? '1px solid #1E293B' : '1px solid #E2E8F0')
-                    : 'none',
-                transition: 'background 0.2s ease',
-                cursor: 'default',
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLDivElement).style.background = isDark ? '#0B1120' : '#F8FAFC';
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLDivElement).style.background = 'transparent';
-              }}
-            >
-              {/* Icon container — crisp high contrast, zero glow */}
+        <ScrollReveal>
+          <div
+            className="trust-grid"
+            style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0' }}
+          >
+            {BADGES.map(({ Icon, label, sub, color }, i) => (
               <div
+                key={label}
                 style={{
-                  width: '42px',
-                  height: '42px',
-                  borderRadius: '10px',
-                  background: isDark ? '#0A0F1D' : '#F1F5F9',
-                  border: isDark ? `1.5px solid ${color}` : '1.5px solid #CBD5E1',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
-                  boxShadow: 'none',
+                  gap: '14px',
+                  padding: '18px 22px',
+                  borderRight:
+                    i < BADGES.length - 1
+                      ? (isDark ? '1px solid #1E293B' : '1px solid #E2E8F0')
+                      : 'none',
+                  transition: 'background 0.2s ease',
+                  cursor: 'default',
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.background = isDark ? '#0B1120' : '#F8FAFC';
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.background = 'transparent';
                 }}
               >
-                <Icon />
-              </div>
+                {/* Icon container — crisp high contrast, zero glow */}
+                <div
+                  style={{
+                    width: '42px',
+                    height: '42px',
+                    borderRadius: '10px',
+                    background: isDark ? '#0A0F1D' : '#F1F5F9',
+                    border: isDark ? `1.5px solid ${color}` : '1.5px solid #CBD5E1',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    boxShadow: 'none',
+                  }}
+                >
+                  <Icon />
+                </div>
 
-              {/* High-Contrast Text */}
-              <div>
-                <div
-                  style={{
-                    fontFamily: 'var(--qf-font-display)',
-                    fontSize: '13px',
-                    fontWeight: 700,
-                    color: isDark ? '#FFFFFF' : '#070B16',
-                    lineHeight: 1.25,
-                    marginBottom: '3px',
-                    letterSpacing: '-0.01em',
-                  }}
-                >
-                  {label}
-                </div>
-                <div
-                  style={{
-                    fontFamily: 'var(--qf-font-mono)',
-                    fontSize: '11px',
-                    color: isDark ? '#94A3B8' : '#475569',
-                    lineHeight: 1.35,
-                    fontWeight: 500,
-                  }}
-                >
-                  {sub}
+                {/* High-Contrast Text */}
+                <div>
+                  <div
+                    style={{
+                      fontFamily: 'var(--qf-font-display)',
+                      fontSize: '13px',
+                      fontWeight: 700,
+                      color: isDark ? '#FFFFFF' : '#070B16',
+                      lineHeight: 1.25,
+                      marginBottom: '3px',
+                      letterSpacing: '-0.01em',
+                    }}
+                  >
+                    {label}
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: 'var(--qf-font-mono)',
+                      fontSize: '11px',
+                      color: isDark ? '#94A3B8' : '#475569',
+                      lineHeight: 1.35,
+                      fontWeight: 500,
+                    }}
+                  >
+                    {sub}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </ScrollReveal>
       </div>
 
       <style>{`
