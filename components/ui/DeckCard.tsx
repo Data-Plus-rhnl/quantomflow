@@ -255,7 +255,7 @@ export default function DeckCard({
         display: isFooter ? 'block' : 'flex',
         flexDirection: isFooter ? undefined : 'column',
         justifyContent: isFooter ? undefined : 'center',
-        backgroundColor: id === 'why-us' ? undefined : isAlt ? 'var(--qf-bg-alt)' : 'var(--qf-bg)',
+        backgroundColor: (id === 'why-us' || id === 'business-types') ? undefined : isAlt ? 'var(--qf-bg-alt)' : 'var(--qf-bg)',
         borderTopLeftRadius: shouldCurve ? 'clamp(28px, 4vw, 46px)' : 0,
         borderTopRightRadius: shouldCurve ? 'clamp(28px, 4vw, 46px)' : 0,
         boxShadow: shadowStyle,

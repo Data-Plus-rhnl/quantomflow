@@ -80,6 +80,54 @@
   opacity: 0.015;
 }
 
+/* ---- #business-types (Tailored Industry Architecture) is always dark ---- */
+/* Base: dark in dark mode */
+#business-types.deck-section-sheet,
+#business-types.deck-card {
+  background-color: #0D1322;
+}
+
+/* ---- Force #business-types (Tailored Industry Architecture) to always be dark ---- */
+[data-theme="light"] #business-types.deck-section-sheet,
+[data-theme="light"] #business-types.deck-card {
+  /* Reset all design tokens to dark-mode values */
+  --qf-bg:            #070B16;
+  --qf-bg-alt:        #0D1322;
+  --qf-bg-raised:     #121A2E;
+  --qf-line:          rgba(255, 255, 255, 0.08);
+  --qf-line-soft:     rgba(255, 255, 255, 0.04);
+  --qf-text:          #FFFFFF;
+  --qf-text-muted:    #94A3B8;
+  --qf-text-faint:    #64748B;
+  --qf-accent:        #1D63FF;
+  --qf-accent-dim:    rgba(29, 99, 255, 0.12);
+  --qf-accent-line:   rgba(29, 99, 255, 0.28);
+  --qf-shadow-card:   0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 20px 40px -24px rgba(0, 0, 0, 0.6);
+
+  background-color: #070B16 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 -26px 70px rgba(0, 0, 0, 0.75), 0 -1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Ensure inner typography uses dark colors */
+[data-theme="light"] #business-types .h2,
+[data-theme="light"] #business-types h2 {
+  color: #FFFFFF !important;
+}
+
+[data-theme="light"] #business-types .lede,
+[data-theme="light"] #business-types p {
+  color: #94A3B8 !important;
+}
+
+[data-theme="light"] #business-types .eyebrow {
+  color: #4FD1FF !important;
+}
+
+[data-theme="light"] #business-types .eyebrow::before {
+  background: #4FD1FF !important;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
