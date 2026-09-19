@@ -1451,14 +1451,49 @@ button {
 .deck-card {
   position: sticky;
   top: 0;
-  border-top-left-radius: clamp(28px, 4vw, 46px);
-  border-top-right-radius: clamp(28px, 4vw, 46px);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   box-shadow: 0 -24px 50px rgba(15, 23, 42, 0.12), 0 -1px 2px rgba(15, 23, 42, 0.04);
   background-color: var(--qf-bg);
   transition: background-color 0.3s ease, border-radius 0.2s ease;
   overflow: visible;
   will-change: transform, opacity, filter;
   transform-origin: 50% 12%;
+}
+
+/* Retain top curve ONLY for footer and keep natural height (not max 100vh) */
+#footer.deck-section-sheet,
+#footer.deck-card,
+.deck-section-sheet[data-footer="true"],
+.deck-card[data-footer="true"] {
+  min-height: auto !important;
+  border-top-left-radius: clamp(28px, 4vw, 46px);
+  border-top-right-radius: clamp(28px, 4vw, 46px);
+  display: block;
+}
+
+.deck-section-sheet > section,
+.deck-card > section {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#footer.deck-section-sheet > footer,
+#footer.deck-card > footer {
+  flex: none;
+  display: block;
+  min-height: auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 [data-theme="dark"] .deck-section-sheet,
@@ -1472,12 +1507,14 @@ button {
 }
 
 /* ============================================================
-   SCROLL-DRIVEN COMPONENT TRANSITIONS
+   SCROLL-DRIVEN COMPONENT TRANSITIONS & DECK ENTRANCE
+   When a new deck card enters the viewport (data-card-active="true"),
+   its internal elements glide and stagger up smoothly into view.
    ============================================================ */
 .reveal {
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity 0.72s cubic-bezier(0.16, 1, 0.3, 1), transform 0.72s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
@@ -1486,8 +1523,152 @@ button {
   transform: translateY(0);
 }
 
+/* Initial state for elements inside inactive deck cards (excluding hero) */
+.deck-section-sheet:not([data-card-active="true"]):not(#hero) .eyebrow,
+.deck-section-sheet:not([data-card-active="true"]):not(#hero) .sec-badge {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.deck-section-sheet:not([data-card-active="true"]):not(#hero) .h2,
+.deck-section-sheet:not([data-card-active="true"]):not(#hero) h2 {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+.deck-section-sheet:not([data-card-active="true"]):not(#hero) .lede,
+.deck-section-sheet:not([data-card-active="true"]):not(#hero) .sec-sub {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.deck-section-sheet:not([data-card-active="true"]):not(#hero) .svc-card,
+.deck-section-sheet:not([data-card-active="true"]):not(#hero) .pkg-card,
+.deck-section-sheet:not([data-card-active="true"]):not(#hero) .flow-step,
+.deck-section-sheet:not([data-card-active="true"]):not(#hero) .why-card,
+.deck-section-sheet:not([data-card-active="true"]):not(#hero) .tech-category-card,
+.deck-section-sheet:not([data-card-active="true"]):not(#hero) .about-stat,
+.deck-section-sheet:not([data-card-active="true"]):not(#hero) .ind-card,
+.deck-section-sheet:not([data-card-active="true"]):not(#hero) .blog-card,
+.deck-section-sheet:not([data-card-active="true"]):not(#hero) .testi-card,
+.deck-section-sheet:not([data-card-active="true"]):not(#hero) .biz-card {
+  opacity: 0;
+  transform: translateY(34px);
+}
+
+/* Active transitions when the card enters the viewport */
+.deck-section-sheet[data-card-active="true"] .eyebrow,
+.deck-section-sheet[data-card-active="true"] .sec-badge {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.06s, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.06s;
+}
+
+.deck-section-sheet[data-card-active="true"] .h2,
+.deck-section-sheet[data-card-active="true"] h2 {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.14s, transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.14s;
+}
+
+.deck-section-sheet[data-card-active="true"] .lede,
+.deck-section-sheet[data-card-active="true"] .sec-sub {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.22s, transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.22s;
+}
+
+.deck-section-sheet[data-card-active="true"] .svc-card,
+.deck-section-sheet[data-card-active="true"] .pkg-card,
+.deck-section-sheet[data-card-active="true"] .flow-step,
+.deck-section-sheet[data-card-active="true"] .why-card,
+.deck-section-sheet[data-card-active="true"] .tech-category-card,
+.deck-section-sheet[data-card-active="true"] .about-stat,
+.deck-section-sheet[data-card-active="true"] .ind-card,
+.deck-section-sheet[data-card-active="true"] .blog-card,
+.deck-section-sheet[data-card-active="true"] .testi-card,
+.deck-section-sheet[data-card-active="true"] .biz-card {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Stagger grid children */
+.deck-section-sheet[data-card-active="true"] .svc-grid > *:nth-child(1),
+.deck-section-sheet[data-card-active="true"] .pkg-grid > *:nth-child(1),
+.deck-section-sheet[data-card-active="true"] .why-grid > *:nth-child(1),
+.deck-section-sheet[data-card-active="true"] .tech-grid > *:nth-child(1),
+.deck-section-sheet[data-card-active="true"] .ind-grid > *:nth-child(1),
+.deck-section-sheet[data-card-active="true"] .biz-grid > *:nth-child(1),
+.deck-section-sheet[data-card-active="true"] .blog-grid > *:nth-child(1),
+.deck-section-sheet[data-card-active="true"] .testi-grid > *:nth-child(1) {
+  transition-delay: 0.24s;
+}
+
+.deck-section-sheet[data-card-active="true"] .svc-grid > *:nth-child(2),
+.deck-section-sheet[data-card-active="true"] .pkg-grid > *:nth-child(2),
+.deck-section-sheet[data-card-active="true"] .why-grid > *:nth-child(2),
+.deck-section-sheet[data-card-active="true"] .tech-grid > *:nth-child(2),
+.deck-section-sheet[data-card-active="true"] .ind-grid > *:nth-child(2),
+.deck-section-sheet[data-card-active="true"] .biz-grid > *:nth-child(2),
+.deck-section-sheet[data-card-active="true"] .blog-grid > *:nth-child(2),
+.deck-section-sheet[data-card-active="true"] .testi-grid > *:nth-child(2) {
+  transition-delay: 0.34s;
+}
+
+.deck-section-sheet[data-card-active="true"] .svc-grid > *:nth-child(3),
+.deck-section-sheet[data-card-active="true"] .pkg-grid > *:nth-child(3),
+.deck-section-sheet[data-card-active="true"] .why-grid > *:nth-child(3),
+.deck-section-sheet[data-card-active="true"] .tech-grid > *:nth-child(3),
+.deck-section-sheet[data-card-active="true"] .ind-grid > *:nth-child(3),
+.deck-section-sheet[data-card-active="true"] .biz-grid > *:nth-child(3),
+.deck-section-sheet[data-card-active="true"] .blog-grid > *:nth-child(3),
+.deck-section-sheet[data-card-active="true"] .testi-grid > *:nth-child(3) {
+  transition-delay: 0.44s;
+}
+
+.deck-section-sheet[data-card-active="true"] .svc-grid > *:nth-child(4),
+.deck-section-sheet[data-card-active="true"] .pkg-grid > *:nth-child(4),
+.deck-section-sheet[data-card-active="true"] .why-grid > *:nth-child(4),
+.deck-section-sheet[data-card-active="true"] .tech-grid > *:nth-child(4),
+.deck-section-sheet[data-card-active="true"] .ind-grid > *:nth-child(4),
+.deck-section-sheet[data-card-active="true"] .biz-grid > *:nth-child(4),
+.deck-section-sheet[data-card-active="true"] .blog-grid > *:nth-child(4),
+.deck-section-sheet[data-card-active="true"] .testi-grid > *:nth-child(4) {
+  transition-delay: 0.54s;
+}
+
+/* Preserve card hover elevation transforms when hovered */
+.deck-section-sheet[data-card-active="true"] .svc-card:hover,
+.deck-section-sheet[data-card-active="true"] .pkg-card:hover,
+.deck-section-sheet[data-card-active="true"] .why-card:hover,
+.deck-section-sheet[data-card-active="true"] .tech-category-card:hover,
+.deck-section-sheet[data-card-active="true"] .ind-card:hover,
+.deck-section-sheet[data-card-active="true"] .biz-card:hover,
+.deck-section-sheet[data-card-active="true"] .blog-card:hover,
+.deck-section-sheet[data-card-active="true"] .testi-card:hover {
+  transform: translateY(-5px);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
+  .reveal,
+  .deck-section-sheet .eyebrow,
+  .deck-section-sheet .sec-badge,
+  .deck-section-sheet .h2,
+  .deck-section-sheet h2,
+  .deck-section-sheet .lede,
+  .deck-section-sheet .sec-sub,
+  .deck-section-sheet .svc-card,
+  .deck-section-sheet .pkg-card,
+  .deck-section-sheet .flow-step,
+  .deck-section-sheet .why-card,
+  .deck-section-sheet .tech-category-card,
+  .deck-section-sheet .about-stat,
+  .deck-section-sheet .ind-card,
+  .deck-section-sheet .blog-card,
+  .deck-section-sheet .testi-card,
+  .deck-section-sheet .biz-card {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;

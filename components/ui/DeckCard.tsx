@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect, useState, useLayoutEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useTheme } from '@/components/theme/ThemeContext';
 
 interface DeckCardProps {
@@ -31,14 +31,18 @@ export default function DeckCard({
   const cardRef = useRef<HTMLDivElement>(null);
   const [stickyTop, setStickyTop] = useState(0);
 
-  // Calculate sticky offset so tall cards scroll completely before pinning
+  // Calculate sticky offset so tall cards scroll completely before pinning,
+  // and short footer card docks at the bottom of the viewport
   useEffect(() => {
     const updateSticky = () => {
       if (!cardRef.current) return;
       const elHeight = cardRef.current.offsetHeight;
       const vh = window.innerHeight;
 
-      if (pinAtTop || elHeight <= vh) {
+      if (id === 'footer') {
+        // Footer maintains natural height and docks at the bottom of viewport
+        setStickyTop(Math.max(0, vh - elHeight));
+      } else if (pinAtTop || elHeight <= vh) {
         setStickyTop(0);
       } else {
         // Sticky at bottom of screen once fully traversed
@@ -48,14 +52,13 @@ export default function DeckCard({
 
     updateSticky();
     window.addEventListener('resize', updateSticky, { passive: true });
-    // Also re-measure after brief delay to allow child images/fonts to render
     const t = setTimeout(updateSticky, 500);
 
     return () => {
       window.removeEventListener('resize', updateSticky);
       clearTimeout(t);
     };
-  }, [pinAtTop]);
+  }, [pinAtTop, id]);
 
   // Receding card-deck physics: as the next card slides over, this card scales down & blurs slightly
   useEffect(() => {
@@ -71,7 +74,6 @@ export default function DeckCard({
 
           const nextEl = el.nextElementSibling as HTMLElement | null;
           if (!nextEl) {
-            // Last card doesn't recede
             el.style.transform = 'scale(1)';
             el.style.opacity = '1';
             el.style.filter = 'none';
@@ -81,7 +83,7 @@ export default function DeckCard({
           const nextRect = nextEl.getBoundingClientRect();
           const vh = window.innerHeight;
 
-          // nextRect.top enters at vh and moves up to 0 (or stickyTop)
+          // nextRect.top enters at vh and moves up to 0
           if (nextRect.top < vh && nextRect.top >= 0) {
             const progress = (vh - nextRect.top) / vh;
             const clamped = Math.max(0, Math.min(1, progress));
@@ -93,12 +95,10 @@ export default function DeckCard({
             el.style.opacity = `${opacity.toFixed(3)}`;
             el.style.filter = blur > 0.3 ? `blur(${blur.toFixed(1)}px)` : 'none';
           } else if (nextRect.top < 0) {
-            // Completely covered by next card
             el.style.transform = 'scale(0.94)';
             el.style.opacity = '0.86';
             el.style.filter = 'blur(3px)';
           } else {
-            // Next card is still below viewport
             el.style.transform = 'scale(1)';
             el.style.opacity = '1';
             el.style.filter = 'none';
@@ -117,6 +117,63 @@ export default function DeckCard({
     };
   }, []);
 
+  // Section entrance: trigger inner component transitions as card slides into active view
+  useEffect(() => {
+    let ticking = false;
+
+    const checkActive = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          ticking = false;
+          const el = cardRef.current;
+          if (!el) return;
+
+          // Hero card is active immediately
+          if (zIndex <= 10) {
+            if (el.getAttribute('data-card-active') !== 'true') {
+              el.setAttribute('data-card-active', 'true');
+              el.querySelectorAll('.reveal').forEach((r) => r.classList.add('is-visible'));
+            }
+            return;
+          }
+
+          const rect = el.getBoundingClientRect();
+          const vh = window.innerHeight;
+
+          // When top of card enters the upper 80% of viewport, it becomes active
+          if (rect.top <= vh * 0.80 && rect.bottom >= vh * 0.08) {
+            if (el.getAttribute('data-card-active') !== 'true') {
+              el.setAttribute('data-card-active', 'true');
+              el.querySelectorAll('.reveal').forEach((r) => {
+                r.classList.add('is-visible');
+              });
+            }
+          } else if (rect.top > vh * 1.08) {
+            // Reset when completely scrolled below viewport so it re-animates smoothly
+            if (el.hasAttribute('data-card-active')) {
+              el.removeAttribute('data-card-active');
+              el.querySelectorAll('.reveal').forEach((r) => {
+                r.classList.remove('is-visible');
+              });
+            }
+          }
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', checkActive, { passive: true });
+    checkActive();
+
+    return () => {
+      window.removeEventListener('scroll', checkActive);
+    };
+  }, [zIndex]);
+
+  const isFooter = id === 'footer';
+  // User requirement: Remove curves from all card decks except the footer
+  const shouldCurve = isFooter;
+
   const shadowStyle = hasShadow
     ? isDark
       ? '0 -24px 60px rgba(0, 0, 0, 0.75), 0 -1px 0 rgba(255, 255, 255, 0.08)'
@@ -128,13 +185,20 @@ export default function DeckCard({
       id={id}
       ref={cardRef}
       className={`deck-section-sheet ${className}`}
+      data-card-active={zIndex <= 10 ? 'true' : undefined}
+      data-footer={isFooter ? 'true' : undefined}
       style={{
         position: 'sticky',
         top: `${stickyTop}px`,
         zIndex,
+        minHeight: isFooter ? 'auto' : '100vh',
+        boxSizing: 'border-box',
+        display: isFooter ? 'block' : 'flex',
+        flexDirection: isFooter ? undefined : 'column',
+        justifyContent: isFooter ? undefined : 'center',
         backgroundColor: isAlt ? 'var(--qf-bg-alt)' : 'var(--qf-bg)',
-        borderTopLeftRadius: hasRoundedTop ? 'clamp(28px, 4vw, 46px)' : 0,
-        borderTopRightRadius: hasRoundedTop ? 'clamp(28px, 4vw, 46px)' : 0,
+        borderTopLeftRadius: shouldCurve ? 'clamp(28px, 4vw, 46px)' : 0,
+        borderTopRightRadius: shouldCurve ? 'clamp(28px, 4vw, 46px)' : 0,
         boxShadow: shadowStyle,
         transformOrigin: '50% 12%',
         transition: 'background-color 0.3s ease, border-radius 0.2s ease',

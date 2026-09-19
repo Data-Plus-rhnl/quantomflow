@@ -100,6 +100,9 @@ export default function ScrollDeckSheet({
       : '0 -20px 48px rgba(15, 23, 42, 0.12), 0 -2px 8px rgba(15, 23, 42, 0.04)'
     : 'none';
 
+  const isFooter = id === 'footer';
+  const shouldCurve = isFooter;
+
   return (
     <div
       id={id}
@@ -108,12 +111,17 @@ export default function ScrollDeckSheet({
       style={{
         position: 'relative',
         zIndex,
+        minHeight: '100vh',
+        boxSizing: 'border-box',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: isFooter ? 'space-between' : 'center',
         background,
         color: textColor,
-        borderTopLeftRadius: hasRoundedTop ? 'clamp(24px, 3.5vw, 44px)' : '0',
-        borderTopRightRadius: hasRoundedTop ? 'clamp(24px, 3.5vw, 44px)' : '0',
+        borderTopLeftRadius: shouldCurve ? 'clamp(24px, 3.5vw, 44px)' : '0',
+        borderTopRightRadius: shouldCurve ? 'clamp(24px, 3.5vw, 44px)' : '0',
         boxShadow: shadow,
-        marginTop: hasRoundedTop ? '-32px' : '0',
+        marginTop: shouldCurve ? '-32px' : '0',
         transform: recedeOnScroll
           ? `scale(${recedeScale})`
           : undefined,
