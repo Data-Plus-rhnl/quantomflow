@@ -55,7 +55,7 @@ export default function IntroAnimation() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // Enforce manual scroll restoration and lock page to top (0, 0)
+    // On first mount: enforce manual scroll restoration and lock page to top
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
     }
@@ -75,9 +75,8 @@ export default function IntroAnimation() {
     }, 9550);
 
     const doneTimer = setTimeout(() => {
-      window.scrollTo(0, 0);
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
+      // IMPORTANT: Do NOT call scrollTo(0,0) here — user may have already skipped
+      // and scrolled down. Only restore overflow and unmount the curtain.
       document.body.style.overflow = prevBodyOverflow || '';
       document.documentElement.style.overflow = prevDocOverflow || '';
       setActive(false);
